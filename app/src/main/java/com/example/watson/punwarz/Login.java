@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.*;
 import android.widget.TextView;
+import android.util.Log;
 
 import com.facebook.FacebookSdk;
 import com.facebook.login.widget.LoginButton;
@@ -17,6 +18,7 @@ public class Login extends AppCompatActivity {
     private CallbackManager callbackManager;
     private TextView info;
     private LoginButton loginButton;
+    private ProfileTracker mProfileTracker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -31,10 +33,25 @@ public class Login extends AppCompatActivity {
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-                info.setText("User id: " + loginResult.getAccessToken().getUserId() + "\n" +
-                "Auth token: " + loginResult.getAccessToken().getToken()  + "\n" +
-                "Name: " + Profile.getCurrentProfile().getName());
 
+                if(Profile.getCurrentProfile() == null) {
+                    mProfileTracker = new ProfileTracker() {
+                        @Override
+                        protected void onCurrentProfileChanged(Profile profile, Profile profile2) {
+                            Log.v("facebook - profile", profile2.getFirstName());
+                            mProfileTracker.stopTracking();
+                        }
+                    };
+                    mProfileTracker.startTracking();
+                }
+                else {
+                    Profile profile = Profile.getCurrentProfile();
+                    Log.v("facebook - profile", profile.getFirstName());
+                }
+
+                info.setText("User id: " + loginResult.getAccessToken().getUserId() + "\n" +
+                        "Auth token: " + loginResult.getAccessToken().getToken()  + "\n" +
+                        "Name: " + Profile.getCurrentProfile().getName());
             }
 
             @Override
