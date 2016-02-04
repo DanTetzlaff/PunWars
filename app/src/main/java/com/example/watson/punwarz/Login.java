@@ -11,6 +11,7 @@ import com.facebook.login.widget.LoginButton;
 import com.facebook.login.*;
 import com.facebook.*;
 
+
 public class Login extends AppCompatActivity {
 
     private CallbackManager callbackManager;
@@ -31,7 +32,9 @@ public class Login extends AppCompatActivity {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 info.setText("User id: " + loginResult.getAccessToken().getUserId() + "\n" +
-                "Auth token: " + loginResult.getAccessToken().getToken());
+                "Auth token: " + loginResult.getAccessToken().getToken()  + "\n" +
+                "Name: " + Profile.getCurrentProfile().getName());
+
             }
 
             @Override
