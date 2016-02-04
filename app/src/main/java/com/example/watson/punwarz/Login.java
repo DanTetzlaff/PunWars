@@ -52,7 +52,7 @@ public class Login extends AppCompatActivity {
 
                 info.setText("User id: " + loginResult.getAccessToken().getUserId() + "\n" +
                         "Auth token: " + loginResult.getAccessToken().getToken()  + "\n" +
-                        "Name: " + profile.getCurrentProfile().getName());
+                        "Name: " + profile.getName());
             }
 
             @Override
