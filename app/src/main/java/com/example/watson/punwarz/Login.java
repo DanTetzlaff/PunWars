@@ -31,9 +31,13 @@ public class Login extends AppCompatActivity {
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
+                if (Profile.getCurrentProfile() == null) {
+                    Profile.fetchProfileForCurrentAccessToken();
+                }
+
                 info.setText("User id: " + loginResult.getAccessToken().getUserId() + "\n" +
-                "Auth token: " + loginResult.getAccessToken().getToken()  + "\n" +
-                "Name: " + Profile.getCurrentProfile().getName());
+                        "Auth token: " + loginResult.getAccessToken().getToken() + "\n" +
+                        "Name: " + Profile.getCurrentProfile().getName());
             }
 
             @Override
