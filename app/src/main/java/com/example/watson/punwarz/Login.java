@@ -19,6 +19,7 @@ public class Login extends AppCompatActivity {
     private TextView info;
     private LoginButton loginButton;
     private ProfileTracker mProfileTracker;
+    private Profile profile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -45,13 +46,13 @@ public class Login extends AppCompatActivity {
                     mProfileTracker.startTracking();
                 }
                 else {
-                    Profile profile = Profile.getCurrentProfile();
+                    profile = Profile.getCurrentProfile();
                     Log.v("facebook - profile", profile.getFirstName());
                 }
 
                 info.setText("User id: " + loginResult.getAccessToken().getUserId() + "\n" +
                         "Auth token: " + loginResult.getAccessToken().getToken()  + "\n" +
-                        "Name: " + Profile.getCurrentProfile().getName());
+                        "Name: " + profile.getCurrentProfile().getName());
             }
 
             @Override
