@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.*;
 import android.widget.TextView;
+import android.util.Log;
 
 import com.facebook.FacebookSdk;
 import com.facebook.login.widget.LoginButton;
@@ -19,7 +20,7 @@ public class Login extends AppCompatActivity {
     private LoginButton loginButton;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
+    protected void onCreate(final Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(getApplicationContext());
@@ -28,14 +29,12 @@ public class Login extends AppCompatActivity {
         info = (TextView)findViewById(R.id.info);
         loginButton = (LoginButton)findViewById(R.id.login_button);
 
+
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-                    Profile.fetchProfileForCurrentAccessToken();
-
-                info.setText("User id: " + loginResult.getAccessToken().getUserId() + "\n" +
-                        "Auth token: " + loginResult.getAccessToken().getToken() + "\n" +
-                        "Name: " + Profile.getCurrentProfile().getName());
+                info.setText(loginResult.getAccessToken().getToken() + "\n" +
+                loginResult.getAccessToken().getUserId());
             }
 
             @Override
@@ -57,4 +56,7 @@ public class Login extends AppCompatActivity {
         callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 
+    private void printName(){
+        info.setText("\nName: " + Profile.getCurrentProfile().getName());
+    }
 }
