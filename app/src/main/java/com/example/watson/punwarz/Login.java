@@ -19,6 +19,7 @@ public class Login extends AppCompatActivity {
     private TextView info;
     private LoginButton loginButton;
 
+    private ProfileTracker mProfileTracker;
     @Override
     protected void onCreate(final Bundle savedInstanceState)
     {
@@ -30,11 +31,31 @@ public class Login extends AppCompatActivity {
         loginButton = (LoginButton)findViewById(R.id.login_button);
 
 
+
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 info.setText(loginResult.getAccessToken().getToken() + "\n" +
-                loginResult.getAccessToken().getUserId());
+                        loginResult.getAccessToken().getUserId());
+
+                if(Profile.getCurrentProfile() == null) {
+                    mProfileTracker = new ProfileTracker() {
+                        @Override
+                        protected void onCurrentProfileChanged(Profile profile, Profile profile2) {
+                            Log.v("facebook - profile", profile2.getFirstName());
+                            printName();
+                            mProfileTracker.stopTracking();
+                        }
+                    };
+                    mProfileTracker.startTracking();
+                }
+                else {
+                    Profile profile = Profile.getCurrentProfile();
+                    Log.v("facebook - profile", profile.getFirstName());
+                    printName();
+                }
+
+                //printName();
             }
 
             @Override
@@ -47,13 +68,15 @@ public class Login extends AppCompatActivity {
                 info.setText("Login failed.");
             }
         });
-
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data)
     {
-        callbackManager.onActivityResult(requestCode, resultCode, data);
+        //callbackManager.onActivityResult(requestCode, resultCode, data);
+        if (callbackManager.onActivityResult(requestCode, resultCode, data)) {
+            return;
+        }
     }
 
     private void printName(){
