@@ -11,6 +11,7 @@ import com.facebook.FacebookSdk;
 import com.facebook.login.widget.LoginButton;
 import com.facebook.login.*;
 import com.facebook.*;
+import com.parse.ParseObject;
 
 
 public class Login extends AppCompatActivity {
@@ -56,6 +57,10 @@ public class Login extends AppCompatActivity {
                 }
 
                 //printName();
+                ParseObject testObject = new ParseObject("TestObject");
+                testObject.put("foo", "bar");
+                testObject.saveInBackground();
+                //Parse functionality test
             }
 
             @Override
@@ -68,6 +73,13 @@ public class Login extends AppCompatActivity {
                 info.setText("Login failed.");
             }
         });
+
+        // [Optional] Power your app with Local Datastore. For more info, go to
+        // https://parse.com/docs/android/guide#local-datastore
+        //Parse.enableLocalDatastore(this);
+
+        //Parse.initialize(this);
+        // Note from Dorothy: Commented out for now, not sure if we need Local Datastores?
     }
 
     @Override
