@@ -11,7 +11,7 @@ import com.facebook.FacebookSdk;
 import com.facebook.login.widget.LoginButton;
 import com.facebook.login.*;
 import com.facebook.*;
-import com.parse.ParseObject;
+import com.parse.*;
 
 
 public class Login extends AppCompatActivity {
@@ -30,7 +30,7 @@ public class Login extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         info = (TextView)findViewById(R.id.info);
         loginButton = (LoginButton)findViewById(R.id.login_button);
-
+        Parse.initialize(this, "5UQqqOAeFhEDsGhrMMka0a1vKWNxpu4IlNonVn4z", "STbqcRcr7FcJxkmjEiz8Qs2qgq8SjsPVOtqnMDgG");
 
 
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
@@ -57,10 +57,6 @@ public class Login extends AppCompatActivity {
                 }
 
                 //printName();
-                ParseObject testObject = new ParseObject("TestObject");
-                testObject.put("foo", "bar");
-                testObject.saveInBackground();
-                //Parse functionality test
             }
 
             @Override
@@ -93,5 +89,13 @@ public class Login extends AppCompatActivity {
 
     private void printName(){
         info.setText("\nName: " + Profile.getCurrentProfile().getName());
+        run();
+    }
+
+    private void run(){
+        ParseObject trial = new ParseObject("TheTest");
+        trial.put("foo", "bar");
+        trial.saveInBackground();
+        //Parse functionality test
     }
 }
