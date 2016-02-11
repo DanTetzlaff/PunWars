@@ -26,11 +26,12 @@ public class Login extends AppCompatActivity {
     {
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(getApplicationContext());
+        Parse.initialize(this, "5UQqqOAeFhEDsGhrMMka0a1vKWNxpu4IlNonVn4z", "STbqcRcr7FcJxkmjEiz8Qs2qgq8SjsPVOtqnMDgG");
         callbackManager = CallbackManager.Factory.create();
         setContentView(R.layout.activity_login);
         info = (TextView)findViewById(R.id.info);
         loginButton = (LoginButton)findViewById(R.id.login_button);
-        Parse.initialize(this, "5UQqqOAeFhEDsGhrMMka0a1vKWNxpu4IlNonVn4z", "STbqcRcr7FcJxkmjEiz8Qs2qgq8SjsPVOtqnMDgG");
+
 
 
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
