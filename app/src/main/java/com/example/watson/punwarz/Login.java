@@ -70,13 +70,6 @@ public class Login extends AppCompatActivity {
                 info.setText("Login failed.");
             }
         });
-
-        // [Optional] Power your app with Local Datastore. For more info, go to
-        // https://parse.com/docs/android/guide#local-datastore
-        //Parse.enableLocalDatastore(this);
-
-        //Parse.initialize(this);
-        // Note from Dorothy: Commented out for now, not sure if we need Local Datastores?
     }
 
     @Override
