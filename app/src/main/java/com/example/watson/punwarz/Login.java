@@ -87,9 +87,10 @@ public class Login extends AppCompatActivity {
     }
 
     private void run(){
-        ParseObject trial = new ParseObject("TheTest");
-        trial.put("foo", "bar");
-        trial.saveInBackground();
+       // DBaccess DBtest = new DBaccess("test123"); //Pass the userid to a newly created object
+        //ParseObject trial = new ParseObject("TheTest");
+        //trial.put("foo", "bar");
+        //trial.saveInBackground();
         //Parse functionality test
     }
 }
