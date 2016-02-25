@@ -13,7 +13,6 @@ import com.facebook.login.widget.LoginButton;
 import com.facebook.login.*;
 import com.facebook.*;
 
-
 public class Login extends AppCompatActivity {
 
     private CallbackManager callbackManager;
@@ -89,11 +88,7 @@ public class Login extends AppCompatActivity {
     }
 
     private void run(){
-       // DBaccess DBtest = new DBaccess("test123"); //Pass the userid to a newly created object
-        //ParseObject trial = new ParseObject("TheTest");
-        //trial.put("foo", "bar");
-        //trial.saveInBackground();
-        //Parse functionality test
+
     }
 
     private void storeToke(String toke){
