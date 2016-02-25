@@ -3,6 +3,8 @@ package com.example.watson.punwarz;
 import android.os.Bundle;
 import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toolbar;
 
 /**
@@ -18,5 +20,19 @@ public class Lobby extends AppCompatActivity
         setContentView(R.layout.activity_lobby);
         //Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
         //setSupportActionBar(myToolbar);
+
+        Button btn = (Button) findViewById(R.id.logout);
+        btn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v)
+            {
+                logOut(v);
+            }
+        });
+    }
+
+    public void logOut(View v)
+    {
+
     }
 }
