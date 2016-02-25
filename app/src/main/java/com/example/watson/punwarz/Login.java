@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.*;
 import android.widget.TextView;
 import android.util.Log;
+import android.content.SharedPreferences;
+import android.content.Context;
 
 import com.facebook.FacebookSdk;
 import com.facebook.login.widget.LoginButton;
@@ -55,6 +57,7 @@ public class Login extends AppCompatActivity {
                     Profile profile = Profile.getCurrentProfile();
                     Log.v("facebook - profile", profile.getFirstName());
                     printName();
+                    storeToke(loginResult.getAccessToken().getToken());
                 }
 
                 //printName();
@@ -92,5 +95,12 @@ public class Login extends AppCompatActivity {
         //trial.put("foo", "bar");
         //trial.saveInBackground();
         //Parse functionality test
+    }
+
+    private void storeToke(String toke){
+        SharedPreferences sharedPref = getSharedPreferences("Toke_Settings", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString("user_toke", toke);
+        editor.commit();
     }
 }

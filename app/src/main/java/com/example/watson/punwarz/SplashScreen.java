@@ -8,17 +8,23 @@ package com.example.watson.punwarz;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+
+import com.facebook.FacebookSdk;
+
 
 public class SplashScreen extends Activity
 {
     private static int SPLASH_TIME_OUT = 1500;
+    public static final String PREFS_NAME = "Toke_Settings";
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+        FacebookSdk.sdkInitialize(getApplicationContext());
 
         new Handler().postDelayed(new Runnable()
                                         {
@@ -26,9 +32,31 @@ public class SplashScreen extends Activity
                                             public void run()
                                             {
                                                 Intent i = new Intent(SplashScreen.this, Login.class);
-                                                startActivity(i);
+                                                Intent b = new Intent(SplashScreen.this, Lobby.class);
+
+                                                if (checkLogin()) {
+                                                    startActivity(b);
+                                                }
+                                                else {
+                                                    startActivity(i);
+                                                }
                                                 finish();
                                             }
                                         }, SPLASH_TIME_OUT);
+    }
+
+    private boolean checkLogin(){
+        SharedPreferences sharedPref = getSharedPreferences("Toke_Settings", MODE_PRIVATE);
+        Boolean result = false;
+
+        String toke = sharedPref.getString("user_toke", "empty");
+        if(toke.equals("empty")){
+            result = false;
+        }
+        else
+        {
+            result = true;
+        }
+        return result;
     }
 }
