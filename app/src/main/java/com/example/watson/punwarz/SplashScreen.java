@@ -47,7 +47,7 @@ public class SplashScreen extends Activity
 
     private boolean checkLogin(){
         SharedPreferences sharedPref = getSharedPreferences("Toke_Settings", MODE_PRIVATE);
-        Boolean result = false;
+        Boolean result;
 
         String toke = sharedPref.getString("user_toke", "empty");
         if(toke.equals("empty")){
