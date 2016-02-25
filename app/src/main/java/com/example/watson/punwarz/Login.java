@@ -28,7 +28,7 @@ public class Login extends AppCompatActivity {
     {
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(getApplicationContext());
-        Parse.initialize(this, "5UQqqOAeFhEDsGhrMMka0a1vKWNxpu4IlNonVn4z", "STbqcRcr7FcJxkmjEiz8Qs2qgq8SjsPVOtqnMDgG");
+        //Parse.initialize(this, "5UQqqOAeFhEDsGhrMMka0a1vKWNxpu4IlNonVn4z", "STbqcRcr7FcJxkmjEiz8Qs2qgq8SjsPVOtqnMDgG");
         callbackManager = CallbackManager.Factory.create();
         setContentView(R.layout.activity_login);
         info = (TextView)findViewById(R.id.info);
@@ -39,8 +39,8 @@ public class Login extends AppCompatActivity {
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-                info.setText(loginResult.getAccessToken().getToken() + "\n" +
-                        loginResult.getAccessToken().getUserId());
+                //info.setText(loginResult.getAccessToken().getToken() + "\n" +
+                        //loginResult.getAccessToken().getUserId());
 
                 if(Profile.getCurrentProfile() == null) {
                     mProfileTracker = new ProfileTracker() {
@@ -56,10 +56,12 @@ public class Login extends AppCompatActivity {
                 else {
                     Profile profile = Profile.getCurrentProfile();
                     Log.v("facebook - profile", profile.getFirstName());
-                    printName();
-                    storeToke(loginResult.getAccessToken().getToken());
-                }
+                    //printName();
 
+                }
+                storeToke(loginResult.getAccessToken().getToken());
+                Intent i = new Intent(Login.this, Lobby.class);
+                startActivity(i);
                 //printName();
             }
 
