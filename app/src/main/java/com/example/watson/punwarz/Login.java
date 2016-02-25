@@ -7,13 +7,11 @@ import android.view.*;
 import android.widget.TextView;
 import android.util.Log;
 import android.content.SharedPreferences;
-import android.content.Context;
 
 import com.facebook.FacebookSdk;
 import com.facebook.login.widget.LoginButton;
 import com.facebook.login.*;
 import com.facebook.*;
-import com.parse.*;
 
 
 public class Login extends AppCompatActivity {
@@ -28,7 +26,6 @@ public class Login extends AppCompatActivity {
     {
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(getApplicationContext());
-        //Parse.initialize(this, "5UQqqOAeFhEDsGhrMMka0a1vKWNxpu4IlNonVn4z", "STbqcRcr7FcJxkmjEiz8Qs2qgq8SjsPVOtqnMDgG");
         callbackManager = CallbackManager.Factory.create();
         setContentView(R.layout.activity_login);
         info = (TextView)findViewById(R.id.info);
