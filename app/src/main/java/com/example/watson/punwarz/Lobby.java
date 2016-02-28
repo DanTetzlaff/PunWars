@@ -30,6 +30,8 @@ public class Lobby extends AppCompatActivity
         FacebookSdk.sdkInitialize(getApplicationContext());
         Toolbar toolbar = (Toolbar)findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
+
+        //removed logout button
     }
 
 
