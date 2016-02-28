@@ -4,14 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".Lobby">
     <item
-        android:id="@+id/action_settings"
+        android:title="@string/home"
+        android:id="@+id/lobby_settings"
         android:orderInCategory="100"
-        android:title="@string/action_settings"
-        app:showAsAction="never" />
+        app:showAsAction="never"
+        android:onClick="goToLobby"/>
+    <item
+        android:title="@string/profile"
+        android:id="@+id/profile_settings"
+        android:orderInCategory="200"
+        app:showAsAction="never"
+        android:onClick="goToProfile"/>
     <item
         android:title="@string/log_out"
         android:id="@+id/logout_settings"
-        android:orderInCategory="200"
+        android:orderInCategory="300"
         app:showAsAction="never"
         android:onClick="logOut"/>
 </menu>

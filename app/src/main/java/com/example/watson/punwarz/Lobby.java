@@ -3,10 +3,7 @@ package com.example.watson.punwarz;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.widget.Button;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.Menu;
@@ -48,8 +45,9 @@ public class Lobby extends AppCompatActivity
     {
         int id = item.getItemId();
 
-        if(id == R.id.action_settings)
+        if(id == R.id.lobby_settings)
         {
+            goToLobby(item);
             return true;
         }
         else if(id == R.id.logout_settings)
@@ -57,8 +55,24 @@ public class Lobby extends AppCompatActivity
             logOut(item);
             return true;
         }
+        else if(id == R.id.profile_settings)
+        {
+            goToProfile(item);
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
+    }
+
+
+    public void goToLobby(MenuItem item)
+    {
+
+    }
+
+    public void goToProfile(MenuItem item)
+    {
+
     }
 
     public void logOut(MenuItem item)
