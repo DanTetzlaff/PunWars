@@ -31,14 +31,14 @@ public class Lobby extends AppCompatActivity
         Toolbar toolbar = (Toolbar)findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
 
-        Button btn = (Button) findViewById(R.id.logout);
+       /* Button btn = (Button) findViewById(R.id.logout);
         btn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v)
             {
-                logOut(v);
+                logOut();
             }
-        });
+        }); */
     }
 
 
@@ -61,13 +61,13 @@ public class Lobby extends AppCompatActivity
         }
         if(id == R.id.logout_settings)
         {
-            //logOut(v);
+            logOut();
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    public void logOut(View v)
+    public void logOut()
     {
         SharedPreferences sharedPref = getSharedPreferences("Toke_Settings", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
