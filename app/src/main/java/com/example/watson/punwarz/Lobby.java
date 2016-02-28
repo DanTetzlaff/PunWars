@@ -30,15 +30,6 @@ public class Lobby extends AppCompatActivity
         FacebookSdk.sdkInitialize(getApplicationContext());
         Toolbar toolbar = (Toolbar)findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
-
-        Button btn = (Button) findViewById(R.id.logout);
-        btn.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v)
-            {
-                logOut(v);
-            }
-        });
     }
 
 
@@ -59,15 +50,16 @@ public class Lobby extends AppCompatActivity
         {
             return true;
         }
-        if(id == R.id.logout_settings)
+        else if(id == R.id.logout_settings)
         {
-            //logOut(v);
+            logOut(item);
+            return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    public void logOut(View v)
+    public void logOut(MenuItem item)
     {
         SharedPreferences sharedPref = getSharedPreferences("Toke_Settings", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
