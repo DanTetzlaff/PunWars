@@ -28,10 +28,8 @@
 
 
         <!--lobby page-->
-
-        <!--lobby page> -->
-
-        <activity android:name="com.example.watson.punwarz.Lobby">
+        <activity android:name="com.example.watson.punwarz.Lobby"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         </activity>
 
         <!--connects to facebook-->

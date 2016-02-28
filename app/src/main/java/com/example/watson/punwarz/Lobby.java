@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.Menu;
+import android.view.MenuInflater;
 
 import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
@@ -44,7 +45,8 @@ public class Lobby extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_settings, menu);
         return true;
     }
 
@@ -56,6 +58,10 @@ public class Lobby extends AppCompatActivity
         if(id == R.id.action_settings)
         {
             return true;
+        }
+        if(id == R.id.logout_settings)
+        {
+            //logOut(v);
         }
 
         return super.onOptionsItemSelected(item);
