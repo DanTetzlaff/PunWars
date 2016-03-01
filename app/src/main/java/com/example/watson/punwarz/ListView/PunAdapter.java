@@ -55,7 +55,7 @@ public class PunAdapter extends BaseAdapter {
         ViewHolder holder;
 
         if(convertView==null){
-            vi = View.inflate(R.layout.punitem, null);
+            vi = inflater.inflate(R.layout.punitem, null);
 
             holder = new ViewHolder();
             holder.punAuthText = (TextView) vi.findViewById(R.id.punAuth);

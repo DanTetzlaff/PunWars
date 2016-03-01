@@ -10,31 +10,29 @@ import android.view.MenuItem;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.widget.ListView;
-import android.widget.Toast;
 
-import com.example.watson.punwarz.ListView.CustomAdapter;
-import com.example.watson.punwarz.ListView.ListModel;
+import com.example.watson.punwarz.ListView.PunAdapter;
+import com.example.watson.punwarz.ListView.PunModel;
 import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
 
 import java.util.ArrayList;
 
 /**
- * Author: Carille Mendoza
- * Created: 2016-02-24
- * Description: This class will handle the Lobby page of the app where all the themes will exist
+ * Author:  Daniel Tetzlaff
+ * Created: 2016-03-01
  */
-public class Lobby extends AppCompatActivity
+public class Puns extends AppCompatActivity
 {
     ListView list;
-    CustomAdapter adapter;
-    public  Lobby CustomListView = null;
-    public  ArrayList<ListModel> CustomListViewValuesArr = new ArrayList<ListModel>();
+    PunAdapter adapter;
+    public  Puns CustomListView = null;
+    public  ArrayList<PunModel> CustomListViewValuesArr = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_lobby);
+        setContentView(R.layout.activity_puns);
         FacebookSdk.sdkInitialize(getApplicationContext());
         Toolbar toolbar = (Toolbar)findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
@@ -46,28 +44,21 @@ public class Lobby extends AppCompatActivity
         Resources res = getResources();
         list = ( ListView )findViewById( R.id.list );
 
-        adapter = new CustomAdapter( CustomListView, CustomListViewValuesArr,res);
+        adapter = new PunAdapter( CustomListView, CustomListViewValuesArr,res);
         list.setAdapter( adapter );
     }
 
     public void setListData()
     {
-        for (int i = 0; i < 10; i++){
-            final ListModel sched = new ListModel();
+        for (int i = 0; i < 5; i++){
+            final PunModel sched = new PunModel();
 
-            sched.setLobbyTitle("TITLE"+i);
-            sched.setLobbyAuthor("By: "+i);
-            sched.setExpireDate("12/31/2099 "+i);
-            sched.setLobbyTheme("Pun "+i);
-            sched.setTopPun("Best Pun "+i);
+            sched.setPunAuth("By: " + i);
+            sched.setPun("THE PUN " + i);
+            sched.setPunVotes("9923" + i);
 
             CustomListViewValuesArr.add( sched );
         }
-    }
-
-    public void onItemClick(){
-        Intent i = new Intent(Lobby.this, Puns.class);
-        startActivity(i);
     }
 
     @Override
@@ -105,7 +96,8 @@ public class Lobby extends AppCompatActivity
 
     public void goToLobby(MenuItem item)
     {
-
+        Intent i = new Intent(Puns.this, Lobby.class);
+        startActivity(i);
     }
 
     public void goToProfile(MenuItem item)
@@ -122,7 +114,7 @@ public class Lobby extends AppCompatActivity
 
         LoginManager.getInstance().logOut();
 
-        Intent i = new Intent(Lobby.this, Login.class);
+        Intent i = new Intent(Puns.this, Login.class);
         startActivity(i);
     }
 }
