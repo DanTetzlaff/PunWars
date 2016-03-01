@@ -2,15 +2,21 @@ package com.example.watson.punwarz;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.widget.ListView;
 
+import com.example.watson.punwarz.ListView.CustomAdapter;
+import com.example.watson.punwarz.ListView.ListModel;
 import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
+
+import java.util.ArrayList;
 
 /**
  * Author: Carille Mendoza
@@ -19,6 +25,10 @@ import com.facebook.login.LoginManager;
  */
 public class Lobby extends AppCompatActivity
 {
+    ListView list;
+    CustomAdapter adapter;
+    public  Lobby CustomListView = null;
+    public  ArrayList<ListModel> CustomListViewValuesArr = new ArrayList<ListModel>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,8 +38,32 @@ public class Lobby extends AppCompatActivity
         Toolbar toolbar = (Toolbar)findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
 
-        //removed logout button
+        CustomListView = this;
+
+        setListData();
+
+        Resources res = getResources();
+        list = ( ListView )findViewById( R.id.list );
+
+        adapter = new CustomAdapter( CustomListView, CustomListViewValuesArr,res);
+        list.setAdapter( adapter );
     }
+
+    public void setListData()
+    {
+        for (int i = 0; i < 10; i++){
+            final ListModel sched = new ListModel();
+
+            sched.setLobbyTitle("TITLE"+i);
+            sched.setLobbyAuthor("By: "+i);
+            sched.setExpireDate("12/31/2099 "+i);
+            sched.setLobbyTheme("Pun "+i);
+            sched.setTopPun("Best Pun "+i);
+
+            CustomListViewValuesArr.add( sched );
+        }
+    }
+
 
 
     @Override
