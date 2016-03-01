@@ -2,6 +2,7 @@ package com.example.watson.punwarz.ListView;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -97,6 +98,13 @@ public class CustomAdapter extends BaseAdapter implements View.OnClickListener{
 
             vi.setOnClickListener(new OnItemClickListener( position ));
         }
+
+        if (position % 2 == 1) {
+            vi.setBackgroundColor(Color.parseColor("#F97A00"));
+        } else {
+            vi.setBackgroundColor(Color.parseColor("#ffa147"));
+        }
+
         return vi;
     }
 
