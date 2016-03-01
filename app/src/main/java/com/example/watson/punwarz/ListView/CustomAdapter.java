@@ -117,7 +117,7 @@ public class CustomAdapter extends BaseAdapter implements View.OnClickListener{
 
             Lobby sct = (Lobby)activity;
 
-            //sct.onItemClick(mPosition);
+            sct.onItemClick(mPosition);
         }
     }
 }

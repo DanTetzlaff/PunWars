@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.watson.punwarz.ListView.CustomAdapter;
 import com.example.watson.punwarz.ListView.ListModel;
@@ -64,7 +65,12 @@ public class Lobby extends AppCompatActivity
         }
     }
 
+    public void onItemClick(int mPosition){
+        ListModel tempValues = ( ListModel ) CustomListViewValuesArr.get(mPosition);
 
+        Toast.makeText(CustomListView,
+                ""+tempValues.getLobbyTitle()+" "+tempValues.getLobbyTheme(), Toast.LENGTH_LONG).show();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
