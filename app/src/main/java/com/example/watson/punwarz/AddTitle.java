@@ -2,69 +2,33 @@ package com.example.watson.punwarz;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
 import android.view.Menu;
 import android.view.MenuInflater;
-import android.widget.ListView;
+import android.view.MenuItem;
 
-import com.example.watson.punwarz.ListView.PunAdapter;
-import com.example.watson.punwarz.ListView.PunModel;
 import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
 
-import java.util.ArrayList;
-
 /**
- * Author:  Daniel Tetzlaff
- * Created: 2016-03-01
- * Description: This class takes care of the displaying and managing the puns
+ * Author: Carille Mendoza
+ * Created: March 2, 2016
+ * Description: This class will handle adding new titles
  */
-public class Puns extends AppCompatActivity
+public class AddTitle extends AppCompatActivity
 {
-    ListView list;
-    PunAdapter adapter;
-    public  Puns CustomListView = null;
-    public  ArrayList<PunModel> CustomListViewValuesArr = new ArrayList<>();
-    private int lobbyID;
-
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_puns);
         FacebookSdk.sdkInitialize(getApplicationContext());
         Toolbar toolbar = (Toolbar)findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
-
-        Intent intent = getIntent();
-        lobbyID = intent.getIntExtra("LOBBY_ID", 0);
-
-        CustomListView = this;
-
-        setListData();
-
-        Resources res = getResources();
-        list = ( ListView )findViewById( R.id.list );
-
-        adapter = new PunAdapter( CustomListView, CustomListViewValuesArr,res);
-        list.setAdapter( adapter );
     }
 
-    public void setListData()
-    {
-        for (int i = 0; i < 5; i++){
-            final PunModel sched = new PunModel();
-
-            sched.setPunAuth("By: " + i);
-            sched.setPun("THE PUN " + i);
-            sched.setPunVotes("num " + i + lobbyID);
-
-            CustomListViewValuesArr.add( sched );
-        }
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
@@ -101,7 +65,7 @@ public class Puns extends AppCompatActivity
 
     public void goToLobby(MenuItem item)
     {
-        Intent i = new Intent(Puns.this, Lobby.class);
+        Intent i = new Intent(AddTitle.this, Lobby.class);
         startActivity(i);
     }
 
@@ -119,7 +83,8 @@ public class Puns extends AppCompatActivity
 
         LoginManager.getInstance().logOut();
 
-        Intent i = new Intent(Puns.this, Login.class);
+        Intent i = new Intent(AddTitle.this, Login.class);
         startActivity(i);
     }
+
 }
