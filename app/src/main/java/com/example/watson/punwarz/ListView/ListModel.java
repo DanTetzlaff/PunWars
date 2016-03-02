@@ -7,9 +7,10 @@ public class ListModel {
 
     private String lobbyTitle="";
     private String lobbyAuthor="";
-    private String lobbyTheme="";
+    private String lobbyDes="";
     private String expireDate="";
     private String topPun="";
+    private int lobbyID=0;
 
     /** Setter Methods **/
 
@@ -21,9 +22,7 @@ public class ListModel {
         this.lobbyAuthor = lobbyAuthor;
     }
 
-    public void setLobbyTheme(String lobbyTheme){
-        this.lobbyTheme = lobbyTheme;
-    }
+    public void setLobbyDes(String lobbyDes){ this.lobbyDes = lobbyDes; }
 
     public void setExpireDate(String expireDate){
         this.expireDate = expireDate;
@@ -32,6 +31,8 @@ public class ListModel {
     public void setTopPun(String topPun){
         this.topPun = topPun;
     }
+
+    public void setLobbyID(int lobbyID) { this.lobbyID = lobbyID; }
 
     /** Getter Methods **/
 
@@ -43,9 +44,7 @@ public class ListModel {
         return this.lobbyAuthor;
     }
 
-    public String getLobbyTheme(){
-        return this.lobbyTheme;
-    }
+    public String getLobbyDes(){ return this.lobbyDes; }
 
     public String getExpireDate(){
         return this.expireDate;
@@ -54,5 +53,7 @@ public class ListModel {
     public String getTopPun(){
         return this.topPun;
     }
+
+    public int getLobbyID() { return this.lobbyID; }
 
 }

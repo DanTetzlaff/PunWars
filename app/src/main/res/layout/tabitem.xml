@@ -23,7 +23,7 @@
     </TableRow>
     <TableRow>
         <TextView
-            android:id="@+id/lobbyTheme"
+            android:id="@+id/lobbyDes"
             android:padding="3dip"
             />
     </TableRow>

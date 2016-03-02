@@ -7,7 +7,7 @@ public class PunModel {
 
     private String punAuth="";
     private String pun="";
-    private String punVotes="";
+    private String punVotes;
 
     /** Setter Methods **/
 

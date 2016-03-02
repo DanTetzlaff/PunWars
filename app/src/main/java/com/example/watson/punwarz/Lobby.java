@@ -26,6 +26,7 @@ import java.util.ArrayList;
  */
 public class Lobby extends AppCompatActivity
 {
+    private final String LOBBY_ID = "LOBBY_ID";
     ListView list;
     CustomAdapter adapter;
     public  Lobby CustomListView = null;
@@ -58,15 +59,19 @@ public class Lobby extends AppCompatActivity
             sched.setLobbyTitle("TITLE"+i);
             sched.setLobbyAuthor("By: "+i);
             sched.setExpireDate("12/31/2099 "+i);
-            sched.setLobbyTheme("Pun "+i);
+            sched.setLobbyDes("Descrip "+i);
             sched.setTopPun("Best Pun "+i);
+            sched.setLobbyID(123456);
 
             CustomListViewValuesArr.add( sched );
         }
     }
 
-    public void onItemClick(){
+    public void onItemClick(int mPosition){
+        ListModel tempValues = ( ListModel ) CustomListViewValuesArr.get(mPosition);
+
         Intent i = new Intent(Lobby.this, Puns.class);
+        i.putExtra(LOBBY_ID, tempValues.getLobbyID());
         startActivity(i);
     }
 

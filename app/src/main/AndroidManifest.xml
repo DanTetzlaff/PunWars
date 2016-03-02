@@ -34,7 +34,11 @@
 
         <!--Puns page -->
         <activity android:name="com.example.watson.punwarz.Puns"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:parentActivityName="com.example.watson.punwarz.Lobby">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.watson.punwarz.Lobby" />
         </activity>
 
         <!--connects to facebook-->

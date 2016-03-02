@@ -28,6 +28,7 @@ public class Puns extends AppCompatActivity
     PunAdapter adapter;
     public  Puns CustomListView = null;
     public  ArrayList<PunModel> CustomListViewValuesArr = new ArrayList<>();
+    private int lobbyID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +37,9 @@ public class Puns extends AppCompatActivity
         FacebookSdk.sdkInitialize(getApplicationContext());
         Toolbar toolbar = (Toolbar)findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
+
+        Intent intent = getIntent();
+        lobbyID = intent.getIntExtra("LOBBY_ID", 0);
 
         CustomListView = this;
 
@@ -55,7 +59,7 @@ public class Puns extends AppCompatActivity
 
             sched.setPunAuth("By: " + i);
             sched.setPun("THE PUN " + i);
-            sched.setPunVotes("9923" + i);
+            sched.setPunVotes("num " + i + lobbyID);
 
             CustomListViewValuesArr.add( sched );
         }

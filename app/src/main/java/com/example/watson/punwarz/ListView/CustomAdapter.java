@@ -54,7 +54,7 @@ public class CustomAdapter extends BaseAdapter implements View.OnClickListener{
 
         public TextView titleText;
         public TextView authorText;
-        public TextView themeText;
+        public TextView desText;
         public TextView expireDate;
         public TextView topPun;
 
@@ -71,7 +71,7 @@ public class CustomAdapter extends BaseAdapter implements View.OnClickListener{
             holder = new ViewHolder();
             holder.titleText = (TextView) vi.findViewById(R.id.lobbyTitle);
             holder.authorText = (TextView) vi.findViewById(R.id.lobbyAuthor);
-            holder.themeText = (TextView) vi.findViewById(R.id.lobbyTheme);
+            holder.desText = (TextView) vi.findViewById(R.id.lobbyDes);
             holder.expireDate = (TextView) vi.findViewById(R.id.expireDate);
             holder.topPun = (TextView) vi.findViewById(R.id.topPun);
 
@@ -92,7 +92,7 @@ public class CustomAdapter extends BaseAdapter implements View.OnClickListener{
 
             holder.titleText.setText( tempValues.getLobbyTitle() );
             holder.authorText.setText( tempValues.getLobbyAuthor() );
-            holder.themeText.setText( tempValues.getLobbyTheme() );
+            holder.desText.setText( tempValues.getLobbyDes() );
             holder.expireDate.setText( tempValues.getExpireDate() );
             holder.topPun.setText( tempValues.getTopPun() );
 
@@ -125,7 +125,7 @@ public class CustomAdapter extends BaseAdapter implements View.OnClickListener{
 
             Lobby sct = (Lobby)activity;
 
-            sct.onItemClick();
+            sct.onItemClick(mPosition);
         }
     }
 }
