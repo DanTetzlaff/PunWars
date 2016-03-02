@@ -15,11 +15,14 @@
             android:id="@+id/punAuth"
             android:padding="3dip"
             />
+
     </TableRow>
     <TableRow>
         <TextView
             android:id="@+id/punVotes"
             android:padding="3dip"
+            android:gravity="right"
+            android:layout_span="2"
             />
     </TableRow>
 
