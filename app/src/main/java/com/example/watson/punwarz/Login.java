@@ -61,7 +61,7 @@ public class Login extends AppCompatActivity {
                 if(!parse.doesUserExist(loginResult.getAccessToken().getUserId()))
                 {
                     Profile profile = Profile.getCurrentProfile();
-                    parse.createNewUser(loginResult.getAccessToken().getUserId(), profile.getName());
+                    parse.createNewUser(loginResult.getAccessToken().getUserId(), profile.getFirstName());
                 }
                 storeToke(loginResult.getAccessToken().getToken());
                 storeProf(loginResult.getAccessToken().getUserId());
