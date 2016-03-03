@@ -53,6 +53,13 @@ public class Login extends AppCompatActivity {
                     //printName();
 
                 }
+
+                /*ParseApplication parse = new ParseApplication();
+                if(!parse.doesUserExist(loginResult.getAccessToken().getUserId()))
+                {
+                    Profile profile = Profile.getCurrentProfile();
+                    parse.createNewUser(loginResult.getAccessToken().getUserId(), profile.getName());
+                }*/
                 storeToke(loginResult.getAccessToken().getToken());
                 storeProf(loginResult.getAccessToken().getUserId());
                 Intent i = new Intent(Login.this, Lobby.class);

@@ -96,6 +96,11 @@ public class AddTitle extends AppCompatActivity
         editor.putString("user_toke", "empty");
         editor.commit();
 
+        sharedPref = getSharedPreferences("Prof_ID", MODE_PRIVATE);
+        editor = sharedPref.edit();
+        editor.putString("user_id", "empty");
+        editor.commit();
+
         LoginManager.getInstance().logOut();
 
         Intent i = new Intent(AddTitle.this, Login.class);

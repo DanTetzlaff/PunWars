@@ -8,8 +8,6 @@ import java.util.Arrays;
 
 
 public class ParseApplication extends Application {
-    public static final String YOUR_APPLICATION_ID = "5UQqqOAeFhEDsGhrMMka0a1vKWNxpu4IlNonVn4z";
-    public static final String YOUR_CLIENT_KEY = "STbqcRcr7FcJxkmjEiz8Qs2qgq8SjsPVOtqnMDgG";
 
     private String userObjectID = null; //the active user
     private String tempLobbyObjectID = null; //since Parse queries can't actually return???
@@ -21,7 +19,7 @@ public class ParseApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
-        Parse.initialize(this, YOUR_APPLICATION_ID, YOUR_CLIENT_KEY);
+        Parse.initialize(this, "@string/parse_app_id", "@string/parse_client_id");
     }
 
     public void runTests(){ //Runs a series of tests with pre-determined values to test Parse functionality

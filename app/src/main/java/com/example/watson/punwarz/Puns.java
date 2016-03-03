@@ -62,7 +62,7 @@ public class Puns extends AppCompatActivity
             sched.setPun("THE PUN " + i);
             sched.setPunVotes("num " + i + lobbyID);
 
-            CustomListViewValuesArr.add( sched );
+            CustomListViewValuesArr.add(sched);
         }
     }
 
@@ -116,6 +116,11 @@ public class Puns extends AppCompatActivity
         SharedPreferences sharedPref = getSharedPreferences("Toke_Settings", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putString("user_toke", "empty");
+        editor.commit();
+
+        sharedPref = getSharedPreferences("Prof_ID", MODE_PRIVATE);
+        editor = sharedPref.edit();
+        editor.putString("user_id", "empty");
         editor.commit();
 
         LoginManager.getInstance().logOut();

@@ -10,7 +10,6 @@ import android.view.MenuItem;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.example.watson.punwarz.ListView.CustomAdapter;
 import com.example.watson.punwarz.ListView.ListModel;
@@ -123,6 +122,11 @@ public class Lobby extends AppCompatActivity
         SharedPreferences sharedPref = getSharedPreferences("Toke_Settings", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putString("user_toke", "empty");
+        editor.commit();
+
+        sharedPref = getSharedPreferences("Prof_ID", MODE_PRIVATE);
+        editor = sharedPref.edit();
+        editor.putString("user_id", "empty");
         editor.commit();
 
         LoginManager.getInstance().logOut();
