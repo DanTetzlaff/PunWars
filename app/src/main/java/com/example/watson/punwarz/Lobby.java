@@ -118,12 +118,6 @@ public class Lobby extends AppCompatActivity
 
     }
 
-    public void createTheme(MenuItem item)
-    {
-        Intent i = new Intent(Lobby.this, AddTitle.class);
-        startActivity(i);
-    }
-
     public void logOut(MenuItem item)
     {
         SharedPreferences sharedPref = getSharedPreferences("Toke_Settings", MODE_PRIVATE);
