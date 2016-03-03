@@ -47,8 +47,10 @@
         android:ems="10"
         android:id="@+id/editText2"
         android:layout_alignTop="@+id/textView2"
-        android:layout_toRightOf="@+id/textView2"
-        android:layout_toEndOf="@+id/textView2" />
+        android:layout_alignLeft="@+id/spin"
+        android:layout_alignStart="@+id/spin"
+        android:layout_alignRight="@+id/spin"
+        android:layout_alignEnd="@+id/spin" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -63,11 +65,12 @@
     <Spinner
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/spinner"
+        android:id="@+id/spin"
         android:layout_centerVertical="true"
         android:layout_alignLeft="@+id/editText"
         android:layout_alignStart="@+id/editText"
         android:layout_alignRight="@+id/editText"
-        android:layout_alignEnd="@+id/editText" />
+        android:layout_alignEnd="@+id/editText"
+        android:spinnerMode="dropdown" />
 
 </RelativeLayout>

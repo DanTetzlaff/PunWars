@@ -34,15 +34,15 @@ public class AddTitle extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_puns);
+        setContentView(R.layout.activity_addtitle);
         FacebookSdk.sdkInitialize(getApplicationContext());
         Toolbar toolbar = (Toolbar)findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
 
-        Spinner staticSpanner = (Spinner)findViewById(R.id.spinner);
-        ArrayAdapter<CharSequence> staticAdapter = ArrayAdapter.createFromResource(this, R.array.spinner, android.R.layout.simple_spinner_item);
-        staticAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        staticSpanner.setAdapter(staticAdapter);
+        Spinner staticSpanner = (Spinner)findViewById(R.id.spin);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.spinner_array, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        staticSpanner.setAdapter(adapter);
     }
 
     @Override
@@ -71,6 +71,11 @@ public class AddTitle extends AppCompatActivity
         else if(id == R.id.profile_settings)
         {
             goToProfile(item);
+            return true;
+        }
+        else if(id == R.id.addTheme)
+        {
+            addLobby(item);
             return true;
         }
 
@@ -105,6 +110,12 @@ public class AddTitle extends AppCompatActivity
 
         Intent i = new Intent(AddTitle.this, Login.class);
         startActivity(i);
+    }
+
+    public void addLobby(MenuItem item)
+    {
+        //Intent i = new Intent(AddTitle.this, AddTitle.class);
+        //startActivity(i);
     }
 
 }

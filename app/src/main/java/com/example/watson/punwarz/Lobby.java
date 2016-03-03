@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.View;
 import android.widget.ListView;
 
 import com.example.watson.punwarz.ListView.CustomAdapter;
@@ -102,6 +103,11 @@ public class Lobby extends AppCompatActivity
             goToProfile(item);
             return true;
         }
+        else if(id == R.id.addTheme)
+        {
+            addLobby(item);
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -132,6 +138,12 @@ public class Lobby extends AppCompatActivity
         LoginManager.getInstance().logOut();
 
         Intent i = new Intent(Lobby.this, Login.class);
+        startActivity(i);
+    }
+
+    public void addLobby(MenuItem item)
+    {
+        Intent i = new Intent(Lobby.this, AddTitle.class);
         startActivity(i);
     }
 }
