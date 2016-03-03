@@ -55,7 +55,7 @@
         <meta-data
             android:name="com.parse.APPLICATION_ID" android:value="@string/parse_app_id" />
         <meta-data
-            android:name="com.parse.CLIENT_KEY" android:value="@string/parse_client_id" />
+            android:name="com.parse.CLIENT_ID" android:value="@string/parse_client_id" />
     </application>
 
 </manifest>
