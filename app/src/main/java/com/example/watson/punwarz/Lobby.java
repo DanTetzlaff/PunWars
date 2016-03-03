@@ -103,11 +103,6 @@ public class Lobby extends AppCompatActivity
             goToProfile(item);
             return true;
         }
-        else if(id == R.id.addlobby_settings)
-        {
-            createTheme(item);
-            return true;
-        }
 
         return super.onOptionsItemSelected(item);
     }
