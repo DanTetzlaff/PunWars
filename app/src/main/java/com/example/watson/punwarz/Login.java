@@ -3,7 +3,6 @@ package com.example.watson.punwarz;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.*;
 import android.widget.TextView;
 import android.util.Log;
 import android.content.SharedPreferences;
@@ -43,7 +42,6 @@ public class Login extends AppCompatActivity {
                         @Override
                         protected void onCurrentProfileChanged(Profile profile, Profile profile2) {
                             Log.v("facebook - profile", profile2.getFirstName());
-                            printName();
                             mProfileTracker.stopTracking();
                         }
                     };
@@ -56,6 +54,7 @@ public class Login extends AppCompatActivity {
 
                 }
                 storeToke(loginResult.getAccessToken().getToken());
+                storeProf(loginResult.getAccessToken().getUserId());
                 Intent i = new Intent(Login.this, Lobby.class);
                 startActivity(i);
                 //printName();
@@ -82,13 +81,11 @@ public class Login extends AppCompatActivity {
         }
     }
 
-    private void printName(){
-        info.setText("\nName: " + Profile.getCurrentProfile().getName());
-        run();
-    }
-
-    private void run(){
-
+    private void storeProf(String profID){
+        SharedPreferences sharedPref = getSharedPreferences("Prof_ID", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString("user_id", profID);
+        editor.commit();
     }
 
     private void storeToke(String toke){
