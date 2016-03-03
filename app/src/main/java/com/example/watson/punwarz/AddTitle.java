@@ -8,9 +8,17 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.Spinner;
 
 import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
+
+import java.lang.reflect.Array;
+import java.util.Calendar;
 
 /**
  * Author: Carille Mendoza
@@ -19,6 +27,9 @@ import com.facebook.login.LoginManager;
  */
 public class AddTitle extends AppCompatActivity
 {
+    private int mDay;
+    private int mMonth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -27,8 +38,12 @@ public class AddTitle extends AppCompatActivity
         FacebookSdk.sdkInitialize(getApplicationContext());
         Toolbar toolbar = (Toolbar)findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
-    }
 
+        Spinner staticSpanner = (Spinner)findViewById(R.id.spinner);
+        ArrayAdapter<CharSequence> staticAdapter = ArrayAdapter.createFromResource(this, R.array.spinner, android.R.layout.simple_spinner_item);
+        staticAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        staticSpanner.setAdapter(staticAdapter);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu)

@@ -110,6 +110,7 @@ public class Puns extends AppCompatActivity
 
     }
 
+
     public void logOut(MenuItem item)
     {
         SharedPreferences sharedPref = getSharedPreferences("Toke_Settings", MODE_PRIVATE);

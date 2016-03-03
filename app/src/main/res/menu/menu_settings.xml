@@ -21,4 +21,10 @@
         android:orderInCategory="300"
         app:showAsAction="never"
         android:onClick="logOut"/>
+    <item
+        android:title="@string/add_lobby"
+        android:id="@+id/addlobby_settings"
+        android:orderInCategory="400"
+        app:showAsAction="never"
+        android:onClick="createTheme"/>
 </menu>

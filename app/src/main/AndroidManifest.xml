@@ -41,6 +41,11 @@
                 android:value="com.example.watson.punwarz.Lobby" />
         </activity>
 
+        <!-- Add prompt page -->
+        <activity android:name="com.example.watson.punwarz.AddTitle"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        </activity>
+
         <!--connects to facebook-->
         <activity android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
