@@ -10,6 +10,9 @@
     <string name="add_lobby">Add theme</string>
     <string name="add_pun">Add pun</string>
     <string name="prompt">Enter your prompt</string>
+    <string name="desc">Describe your theme</string>
+    <string name="submit_prompt">Submit Prompt</string>
+    <string name="cancel">Cancel</string>
     <string-array name="spinner_array">
         <item>1</item>
         <item>2</item>
