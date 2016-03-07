@@ -73,11 +73,6 @@ public class AddTitle extends AppCompatActivity
             goToProfile(item);
             return true;
         }
-        else if(id == R.id.addTheme)
-        {
-            addLobby(item);
-            return true;
-        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -112,10 +107,18 @@ public class AddTitle extends AppCompatActivity
         startActivity(i);
     }
 
-    public void addLobby(MenuItem item)
+    //collects data for prompt to be created
+    public void submitPrompt(View v)
     {
-        //Intent i = new Intent(AddTitle.this, AddTitle.class);
-        //startActivity(i);
+        //
     }
+
+    //returns to lobby page
+    public void cancelEvent(View v)
+    {
+        Intent i = new Intent(AddTitle.this, Lobby.class);
+        startActivity(i);
+    }
+
 
 }

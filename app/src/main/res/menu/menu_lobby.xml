@@ -3,22 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".Lobby">
-    <item
-        android:title="@string/home"
-        android:id="@+id/lobby_settings"
-        android:orderInCategory="100"
-        app:showAsAction="never"
-        android:onClick="goToLobby"/>
+
     <item
         android:title="@string/profile"
         android:id="@+id/profile_settings"
-        android:orderInCategory="200"
+        android:orderInCategory="100"
         app:showAsAction="never"
         android:onClick="goToProfile"/>
     <item
         android:title="@string/log_out"
         android:id="@+id/logout_settings"
-        android:orderInCategory="300"
+        android:orderInCategory="200"
         app:showAsAction="never"
         android:onClick="logOut"/>
+    <item
+        android:id="@+id/addTheme_settings"
+        android:orderInCategory="300"
+        android:title="@string/add_lobby"
+        app:showAsAction="ifRoom"
+        android:onClick="addAPrompt"/>
 </menu>

@@ -79,7 +79,7 @@ public class Lobby extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu)
     {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_settings, menu);
+        inflater.inflate(R.menu.menu_lobby, menu);
         return true;
     }
 
@@ -88,12 +88,7 @@ public class Lobby extends AppCompatActivity
     {
         int id = item.getItemId();
 
-        if(id == R.id.lobby_settings)
-        {
-            goToLobby(item);
-            return true;
-        }
-        else if(id == R.id.logout_settings)
+    if(id == R.id.logout_settings)
         {
             logOut(item);
             return true;
@@ -103,24 +98,25 @@ public class Lobby extends AppCompatActivity
             goToProfile(item);
             return true;
         }
-        else if(id == R.id.addTheme)
+        else if(id == R.id.addTheme_settings)
         {
-            addLobby(item);
+            addAPrompt(item);
             return true;
         }
 
+
         return super.onOptionsItemSelected(item);
-    }
-
-
-    public void goToLobby(MenuItem item)
-    {
-
     }
 
     public void goToProfile(MenuItem item)
     {
 
+    }
+
+    public void addAPrompt(MenuItem item)
+    {
+        Intent i = new Intent(Lobby.this, AddTitle.class);
+        startActivity(i);
     }
 
     public void logOut(MenuItem item)
@@ -138,12 +134,6 @@ public class Lobby extends AppCompatActivity
         LoginManager.getInstance().logOut();
 
         Intent i = new Intent(Lobby.this, Login.class);
-        startActivity(i);
-    }
-
-    public void addLobby(MenuItem item)
-    {
-        Intent i = new Intent(Lobby.this, AddTitle.class);
         startActivity(i);
     }
 }

@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".Lobby">
+    tools:context=".Puns">
     <item
         android:title="@string/home"
         android:id="@+id/lobby_settings"
@@ -21,4 +21,10 @@
         android:orderInCategory="300"
         app:showAsAction="never"
         android:onClick="logOut"/>
+    <item
+        android:id="@+id/addPun_settings"
+        android:orderInCategory="400"
+        android:title="@string/add_pun"
+        app:showAsAction="ifRoom"
+        android:onClick="addAPun"/>
 </menu>
