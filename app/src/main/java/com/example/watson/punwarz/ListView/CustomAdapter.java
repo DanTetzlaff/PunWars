@@ -100,9 +100,9 @@ public class CustomAdapter extends BaseAdapter implements View.OnClickListener{
         }
 
         if (position % 2 == 1) {
-            vi.setBackgroundColor(Color.parseColor("#F97A00"));
-        } else {
             vi.setBackgroundColor(Color.parseColor("#ffa147"));
+        } else {
+            vi.setBackgroundColor(Color.parseColor("#edebeb"));
         }
 
         return vi;
