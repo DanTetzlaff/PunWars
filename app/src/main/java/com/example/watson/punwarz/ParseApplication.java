@@ -25,6 +25,9 @@ public class ParseApplication extends Application {
 
     public void runTests(){ //Runs a series of tests with pre-determined values to test Parse functionality
 
+        createNewUser("1234bob", "Bob");
+        doesUserExist("1234bob");
+
     }
 
     //creates a new user object in Parse if the user has not previously used app.
@@ -78,21 +81,26 @@ public class ParseApplication extends Application {
 
     //Checks if an object from the selected tableName, in the selected tableRow, and the searchedValue already exists
     //This is the general use function.
-    private void checkIfObjectExists(String tableName, String tableRow, String searchedValue){
+    private boolean checkIfObjectExists(String tableName, String tableRow, String searchedValue) {
         ParseQuery<ParseObject> query = ParseQuery.getQuery(tableName);
         query.whereEqualTo(tableRow, searchedValue);
-        query.getFirstInBackground(new GetCallback<ParseObject>() {
-            public void done(ParseObject object, ParseException e) {
-                if (object == null) {
-                    //Object does not exist.
-                    exists = false;
-                } else {
-                    //Object does exist already.
-                    exists = true;
-                }
+        boolean objectExists = false;
+        try {
+            ParseObject object = query.getFirst();
+            if (object == null) {
+                //Object does not exist.
+                objectExists = false;
+            } else {
+                //Object does exist already.
+                objectExists = true;
             }
-        });
+        } catch (ParseException e) {
+        }
+        return objectExists;
     }
+
+
+
 
     //runs a query and returns a ParseObject for manipulation.
     private ParseObject getParseObject(String tableName, String objectID){
@@ -117,9 +125,7 @@ public class ParseApplication extends Application {
     //Checks if a given Facebook user ID is already in the Parse database
     public boolean doesUserExist(String facebookID) {
         clearTempVars();
-        checkIfObjectExists("Users", "UserID", facebookID);
-        if(exists == true){setUserObjectID(facebookID);} //if the user exists, they are automatically set to active.
-        return exists;
+        return checkIfObjectExists("Users", "UserID", facebookID);
     }
 
     //checks if a lobby with an existing prompt description already exists. currently not case sensitive
@@ -147,8 +153,11 @@ public class ParseApplication extends Application {
         ParseQuery<ParseObject> mainQuery = ParseQuery.or(queries);
         mainQuery.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> results, ParseException e) {
-                if (results.isEmpty()){exists = false;}
-                else {exists = true;}
+                if (results.isEmpty()) {
+                    exists = false;
+                } else {
+                    exists = true;
+                }
             }
         });
         return exists;
