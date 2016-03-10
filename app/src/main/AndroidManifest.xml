@@ -12,6 +12,7 @@
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
 
         <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
+
         <!--Splash screen -->
         <activity android:name="com.example.watson.punwarz.SplashScreen"
             android:label="@string/app_name"
@@ -48,6 +49,16 @@
 
         <!-- Add pun page -->
         <activity android:name="com.example.watson.punwarz.AddPun"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        </activity>
+
+        <!--Template page -->
+        <activity android:name="com.example.watson.punwarz.Page"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        </activity>
+
+        <!--Profile page -->
+        <activity android:name="com.example.watson.punwarz.Profile"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         </activity>
 
