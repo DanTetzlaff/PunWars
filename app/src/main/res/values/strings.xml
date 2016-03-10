@@ -14,6 +14,11 @@
     <string name="desc">Describe your theme</string>
     <string name="submit_prompt">Submit Prompt</string>
     <string name="submit_pun">Submit Pun</string>
+    <string name="name">Name</string>
+    <string name="pts">N pts</string>
+    <string name="rnk">Rank: </string>
+    <string name="themes">Themes: </string>
+    <string name="puns">Puns: </string>
     <string name="cancel">Cancel</string>
     <string-array name="spinner_array">
         <item>1</item>

@@ -24,7 +24,7 @@ import java.util.ArrayList;
  * Created: 2016-03-01
  * Description: This class takes care of the displaying and managing the puns
  */
-public class Puns extends AppCompatActivity
+public class Puns extends Page
 {
     ListView list;
     PunAdapter adapter;
@@ -104,34 +104,9 @@ public class Puns extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-
-    public void goToLobby(MenuItem item)
-    {
-        Intent i = new Intent(Puns.this, Lobby.class);
-        startActivity(i);
-    }
-
     public void goToProfile(MenuItem item)
     {
-
-    }
-
-
-    public void logOut(MenuItem item)
-    {
-        SharedPreferences sharedPref = getSharedPreferences("Toke_Settings", MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putString("user_toke", "empty");
-        editor.commit();
-
-        sharedPref = getSharedPreferences("Prof_ID", MODE_PRIVATE);
-        editor = sharedPref.edit();
-        editor.putString("user_id", "empty");
-        editor.commit();
-
-        LoginManager.getInstance().logOut();
-
-        Intent i = new Intent(Puns.this, Login.class);
+        Intent i = new Intent(Puns.this, Profile.class);
         startActivity(i);
     }
 

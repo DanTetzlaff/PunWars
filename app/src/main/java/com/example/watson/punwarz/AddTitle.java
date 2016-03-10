@@ -25,7 +25,7 @@ import java.util.Calendar;
  * Created: March 2, 2016
  * Description: This class will handle adding new titles
  */
-public class AddTitle extends AppCompatActivity
+public class AddTitle extends Page
 {
     private int mDay;
     private int mMonth;
@@ -77,33 +77,9 @@ public class AddTitle extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-
-    public void goToLobby(MenuItem item)
-    {
-        Intent i = new Intent(AddTitle.this, Lobby.class);
-        startActivity(i);
-    }
-
     public void goToProfile(MenuItem item)
     {
-
-    }
-
-    public void logOut(MenuItem item)
-    {
-        SharedPreferences sharedPref = getSharedPreferences("Toke_Settings", MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putString("user_toke", "empty");
-        editor.commit();
-
-        sharedPref = getSharedPreferences("Prof_ID", MODE_PRIVATE);
-        editor = sharedPref.edit();
-        editor.putString("user_id", "empty");
-        editor.commit();
-
-        LoginManager.getInstance().logOut();
-
-        Intent i = new Intent(AddTitle.this, Login.class);
+        Intent i = new Intent(AddTitle.this, Profile.class);
         startActivity(i);
     }
 

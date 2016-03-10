@@ -24,7 +24,7 @@ import java.util.ArrayList;
  * Created: 2016-02-24
  * Description: This class will handle the Lobby page of the app where all the themes will exist
  */
-public class Lobby extends AppCompatActivity
+public class Lobby extends Page
 {
     private final String LOBBY_ID = "LOBBY_ID";
     ListView list;
@@ -33,7 +33,8 @@ public class Lobby extends AppCompatActivity
     public  ArrayList<ListModel> CustomListViewValuesArr = new ArrayList<ListModel>();
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lobby);
         FacebookSdk.sdkInitialize(getApplicationContext());
@@ -110,30 +111,13 @@ public class Lobby extends AppCompatActivity
 
     public void goToProfile(MenuItem item)
     {
-
+        Intent i = new Intent(Lobby.this, Profile.class);
+        startActivity(i);
     }
 
     public void addAPrompt(MenuItem item)
     {
         Intent i = new Intent(Lobby.this, AddTitle.class);
-        startActivity(i);
-    }
-
-    public void logOut(MenuItem item)
-    {
-        SharedPreferences sharedPref = getSharedPreferences("Toke_Settings", MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putString("user_toke", "empty");
-        editor.commit();
-
-        sharedPref = getSharedPreferences("Prof_ID", MODE_PRIVATE);
-        editor = sharedPref.edit();
-        editor.putString("user_id", "empty");
-        editor.commit();
-
-        LoginManager.getInstance().logOut();
-
-        Intent i = new Intent(Lobby.this, Login.class);
         startActivity(i);
     }
 }
