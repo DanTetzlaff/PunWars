@@ -1,18 +1,13 @@
 package com.example.watson.punwarz;
 
-import android.app.AlertDialog;
 import android.app.Application;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.parse.*;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 
 public class ParseApplication extends Application {
@@ -26,13 +21,6 @@ public class ParseApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-    }
-
-    public void runTests(){ //Runs a series of tests with pre-determined values to test Parse functionality
-
-        createNewUser("1234bob", "Bob");
-        doesUserExist("1234bob");
-
     }
 
     //creates a new user object in Parse if the user has not previously used app.
