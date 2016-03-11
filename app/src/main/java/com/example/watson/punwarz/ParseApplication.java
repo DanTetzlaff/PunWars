@@ -1,6 +1,9 @@
 package com.example.watson.punwarz;
 
+import android.app.AlertDialog;
 import android.app.Application;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.parse.*;
 
@@ -8,6 +11,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 public class ParseApplication extends Application {
@@ -46,7 +51,6 @@ public class ParseApplication extends Application {
         newLobby.put("Prompt", lobbyPrompt);
         newLobby.put("CreatorID", userObjectID);
         newLobby.put("ExpiryDate", expiryDate);
-        newLobby.put("IsActive", true);
         newLobby.saveInBackground();
     }
 
@@ -57,7 +61,6 @@ public class ParseApplication extends Application {
         newPost.put("LobbyID", lobbyID);
         newPost.put("Post", postText);
         newPost.put("ExpiryDate", getParseObject("Lobby", lobbyID).getDate("ExpiryDate"));
-        newPost.put("IsActive", true); //may not need this?
         newPost.saveInBackground();
         String postObjectID = newPost.getObjectId(); //may have to move this before the save??
     }
@@ -123,9 +126,20 @@ public class ParseApplication extends Application {
 
 
     //Checks if a given Facebook user ID is already in the Parse database
-    public boolean doesUserExist(String facebookID) {
+    public boolean doesUserExist(final String facebookID) {
         clearTempVars();
-        return checkIfObjectExists("Users", "UserID", facebookID);
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Users");
+        query.whereEqualTo("UserID", facebookID);
+        try {
+            query.getFirst();
+            exists = true;
+        } catch (ParseException e) {
+            exists = false;
+        }
+
+
+        //Log.d("EXISTS#####", Boolean.toString(exists)); debugging log
+        return exists;
     }
 
     //checks if a lobby with an existing prompt description already exists. currently not case sensitive
