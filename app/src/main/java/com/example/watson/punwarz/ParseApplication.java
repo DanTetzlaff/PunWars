@@ -114,7 +114,7 @@ public class ParseApplication extends Application {
 
 
     //Checks if a given Facebook user ID is already in the Parse database
-    public boolean doesUserExist(final String facebookID) {
+    public boolean doesUserExist(String facebookID) {
         clearTempVars();
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Users");
         query.whereEqualTo("UserID", facebookID);
@@ -128,6 +128,19 @@ public class ParseApplication extends Application {
 
         //Log.d("EXISTS#####", Boolean.toString(exists)); debugging log
         return exists;
+    }
+
+    public int getUserPoints(String facebookID){
+        int result = 0;
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Users");
+        query.whereEqualTo("UserID", facebookID);
+        try {
+            result = query.getFirst().getInt("Score");
+        } catch (ParseException e) {
+            Log.d("PARSE ERROR", "-Error retrieving points-");
+        }
+
+        return result;
     }
 
     //checks if a lobby with an existing prompt description already exists. currently not case sensitive
