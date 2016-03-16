@@ -1,15 +1,18 @@
 package com.example.watson.punwarz;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.ListView;
 
 import com.example.watson.punwarz.ListView.CustomAdapter;
@@ -31,6 +34,7 @@ public class Lobby extends Page
     CustomAdapter adapter;
     public  Lobby CustomListView = null;
     public  ArrayList<ListModel> CustomListViewValuesArr = new ArrayList<ListModel>();
+    private boolean loadingMore = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -48,13 +52,33 @@ public class Lobby extends Page
         Resources res = getResources();
         list = ( ListView )findViewById( R.id.list );
 
+        View footer = ( (LayoutInflater)this.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.footer, null, false);
+        list.addFooterView(footer);
+
         adapter = new CustomAdapter( CustomListView, CustomListViewValuesArr,res);
         list.setAdapter( adapter );
+
+        list.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                int lastInScreen = firstVisibleItem + visibleItemCount;
+
+                if ((lastInScreen == totalItemCount) && !(loadingMore)){
+                    Thread thread = new Thread(null, loadMoreListItems);
+                    thread.start();
+                }
+            }
+        });
     }
 
     public void setListData()
     {
-        for (int i = 0; i < 10; i++){
+        for (int i = 0; i < 5; i++){
             final ListModel sched = new ListModel();
 
             sched.setLobbyTitle("TITLE"+i);
@@ -108,6 +132,33 @@ public class Lobby extends Page
 
         return super.onOptionsItemSelected(item);
     }
+
+    //Never ending listView runnable #1 - initiation
+    private Runnable loadMoreListItems = new Runnable() {
+        @Override
+        public void run() {
+            loadingMore = true;
+
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+            }
+
+            runOnUiThread(returnRes);
+        }
+    };
+
+    //Never ending listView runnable #2 - filling and updating listView
+    private Runnable returnRes = new Runnable() {
+        @Override
+        public void run() {
+            setListData();
+
+            adapter.notifyDataSetChanged();
+
+            loadingMore = false;
+        }
+    };
 
     public void goToProfile(MenuItem item)
     {
