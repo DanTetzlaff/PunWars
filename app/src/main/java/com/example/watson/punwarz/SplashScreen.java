@@ -26,8 +26,6 @@ public class SplashScreen extends Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         FacebookSdk.sdkInitialize(getApplicationContext());
-        Parse.initialize(this, "5UQqqOAeFhEDsGhrMMka0a1vKWNxpu4IlNonVn4z", "STbqcRcr7FcJxkmjEiz8Qs2qgq8SjsPVOtqnMDgG");
-
 
         new Handler().postDelayed(new Runnable()
                                         {
