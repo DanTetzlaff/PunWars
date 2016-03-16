@@ -36,10 +36,11 @@ public class ParseApplication extends Application {
     }
 
     //creates a new lobby associated with the active user
-    public void createNewLobby(String lobbyPrompt, Date expiryDate){
+    public void createNewLobby(String userID, String lobbyTheme, String lobbyDesc, Date expiryDate){
         ParseObject newLobby = new ParseObject("Lobby");
-        newLobby.put("Prompt", lobbyPrompt);
-        newLobby.put("CreatorID", userObjectID);
+        newLobby.put("Theme", lobbyTheme);
+        newLobby.put("Desc", lobbyDesc);
+        newLobby.put("UserID", userID);
         newLobby.put("ExpiryDate", expiryDate);
         newLobby.saveInBackground();
     }
