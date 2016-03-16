@@ -1,5 +1,6 @@
 package com.example.watson.punwarz;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -11,8 +12,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.Toast;
 
-import com.facebook.FacebookSdk;
+import com.facebook.*;
+import com.facebook.Profile;
 import com.facebook.login.LoginManager;
 
 /**
@@ -22,6 +25,8 @@ import com.facebook.login.LoginManager;
  */
 public class AddPun extends AddTitle
 {
+    private int lobbyID;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -30,11 +35,21 @@ public class AddPun extends AddTitle
         FacebookSdk.sdkInitialize(getApplicationContext());
         Toolbar toolbar = (Toolbar)findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
+
+        lobbyID = this.getIntent().getIntExtra("LOBBY_ID", 0);
     }
 
     public void submitPun(View v)
     {
+        ParseApplication parse = new ParseApplication();
+        Profile profile = Profile.getCurrentProfile();
 
+        parse.createNewPun(profile.getId(), Integer.toString(lobbyID), "TEST DATA");
+
+        Toast.makeText(getApplicationContext(), "Pun added Successfully!", Toast.LENGTH_SHORT).show();
+        Intent i = new Intent(AddPun.this, Puns.class);
+        i.putExtra("LOBBY_ID", lobbyID);
+        startActivity(i);
     }
 
     public void cancelEvent(View v)

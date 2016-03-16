@@ -43,14 +43,13 @@ public class ParseApplication extends Application {
     }
 
     //creates a new Post associated to a particular Lobby
-    public void createNewPost(String creatorID, String lobbyID, String postText){
+    public void createNewPun(String userID, String lobbyID, String punText){
         ParseObject newPost = new ParseObject("Posts");
-        newPost.put("UserID", userObjectID);
+        newPost.put("UserID", userID);
         newPost.put("LobbyID", lobbyID);
-        newPost.put("Post", postText);
-        newPost.put("ExpiryDate", getParseObject("Lobby", lobbyID).getDate("ExpiryDate"));
+        newPost.put("Pun", punText);
         newPost.saveInBackground();
-        String postObjectID = newPost.getObjectId(); //may have to move this before the save??
+        //String postObjectID = newPost.getObjectId(); //may have to move this before the save??
     }
 
     //sets the userObjectID variable so that it does not have to be queried multiple times.

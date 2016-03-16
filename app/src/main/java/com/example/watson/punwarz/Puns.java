@@ -26,6 +26,7 @@ import java.util.ArrayList;
  */
 public class Puns extends Page
 {
+    private final String LOBBY_ID = "LOBBY_ID";
     ListView list;
     PunAdapter adapter;
     public  Puns CustomListView = null;
@@ -113,6 +114,7 @@ public class Puns extends Page
     public void addAPun(MenuItem item)
     {
         Intent i = new Intent(Puns.this, AddPun.class);
+        i.putExtra(LOBBY_ID, lobbyID);
         startActivity(i);
     }
 }
