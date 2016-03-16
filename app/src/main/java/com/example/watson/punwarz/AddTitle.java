@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.facebook.FacebookSdk;
@@ -86,7 +87,15 @@ public class AddTitle extends Page
     //collects data for prompt to be created
     public void submitPrompt(View v)
     {
-        //
+        final EditText promptField = (EditText) findViewById(R.id.promptField);
+        String prompt = promptField.getText().toString();
+        final EditText promptDescField = (EditText) findViewById(R.id.promptDescField);
+        String promptDesc = promptDescField.getText().toString();
+        final Spinner dateSpinner = (Spinner) findViewById(R.id.spin);
+        String date = dateSpinner.getSelectedItem();
+
+
+
     }
 
     //returns to lobby page
