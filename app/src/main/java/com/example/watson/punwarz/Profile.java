@@ -67,13 +67,16 @@ public class Profile extends Page
         String rank;
 
         if (userPoints < 10){
-            rank = "Rookie";
+            rank = "Punching Bag";
         }
-        else if (userPoints < 90){
-            rank = "Semi-Pro";
+        else if (userPoints < 30){
+            rank = "Depundable";
+        }
+        else if (userPoints < 75){
+            rank = "Punderful";
         }
         else {
-            rank = "Master";
+            rank = "Punisher";
         }
 
         rankText.setText("Rank: " + rank);

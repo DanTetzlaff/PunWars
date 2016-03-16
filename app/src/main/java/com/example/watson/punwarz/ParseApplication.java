@@ -116,7 +116,7 @@ public class ParseApplication extends Application {
 
     //Checks if a given Facebook user ID is already in the Parse database
     public boolean doesUserExist(String facebookID) {
-        clearTempVars();
+        exists = false;
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Users");
         query.whereEqualTo("UserID", facebookID);
         try {
