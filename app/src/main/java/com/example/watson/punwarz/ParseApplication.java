@@ -7,6 +7,7 @@ import com.parse.*;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -148,24 +149,33 @@ public class ParseApplication extends Application {
 
     public ArrayList<ArrayList<String>> getThemes(int numNeeded, int numSkipped) {
         ArrayList<ArrayList<String>> themes = new  ArrayList<ArrayList<String>>();
+        ArrayList<String> singleTheme = new ArrayList<String>();
+        List<ParseObject> list;
+
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Lobby");
         query.setLimit(numNeeded);
         query.setSkip(numSkipped);
-        try {
-            List<ParseObject> result = query.find();
-            for (int i = 0 ; i < result.size() ; i++){
-                ArrayList<String> lobby = new ArrayList<String>();
-                lobby.add(result.get(i).getObjectId());
-                lobby.add(result.get(i).getDate("ExpiryDate").toString());
-                lobby.add(result.get(i).getString("Desc"));
-                lobby.add(result.get(i).getString("Theme"));
-                lobby.add(result.get(i).getString("UserID"));
 
-                themes.add(lobby);
+        Calendar cal = Calendar.getInstance();
+
+        query.whereGreaterThanOrEqualTo("ExpiryDate", cal.getTime()).getLimit();
+        try {
+            list = query.find();
+
+            for (int i = 0 ; i < list.size() ; i++){
+                singleTheme = new ArrayList<String>();
+                ParseObject cur = list.get(i);
+                singleTheme.add(cur.getString("objectId"));
+                singleTheme.add(cur.getDate("ExpiryDate").toString());
+                singleTheme.add(cur.getString("Desc"));
+                singleTheme.add(cur.getString("Theme"));
+                singleTheme.add(getUserName(cur.getString("UserID")));
+
+                themes.add(singleTheme);
             }
         }
         catch (ParseException e) {
-            Log.d("PARSE ERROR", "-Error retrieving points-");
+            Log.d("PARSE ERROR", "-Error retrieving Theme-");
         }
 
     return themes;
