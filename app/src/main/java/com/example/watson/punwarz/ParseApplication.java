@@ -133,6 +133,20 @@ public class ParseApplication extends Application {
         return exists;
     }
 
+    public boolean doesThemeExist(String prompt)
+    {
+        boolean exist = false;
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Lobby");
+        query.whereEqualTo("Theme", prompt);
+        try {
+            query.getFirst();
+            exist = true;
+        } catch (ParseException p){
+            exist = false;
+        }
+        return exist;
+    }
+
     public int getUserPoints(String facebookID){
         int result = 0;
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Users");

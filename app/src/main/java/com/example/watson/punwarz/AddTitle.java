@@ -102,7 +102,7 @@ public class AddTitle extends Page
     public void submitPrompt(View v)
     {
         final EditText promptField = (EditText) findViewById(R.id.promptField);
-        String prompt = promptField.getText().toString();
+        String prompt = promptField.getText().toString().toLowerCase();
         final EditText promptDescField = (EditText) findViewById(R.id.promptDescField);
         String promptDesc = promptDescField.getText().toString();
         final Spinner dateSpinner = (Spinner) findViewById(R.id.spin);
@@ -114,14 +114,23 @@ public class AddTitle extends Page
         Date expDate = cal.getTime();
         ParseApplication parse = new ParseApplication();
         com.facebook.Profile prof = com.facebook.Profile.getCurrentProfile();
-        parse.createNewLobby(prof.getId(), prompt, promptDesc, expDate);
 
-        Toast.makeText(getApplicationContext(), "Theme added Successfully!", Toast.LENGTH_SHORT).show();
-        Intent i = new Intent(AddTitle.this, Lobby.class);
-        i.putExtra("LOBBY_ID", lobbyID);
+        if(!(parse.doesThemeExist(prompt)))
+        {
+            parse.createNewLobby(prof.getId(), prompt, promptDesc, expDate);
 
-        destroyKeyboard();
-        startActivity(i);
+            Toast.makeText(getApplicationContext(), "Theme added Successfully!", Toast.LENGTH_SHORT).show();
+            Intent i = new Intent(AddTitle.this, Lobby.class);
+            i.putExtra("LOBBY_ID", lobbyID);
+
+            destroyKeyboard();
+            startActivity(i);
+        }
+        else
+        {
+            Toast.makeText(getApplicationContext(), "Theme already exists!", Toast.LENGTH_SHORT).show();
+            destroyKeyboard();
+        }
     }
 
     //returns to lobby page
