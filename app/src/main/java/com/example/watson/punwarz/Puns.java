@@ -19,6 +19,7 @@ import com.example.watson.punwarz.ListView.PunModel;
 import com.example.watson.punwarz.AddPun;
 import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
+import com.parse.Parse;
 
 import java.util.ArrayList;
 
@@ -35,6 +36,7 @@ public class Puns extends Page
     public  Puns CustomListView = null;
     public  ArrayList<PunModel> CustomListViewValuesArr = new ArrayList<>();
     private int lobbyID;
+    private ParseApplication parse;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +45,8 @@ public class Puns extends Page
         FacebookSdk.sdkInitialize(getApplicationContext());
         Toolbar toolbar = (Toolbar)findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
+
+        parse = new ParseApplication();
 
         Intent intent = getIntent();
         lobbyID = intent.getIntExtra("LOBBY_ID", 0);
@@ -60,12 +64,16 @@ public class Puns extends Page
 
     public void setListData()
     {
-        for (int i = 0; i < 5; i++){
+        ArrayList<ArrayList<String>> puns = parse.getPuns(Integer.toString(lobbyID));
+
+
+        for (int i = 0; i < puns.size(); i++){
+            ArrayList<String> current = puns.get(i);
             final PunModel sched = new PunModel();
 
-            sched.setPunAuth("By: " + i);
-            sched.setPun("THE PUN " + i);
-            sched.setPunVotes("num " + i + lobbyID);
+                sched.setPunAuth("By: " + current.get(1));
+                sched.setPun(current.get(0));
+                sched.setPunVotes("num " + i + lobbyID);
 
             CustomListViewValuesArr.add(sched);
         }
