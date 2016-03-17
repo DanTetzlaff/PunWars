@@ -106,7 +106,6 @@ public class AddTitle extends Page
         final EditText promptDescField = (EditText) findViewById(R.id.promptDescField);
         String promptDesc = promptDescField.getText().toString();
         final Spinner dateSpinner = (Spinner) findViewById(R.id.spin);
-
         int length = Integer.valueOf((String) dateSpinner.getSelectedItem());
 
         Calendar cal = Calendar.getInstance();
@@ -122,6 +121,7 @@ public class AddTitle extends Page
 
         destroyKeyboard();
         startActivity(i);
+
     }
 
     //returns to lobby page
