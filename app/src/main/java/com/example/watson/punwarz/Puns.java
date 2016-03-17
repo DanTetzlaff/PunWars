@@ -29,7 +29,7 @@ public class Puns extends Page
     PunAdapter adapter;
     public  Puns CustomListView = null;
     public  ArrayList<PunModel> CustomListViewValuesArr = new ArrayList<>();
-    private int lobbyID;
+    private String lobbyID;
     private ParseApplication parse;
 
     @Override
@@ -43,7 +43,7 @@ public class Puns extends Page
         parse = new ParseApplication();
 
         Intent intent = getIntent();
-        lobbyID = intent.getIntExtra("LOBBY_ID", 0);
+        lobbyID = intent.getStringExtra("LOBBY_ID");
 
         CustomListView = this;
 
@@ -58,7 +58,7 @@ public class Puns extends Page
 
     public void setListData()
     {
-        ArrayList<ArrayList<String>> puns = parse.getPuns(Integer.toString(lobbyID));
+        ArrayList<ArrayList<String>> puns = parse.getPuns(lobbyID);
 
 
         for (int i = 0; i < puns.size(); i++){
@@ -69,7 +69,7 @@ public class Puns extends Page
                 sched.setPun(current.get(0));
                 sched.setPunVotes("num " + i + lobbyID);
 
-            CustomListViewValuesArr.add(sched);//x
+            CustomListViewValuesArr.add(sched);
         }
     }
 

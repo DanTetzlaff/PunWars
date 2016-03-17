@@ -179,7 +179,7 @@ public class ParseApplication extends Application {
             for (int i = 0 ; i < list.size() ; i++){
                 singleTheme = new ArrayList<String>();
                 ParseObject cur = list.get(i);
-                singleTheme.add(cur.getString("objectId"));
+                singleTheme.add(cur.getObjectId());
                 singleTheme.add(cur.getDate("ExpiryDate").toString());
                 singleTheme.add(cur.getString("Desc"));
                 singleTheme.add(cur.getString("Theme"));

@@ -35,6 +35,9 @@ public class Lobby extends Page
     public  Lobby CustomListView = null;
     public  ArrayList<ListModel> CustomListViewValuesArr = new ArrayList<ListModel>();
     private boolean loadingMore = false;
+    private ParseApplication parse = new ParseApplication();
+    private int numNeeded = 5;
+    private int numSkipped = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -78,28 +81,31 @@ public class Lobby extends Page
 
     public void setListData()
     {
+        ArrayList<ArrayList<String>> themes = parse.getThemes(numNeeded, numSkipped);
 
 
-
-        for (int i = 0; i < 5; i++){
+        for (int i = 0; i < themes.size(); i++){
+            ArrayList<String> current = themes.get(i);
             final ListModel sched = new ListModel();
 
-            sched.setLobbyTitle("TITLE"+i);
-            sched.setLobbyAuthor("By: "+i);
-            sched.setExpireDate("12/31/2099 "+i);
-            sched.setLobbyDes("Descrip "+i);
+            sched.setLobbyTitle(current.get(3));
+            sched.setLobbyAuthor("By: " + current.get(4));
+            sched.setExpireDate(current.get(1));
+            sched.setLobbyDes(current.get(2));
             sched.setTopPun("Best Pun "+i);
-            sched.setLobbyID(123456);
+            sched.setLobbyID(current.get(0));
 
             CustomListViewValuesArr.add( sched );
         }
+
+        numSkipped += themes.size();
     }
 
     public void onItemClick(int mPosition){
         ListModel tempValues = ( ListModel ) CustomListViewValuesArr.get(mPosition);
 
         Intent i = new Intent(Lobby.this, Puns.class);
-        i.putExtra(LOBBY_ID, tempValues.getLobbyID());
+        i.putExtra("LOBBY_ID", tempValues.getLobbyID());
         startActivity(i);
     }
 

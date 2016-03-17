@@ -10,7 +10,7 @@ public class ListModel {
     private String lobbyDes="";
     private String expireDate="";
     private String topPun="";
-    private int lobbyID=0;
+    private String lobbyID="";
 
     /** Setter Methods **/
 
@@ -32,7 +32,7 @@ public class ListModel {
         this.topPun = topPun;
     }
 
-    public void setLobbyID(int lobbyID) { this.lobbyID = lobbyID; }
+    public void setLobbyID(String lobbyID) { this.lobbyID = lobbyID; }
 
     /** Getter Methods **/
 
@@ -54,6 +54,6 @@ public class ListModel {
         return this.topPun;
     }
 
-    public int getLobbyID() { return this.lobbyID; }
+    public String getLobbyID() { return this.lobbyID; }
 
 }

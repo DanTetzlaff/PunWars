@@ -27,7 +27,7 @@ import com.facebook.login.LoginManager;
  */
 public class AddPun extends AddTitle
 {
-    private int lobbyID;
+    private String lobbyID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -41,7 +41,7 @@ public class AddPun extends AddTitle
         InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
 
-        lobbyID = this.getIntent().getIntExtra("LOBBY_ID", 0);
+        lobbyID = this.getIntent().getStringExtra("LOBBY_ID");
     }
 
     public void submitPun(View v)
@@ -51,8 +51,7 @@ public class AddPun extends AddTitle
 
         EditText punText = (EditText)findViewById(R.id.editText);
 
-
-        parse.createNewPun(profile.getId(), Integer.toString(lobbyID), punText.getText().toString());
+        parse.createNewPun(profile.getId(), lobbyID, punText.getText().toString());
 
         Toast.makeText(getApplicationContext(), "Pun added Successfully!", Toast.LENGTH_SHORT).show();
         Intent i = new Intent(AddPun.this, Puns.class);
@@ -60,7 +59,6 @@ public class AddPun extends AddTitle
 
         destroyKeyboard();
         startActivity(i);
-        ///df
     }
 
     public void cancelEvent(View v)
