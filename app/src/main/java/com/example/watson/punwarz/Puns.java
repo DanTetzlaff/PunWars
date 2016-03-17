@@ -1,18 +1,27 @@
 package com.example.watson.punwarz;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.Menu;
 import android.view.MenuInflater;
-
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ListView;
 
 import com.example.watson.punwarz.ListView.PunAdapter;
 import com.example.watson.punwarz.ListView.PunModel;
+import com.example.watson.punwarz.AddPun;
 import com.facebook.FacebookSdk;
+<<<<<<< HEAD
+=======
+import com.facebook.login.LoginManager;
+>>>>>>> parent of d8713d1... n
 
 import java.util.ArrayList;
 
