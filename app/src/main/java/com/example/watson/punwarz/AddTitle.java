@@ -106,6 +106,7 @@ public class AddTitle extends Page
         final EditText promptDescField = (EditText) findViewById(R.id.promptDescField);
         String promptDesc = promptDescField.getText().toString();
         final Spinner dateSpinner = (Spinner) findViewById(R.id.spin);
+<<<<<<< Updated upstream
         int length = Integer.valueOf((String) dateSpinner.getSelectedItem());
 
         Calendar cal = Calendar.getInstance();
@@ -119,6 +120,37 @@ public class AddTitle extends Page
         Intent i = new Intent(AddTitle.this, Lobby.class);
         i.putExtra("LOBBY_ID", lobbyID);
 
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+        //String date = dateSpinner.getSelectedItem();
+=======
+        int length = Integer.valueOf((String) dateSpinner.getSelectedItem());
+>>>>>>> origin/master
+=======
+        int length = Integer.valueOf((String) dateSpinner.getSelectedItem());
+>>>>>>> origin/master
+
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DAY_OF_MONTH, length);
+        Date expDate = cal.getTime();
+        ParseApplication parse = new ParseApplication();
+        com.facebook.Profile prof = com.facebook.Profile.getCurrentProfile();
+        parse.createNewLobby(prof.getId(), prompt, promptDesc, expDate);
+<<<<<<< HEAD
+
+        Toast.makeText(getApplicationContext(), "Theme added Successfully!", Toast.LENGTH_SHORT).show();
+        Intent i = new Intent(AddTitle.this, Lobby.class);
+        i.putExtra("LOBBY_ID", lobbyID);
+
+=======
+
+        Toast.makeText(getApplicationContext(), "Theme added Successfully!", Toast.LENGTH_SHORT).show();
+        Intent i = new Intent(AddTitle.this, Lobby.class);
+        i.putExtra("LOBBY_ID", lobbyID);
+
+>>>>>>> origin/master
+>>>>>>> Stashed changes
         destroyKeyboard();
         startActivity(i);
 

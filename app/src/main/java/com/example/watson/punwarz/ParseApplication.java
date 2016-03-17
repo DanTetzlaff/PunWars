@@ -146,6 +146,7 @@ public class ParseApplication extends Application {
         return result;
     }
 
+<<<<<<< Updated upstream
     public ArrayList<ArrayList<String>> getThemes(int numNeeded, int numSkipped) {
         ArrayList<ArrayList<String>> themes = new  ArrayList<ArrayList<String>>();
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Lobby");
@@ -170,6 +171,76 @@ public class ParseApplication extends Application {
 
     return themes;
     }
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+    public String getUserName(String facebookID){
+        String result = "";
+
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Users");
+        query.whereEqualTo("UserID", facebookID);
+
+        try{
+            result = query.getFirst().getString("DisplayName");
+        } catch (ParseException e) {
+            Log.d("PARSE ERROR", "-Error retrieving name-");
+        }
+
+        return result;
+    }
+
+    public ArrayList<ArrayList<String>> getPuns(String lobbyID){
+        ArrayList<ArrayList<String>> puns = new ArrayList<ArrayList<String>>();
+        ArrayList<String> singlePun;
+        List<ParseObject> list;
+
+
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Posts");
+        query.whereEqualTo("LobbyID", lobbyID);
+
+        try {
+                list = query.find();
+
+                for (int i=0; i < list.size(); i++) {
+                    singlePun = new ArrayList<String>();
+                    ParseObject cur = list.get(i);
+                    singlePun.add(cur.getString("Pun"));
+                    singlePun.add(getUserName(cur.getString("UserID")));
+                    puns.add(singlePun);
+                }
+        } catch (ParseException e) {
+            Log.d("PARSE ERROR", "-Error retrieving puns-");
+        }
+
+        return puns;
+    }
+    public ArrayList<String> getThemes(int numNeeded, int numSkipped){
+        return null;
+
+    public ArrayList<ArrayList<String>> getThemes(int numNeeded, int numSkipped){
+            ArrayList<ArrayList<String>> themes = new ArrayList<ArrayList<String>>();
+            ParseQuery<ParseObject> query = ParseQuery.getQuery("Lobby");
+            query.setLimit(numNeeded);
+            query.setSkip(numSkipped);
+            try {
+                List<ParseObject> result = query.find();
+                for (int i = 0; i < result.size(); i++) {
+                    ArrayList<String> lobby = new ArrayList<String>();
+                    lobby.add(result.get(i).getObjectId());
+                    lobby.add(result.get(i).getDate("ExpiryDate").toString());
+                    lobby.add(result.get(i).getString("Desc"));
+                    lobby.add(result.get(i).getString("Theme"));
+                    lobby.add(result.get(i).getString("UserID"));
+
+                    themes.add(lobby);
+                }
+            } catch (ParseException e) {
+                Log.d("PARSE ERROR", "-Error retrieving points-");
+            }
+
+            return themes;
+        }
+>>>>>>> Stashed changes
 
     //checks if a lobby with an existing prompt description already exists. currently not case sensitive
     public boolean doesLobbyExist(String description){
