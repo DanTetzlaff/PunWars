@@ -52,7 +52,7 @@ public class Login extends AppCompatActivity {
                 }
                 else {
                     Profile profile = Profile.getCurrentProfile();
-                    Log.v("facebook - profile", profile.getFirstName());
+                    Log.d("facebook - profile", profile.getFirstName());
                     //printName();
 
                 }
