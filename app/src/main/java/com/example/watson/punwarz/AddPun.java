@@ -60,6 +60,7 @@ public class AddPun extends AddTitle
 
         destroyKeyboard();
         startActivity(i);
+        ///df
     }
 
     public void cancelEvent(View v)
