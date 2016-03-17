@@ -69,7 +69,6 @@ public class ParseApplication extends Application {
                 }
             }
         });
-
     }
 
     //Checks if an object from the selected tableName, in the selected tableRow, and the searchedValue already exists
@@ -92,9 +91,6 @@ public class ParseApplication extends Application {
         return objectExists;
     }
 
-
-
-
     //runs a query and returns a ParseObject for manipulation.
     private ParseObject getParseObject(String tableName, String objectID){
 
@@ -114,6 +110,20 @@ public class ParseApplication extends Application {
         return activeObject;
     }
 
+    //checks if the prompt already exists in the database
+    public boolean doesThemeExists(String prompt)
+    {
+        boolean doesExist = false;
+        ParseQuery<ParseObject> themeQuery = ParseQuery.getQuery("Lobby");
+        themeQuery.whereEqualTo("Theme", prompt);
+        try {
+            themeQuery.getFirst();
+            doesExist = true;
+        } catch (ParseException p){
+            doesExist = false;
+        }
+        return doesExist;
+    }
 
     //Checks if a given Facebook user ID is already in the Parse database
     public boolean doesUserExist(String facebookID) {

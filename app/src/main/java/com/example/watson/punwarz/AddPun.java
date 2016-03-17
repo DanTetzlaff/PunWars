@@ -51,6 +51,7 @@ public class AddPun extends AddTitle
 
         EditText punText = (EditText)findViewById(R.id.editText);
 
+
         parse.createNewPun(profile.getId(), Integer.toString(lobbyID), punText.getText().toString());
 
         Toast.makeText(getApplicationContext(), "Pun added Successfully!", Toast.LENGTH_SHORT).show();
