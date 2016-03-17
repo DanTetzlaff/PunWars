@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.parse.*;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -69,6 +70,7 @@ public class ParseApplication extends Application {
                 }
             }
         });
+
     }
 
     //Checks if an object from the selected tableName, in the selected tableRow, and the searchedValue already exists
@@ -91,6 +93,9 @@ public class ParseApplication extends Application {
         return objectExists;
     }
 
+
+
+
     //runs a query and returns a ParseObject for manipulation.
     private ParseObject getParseObject(String tableName, String objectID){
 
@@ -110,20 +115,6 @@ public class ParseApplication extends Application {
         return activeObject;
     }
 
-    //checks if the prompt already exists in the database
-    public boolean doesThemeExists(String prompt)
-    {
-        boolean doesExist = false;
-        ParseQuery<ParseObject> themeQuery = ParseQuery.getQuery("Lobby");
-        themeQuery.whereEqualTo("Theme", prompt);
-        try {
-            themeQuery.getFirst();
-            doesExist = true;
-        } catch (ParseException p){
-            doesExist = false;
-        }
-        return doesExist;
-    }
 
     //Checks if a given Facebook user ID is already in the Parse database
     public boolean doesUserExist(String facebookID) {
@@ -155,38 +146,76 @@ public class ParseApplication extends Application {
         return result;
     }
 
+    public ArrayList<ArrayList<String>> getThemes(int numNeeded, int numSkipped) {
+        ArrayList<ArrayList<String>> themes = new  ArrayList<ArrayList<String>>();
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Lobby");
+        query.setLimit(numNeeded);
+        query.setSkip(numSkipped);
+        try {
+            List<ParseObject> result = query.find();
+            for (int i = 0 ; i < result.size() ; i++){
+                ArrayList<String> lobby = new ArrayList<String>();
+                lobby.add(result.get(i).getObjectId());
+                lobby.add(result.get(i).getDate("ExpiryDate").toString());
+                lobby.add(result.get(i).getString("Desc"));
+                lobby.add(result.get(i).getString("Theme"));
+                lobby.add(result.get(i).getString("UserID"));
+
+                themes.add(lobby);
+            }
+        }
+        catch (ParseException e) {
+            Log.d("PARSE ERROR", "-Error retrieving points-");
+        }
+
+    return themes;
+    }
+
+    public String getUserName(String facebookID){
+        String result = "";
+
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Users");
+        query.whereEqualTo("UserID", facebookID);
+
+        try{
+            result = query.getFirst().getString("DisplayName");
+        } catch (ParseException e) {
+            Log.d("PARSE ERROR", "-Error retrieving name-");
+        }
+
+        return result;
+    }
+
+    public ArrayList<ArrayList<String>> getPuns(String lobbyID){
+        ArrayList<ArrayList<String>> puns = new ArrayList<ArrayList<String>>();
+        ArrayList<String> singlePun;
+        List<ParseObject> list;
+
+
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Posts");
+        query.whereEqualTo("LobbyID", lobbyID);
+
+        try {
+                list = query.find();
+
+                for (int i=0; i < list.size(); i++) {
+                    singlePun = new ArrayList<String>();
+                    ParseObject cur = list.get(i);
+                    singlePun.add(cur.getString("Pun"));
+                    singlePun.add(getUserName(cur.getString("UserID")));
+                    puns.add(singlePun);
+                }
+        } catch (ParseException e) {
+            Log.d("PARSE ERROR", "-Error retrieving puns-");
+        }
+
+        return puns;
+    }
+
     //checks if a lobby with an existing prompt description already exists. currently not case sensitive
     public boolean doesLobbyExist(String description){
         clearTempVars();
         checkIfObjectExists("Lobby", "Prompt", description);
-        return exists;
-    }
-
-    //checks if a post within a lobby already exists. currently not case sensitive.
-    public boolean doesPostExist(String post, String lobbyID) {
-        clearTempVars();
-        // Posts are specific to a lobby, so a check would need the associated lobby ID
-        ParseQuery<ParseObject> checkPost = ParseQuery.getQuery("Posts");
-        checkPost.whereEqualTo("Post", post);
-
-        ParseQuery<ParseObject> checkLobby = ParseQuery.getQuery("Posts");
-        checkLobby.whereEqualTo("LobbyID", lobbyID);
-
-        List<ParseQuery<ParseObject>> queries = new ArrayList<ParseQuery<ParseObject>>();
-        queries.add(checkPost);
-        queries.add(checkLobby);
-
-        //TODO: figure out AND functionality for Parse Queries
-        ParseQuery<ParseObject> mainQuery = ParseQuery.or(queries);
-        mainQuery.findInBackground(new FindCallback<ParseObject>() {
-            public void done(List<ParseObject> results, ParseException e) {
-                if (results.isEmpty()) {
-                    exists = false;
-                } else {
-                    exists = true;
-                }
-            }
-        });
         return exists;
     }
 
@@ -207,4 +236,6 @@ public class ParseApplication extends Application {
         activeObject = null;
         clearTempVars();
     }
+
+
 }
