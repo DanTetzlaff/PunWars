@@ -5,7 +5,6 @@ import android.util.Log;
 
 import com.parse.*;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -146,31 +145,6 @@ public class ParseApplication extends Application {
         return result;
     }
 
-    public ArrayList<ArrayList<String>> getThemes(int numNeeded, int numSkipped) {
-        ArrayList<ArrayList<String>> themes = new  ArrayList<ArrayList<String>>();
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("Lobby");
-        query.setLimit(numNeeded);
-        query.setSkip(numSkipped);
-        try {
-            List<ParseObject> result = query.find();
-            for (int i = 0 ; i < result.size() ; i++){
-                ArrayList<String> lobby = new ArrayList<String>();
-                lobby.add(result.get(i).getObjectId());
-                lobby.add(result.get(i).getDate("ExpiryDate").toString());
-                lobby.add(result.get(i).getString("Desc"));
-                lobby.add(result.get(i).getString("Theme"));
-                lobby.add(result.get(i).getString("UserID"));
-
-                themes.add(lobby);
-            }
-        }
-        catch (ParseException e) {
-            Log.d("PARSE ERROR", "-Error retrieving points-");
-        }
-
-    return themes;
-    }
-
     //checks if a lobby with an existing prompt description already exists. currently not case sensitive
     public boolean doesLobbyExist(String description){
         clearTempVars();
@@ -223,6 +197,4 @@ public class ParseApplication extends Application {
         activeObject = null;
         clearTempVars();
     }
-
-
 }
