@@ -13,11 +13,6 @@ import android.widget.ListView;
 import com.example.watson.punwarz.ListView.PunAdapter;
 import com.example.watson.punwarz.ListView.PunModel;
 import com.facebook.FacebookSdk;
-<<<<<<< Updated upstream
-import com.facebook.login.LoginManager;
-=======
-
->>>>>>> Stashed changes
 
 import java.util.ArrayList;
 
