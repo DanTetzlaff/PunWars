@@ -31,16 +31,18 @@ public class Lobby extends Page
 {
     private final String LOBBY_ID = "LOBBY_ID";
     ListView list;
-    View noItemFooter;
-    View footer;
+    View noItemFooter;  // holder for "no more items" footer
+    View footer;        // holder for "loading more items" footer
     CustomAdapter adapter;
+
     public  Lobby CustomListView = null;
     public  ArrayList<ListModel> CustomListViewValuesArr = new ArrayList<ListModel>();
     private boolean loadingMore = false;
     private ParseApplication parse = new ParseApplication();
-    private int numNeeded = 5;
-    private int numSkipped = 0;
-    private int numIn = 0;
+
+    final private int numNeeded = 5; //max number of items displayed at once
+    private int numSkipped = 0; //holds number of items we have displayed so far on screen
+    private int numIn = 0; //holds number of items in parse as of page startup
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -59,9 +61,12 @@ public class Lobby extends Page
         Resources res = getResources();
         list = ( ListView )findViewById( R.id.list );
 
+        //make footer with inflator for when we are loading more themes
         footer = ( (LayoutInflater)this.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.footer, null, false);
+        //make footer with inflator for when we have no more items to display
         noItemFooter = ( (LayoutInflater)this.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.noitemfooter, null, false);
-        list.addFooterView(footer);
+
+        list.addFooterView(footer); //ad the footer to bottom of list
 
         adapter = new CustomAdapter( CustomListView, CustomListViewValuesArr,res);
         list.setAdapter( adapter );
