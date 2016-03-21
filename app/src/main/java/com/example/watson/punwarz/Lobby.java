@@ -31,6 +31,8 @@ public class Lobby extends Page
 {
     private final String LOBBY_ID = "LOBBY_ID";
     ListView list;
+    View noItemFooter;
+    View footer;
     CustomAdapter adapter;
     public  Lobby CustomListView = null;
     public  ArrayList<ListModel> CustomListViewValuesArr = new ArrayList<ListModel>();
@@ -38,6 +40,7 @@ public class Lobby extends Page
     private ParseApplication parse = new ParseApplication();
     private int numNeeded = 5;
     private int numSkipped = 0;
+    private int numIn = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -47,6 +50,7 @@ public class Lobby extends Page
         FacebookSdk.sdkInitialize(getApplicationContext());
         Toolbar toolbar = (Toolbar)findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
+        numIn = parse.countThemes();
 
         CustomListView = this;
 
@@ -55,7 +59,8 @@ public class Lobby extends Page
         Resources res = getResources();
         list = ( ListView )findViewById( R.id.list );
 
-        View footer = ( (LayoutInflater)this.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.footer, null, false);
+        footer = ( (LayoutInflater)this.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.footer, null, false);
+        noItemFooter = ( (LayoutInflater)this.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.noitemfooter, null, false);
         list.addFooterView(footer);
 
         adapter = new CustomAdapter( CustomListView, CustomListViewValuesArr,res);
@@ -71,9 +76,16 @@ public class Lobby extends Page
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
                 int lastInScreen = firstVisibleItem + visibleItemCount;
 
-                if ((lastInScreen == totalItemCount) && !(loadingMore)){
-                    Thread thread = new Thread(null, loadMoreListItems);
-                    thread.start();
+                if (numSkipped != numIn && numSkipped < numIn) {
+                    if ((lastInScreen == totalItemCount) && !(loadingMore)) {
+                        Thread thread = new Thread(null, loadMoreListItems);
+                        thread.start();
+                    }
+                }
+                else if (numSkipped == numIn){
+                    list.removeFooterView(footer);
+                    list.addFooterView(noItemFooter);
+                    numSkipped++;
                 }
             }
         });
@@ -148,8 +160,9 @@ public class Lobby extends Page
         public void run() {
             loadingMore = true;
 
+
             try {
-                Thread.sleep(1000);
+                Thread.sleep(750);
             } catch (InterruptedException e) {
             }
 

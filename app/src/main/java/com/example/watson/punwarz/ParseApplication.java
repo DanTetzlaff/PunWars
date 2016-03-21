@@ -195,6 +195,19 @@ public class ParseApplication extends Application {
     return themes;
     }
 
+    public int countThemes(){
+        int result = 0;
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Lobby");
+
+        try {
+            result = query.count();
+        } catch (ParseException e){
+            Log.d("PARSE ERROR", "-Error retrieving Theme-");
+        }
+
+        return result;
+    }
+
     public String getUserName(String facebookID){
         String result = "";
 
