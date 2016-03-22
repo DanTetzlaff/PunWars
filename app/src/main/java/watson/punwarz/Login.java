@@ -17,6 +17,7 @@ import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
 import com.facebook.Profile;
 import com.facebook.ProfileTracker;
+import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 
@@ -29,7 +30,8 @@ public class Login extends AppCompatActivity {
     private TextView info;
     private LoginButton loginButton;
 
-    private ProfileTracker mProfileTracker;
+    //private ProfileTracker mProfileTracker;
+    //private Profile profile;
     @Override
     protected void onCreate(final Bundle savedInstanceState)
     {
@@ -62,11 +64,12 @@ public class Login extends AppCompatActivity {
                         //loginResult.getAccessToken().getUserId());
 
                 if(Profile.getCurrentProfile() == null) {
-                    mProfileTracker = new ProfileTracker() {
+                    ProfileTracker mProfileTracker = new ProfileTracker() {
                         @Override
                         protected void onCurrentProfileChanged(Profile profile, Profile profile2) {
                             Log.v("facebook - profile", profile2.getFirstName());
-                            mProfileTracker.stopTracking();
+                            this.stopTracking();
+                            Profile.setCurrentProfile(profile2);
                         }
                     };
                     mProfileTracker.startTracking();
@@ -75,14 +78,15 @@ public class Login extends AppCompatActivity {
                     Profile profile = Profile.getCurrentProfile();
                     Log.v("facebook - profile", profile.getFirstName());
                     //printName();
-
                 }
-                
+
                 ParseApplication parse = new ParseApplication();
                 if(!parse.doesUserExist(loginResult.getAccessToken().getUserId()))
                 {
                     Profile profile = Profile.getCurrentProfile();
-                    parse.createNewUser(loginResult.getAccessToken().getUserId(), profile.getFirstName());
+                    if(profile != null) {
+                        parse.createNewUser(loginResult.getAccessToken().getUserId(), profile.getFirstName());
+                    }
                 }
                 storeToke(loginResult.getAccessToken().getToken());
                 storeProf(loginResult.getAccessToken().getUserId());
