@@ -1,4 +1,4 @@
-package com.example.watson.punwarz.ImageView;
+package watson.punwarz.ImageView;
 
 import android.content.Context;
 import android.graphics.Bitmap;

@@ -1,4 +1,4 @@
-package com.example.watson.punwarz;
+package watson.punwarz;
 
 /**
  * Author: Carille Mendoza

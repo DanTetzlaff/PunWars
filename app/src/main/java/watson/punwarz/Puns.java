@@ -1,4 +1,4 @@
-package com.example.watson.punwarz;
+package watson.punwarz;
 
 import android.content.Intent;
 import android.content.res.Resources;
@@ -10,8 +10,8 @@ import android.view.MenuInflater;
 
 import android.widget.ListView;
 
-import com.example.watson.punwarz.ListView.PunAdapter;
-import com.example.watson.punwarz.ListView.PunModel;
+import watson.punwarz.ListView.PunAdapter;
+import watson.punwarz.ListView.PunModel;
 import com.facebook.FacebookSdk;
 
 

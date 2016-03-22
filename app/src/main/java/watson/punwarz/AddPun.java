@@ -1,4 +1,4 @@
-package com.example.watson.punwarz;
+package watson.punwarz;
 
 import android.content.Context;
 import android.content.Intent;

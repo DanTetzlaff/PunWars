@@ -1,4 +1,4 @@
-package com.example.watson.punwarz.ListView;
+package watson.punwarz.ListView;
 
 import android.app.Activity;
 import android.content.Context;
@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.example.watson.punwarz.R;
+import watson.punwarz.R;
 
 import java.util.ArrayList;
 

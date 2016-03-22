@@ -1,4 +1,4 @@
-package com.example.watson.punwarz.ListView;
+package watson.punwarz.ListView;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -11,8 +11,8 @@ import android.widget.BaseAdapter;
 import android.app.*;
 import android.widget.TextView;
 
-import com.example.watson.punwarz.Lobby;
-import com.example.watson.punwarz.R;
+import watson.punwarz.Lobby;
+import watson.punwarz.R;
 
 import java.util.*;
 

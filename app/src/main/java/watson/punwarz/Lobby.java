@@ -1,4 +1,4 @@
-package com.example.watson.punwarz;
+package watson.punwarz;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,8 +15,8 @@ import android.view.View;
 import android.widget.AbsListView;
 import android.widget.ListView;
 
-import com.example.watson.punwarz.ListView.CustomAdapter;
-import com.example.watson.punwarz.ListView.ListModel;
+import watson.punwarz.ListView.CustomAdapter;
+import watson.punwarz.ListView.ListModel;
 import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
 
@@ -52,6 +52,7 @@ public class Lobby extends Page
         FacebookSdk.sdkInitialize(getApplicationContext());
         Toolbar toolbar = (Toolbar)findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
+
         numIn = parse.countThemes();
 
         CustomListView = this;

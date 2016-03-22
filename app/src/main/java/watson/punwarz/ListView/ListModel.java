@@ -1,4 +1,4 @@
-package com.example.watson.punwarz.ListView;
+package watson.punwarz.ListView;
 
 /**
  * Created by Dan on 2016-02-28.

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.watson.punwarz">
+    package="watson.punwarz">
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -15,7 +15,7 @@
         <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
 
         <!--Splash screen -->
-        <activity android:name="com.example.watson.punwarz.SplashScreen"
+        <activity android:name="watson.punwarz.SplashScreen"
             android:label="@string/app_name"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -25,41 +25,41 @@
         </activity>
 
         <!--Log in page -->
-        <activity android:name="com.example.watson.punwarz.Login">
+        <activity android:name="watson.punwarz.Login">
         </activity>
 
 
         <!--lobby page-->
-        <activity android:name="com.example.watson.punwarz.Lobby"
+        <activity android:name="watson.punwarz.Lobby"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         </activity>
 
         <!--Puns page -->
-        <activity android:name="com.example.watson.punwarz.Puns"
+        <activity android:name="watson.punwarz.Puns"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            android:parentActivityName="com.example.watson.punwarz.Lobby">
+            android:parentActivityName="watson.punwarz.Lobby">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.watson.punwarz.Lobby" />
+                android:value="watson.punwarz.Lobby" />
         </activity>
 
         <!-- Add prompt page -->
-        <activity android:name="com.example.watson.punwarz.AddTitle"
+        <activity android:name="watson.punwarz.AddTitle"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         </activity>
 
         <!-- Add pun page -->
-        <activity android:name="com.example.watson.punwarz.AddPun"
+        <activity android:name="watson.punwarz.AddPun"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         </activity>
 
         <!--Template page -->
-        <activity android:name="com.example.watson.punwarz.Page"
+        <activity android:name="watson.punwarz.Page"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         </activity>
 
         <!--Profile page -->
-        <activity android:name="com.example.watson.punwarz.Profile"
+        <activity android:name="watson.punwarz.Profile"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         </activity>
 

@@ -1,4 +1,4 @@
-package com.example.watson.punwarz;
+package watson.punwarz;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
-import com.example.watson.punwarz.ImageView.RoundedImageView;
+import watson.punwarz.ImageView.RoundedImageView;
 import com.facebook.FacebookSdk;
 
 import java.io.IOException;
