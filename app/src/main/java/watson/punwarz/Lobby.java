@@ -53,6 +53,8 @@ public class Lobby extends Page
         Toolbar toolbar = (Toolbar)findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
 
+        checkUser();
+
         numIn = parse.countThemes();
 
         CustomListView = this;
@@ -187,6 +189,17 @@ public class Lobby extends Page
             loadingMore = false;
         }
     };
+
+    public void checkUser(){
+    ParseApplication parse = new ParseApplication();
+    if(!parse.doesUserExist(com.facebook.Profile.getCurrentProfile().getId()))
+    {
+        com.facebook.Profile profile = com.facebook.Profile.getCurrentProfile();
+        if(profile != null) {
+            parse.createNewUser(com.facebook.Profile.getCurrentProfile().getId(), profile.getFirstName());
+        }
+    }
+}
 
     public void goToProfile(MenuItem item)
     {
