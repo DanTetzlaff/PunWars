@@ -274,5 +274,20 @@ public class ParseApplication extends Application {
         clearTempVars();
     }
 
+    //Checks to see if a given user has voted on a given post already and returns a boolean.
+    public boolean votedOnPost(String userID, String postID){
+        boolean hasVoted = false;
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Votes");
+        query.whereEqualTo("VoterID", userID);
+        query.whereEqualTo("PostID", postID);
+        try {
+            query.getFirst();
+            hasVoted = true;
+        } catch (ParseException p){
+            hasVoted = false;
+        }
+        return hasVoted;
+    }
+
 
 }
