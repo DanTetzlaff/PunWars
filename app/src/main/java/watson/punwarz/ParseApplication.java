@@ -53,6 +53,7 @@ public class ParseApplication extends Application {
         newPost.put("UserID", userID);
         newPost.put("LobbyID", lobbyID);
         newPost.put("Pun", punText);
+        newPost.put("Score", 0);
         newPost.saveInBackground();
         //String postObjectID = newPost.getObjectId(); //may have to move this before the save??
     }
@@ -277,6 +278,7 @@ public class ParseApplication extends Application {
     //Checks to see if a given user has voted on a given post already and returns a boolean.
     public boolean votedOnPost(String userID, String postID){
         boolean hasVoted = false;
+
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Votes");
         query.whereEqualTo("VoterID", userID);
         query.whereEqualTo("PostID", postID);
@@ -289,5 +291,47 @@ public class ParseApplication extends Application {
         return hasVoted;
     }
 
+    //User votes for a post, incrementing the post score, creators score, and creates vote record
+    public void voteOnPost(String voterID, String postID){
+
+        //Increment Post Score
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Posts");
+        query.getInBackground(postID, new GetCallback<ParseObject>() {
+            public void done(ParseObject post, ParseException e) {
+                if (e == null) {
+                    post.increment("Score");
+                    post.saveInBackground();
+
+                    String creatorID = post.getString("UserID");
+
+                    //Increment score of posts creator
+                    //Start of nested query
+                    ParseQuery<ParseObject> query2 = ParseQuery.getQuery("Users");
+                    query2.getInBackground(creatorID, new GetCallback<ParseObject>() {
+                        public void done(ParseObject user, ParseException e) {
+                            if (e == null) {
+                                user.increment("Score");
+                                user.saveInBackground();
+                            }
+                                 else {
+                                     //should never hit here
+                                    }
+                            }
+                        });
+                     //end of nested query
+                }
+                else {
+                //should never hit here
+                }
+        }
+    });
+
+        //creates record of vote
+        ParseObject newVote = new ParseObject("Votes");
+        newVote.put("VoterID", voterID);
+        newVote.put("PostID", postID);
+        newVote.saveInBackground();
+
+    }
 
 }
