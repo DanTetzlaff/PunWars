@@ -114,6 +114,7 @@ public class Lobby extends Page
             sched.setLobbyDes(current.get(2));
             sched.setTopPun("Best Pun "+i);
             sched.setLobbyID(current.get(0));
+            sched.setTopPun(current.get(5));
 
             CustomListViewValuesArr.add( sched );
         }

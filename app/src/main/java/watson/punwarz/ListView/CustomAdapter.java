@@ -3,6 +3,7 @@ package watson.punwarz.ListView;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -93,6 +94,9 @@ public class CustomAdapter extends BaseAdapter implements View.OnClickListener{
             holder.titleText.setText( tempValues.getLobbyTitle() );
             holder.authorText.setText( tempValues.getLobbyAuthor() );
             holder.desText.setText( tempValues.getLobbyDes() );
+            //holder.desText.setMaxEms(5);
+            //holder.desText.setMaxLines(1);
+            //holder.desText.setEllipsize(TextUtils.TruncateAt.END);
             holder.expireDate.setText( tempValues.getExpireDate() );
             holder.topPun.setText( tempValues.getTopPun() );
 

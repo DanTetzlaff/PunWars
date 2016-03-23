@@ -6,6 +6,7 @@ import android.util.Log;
 import com.parse.*;
 
 import java.lang.reflect.Array;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -19,6 +20,7 @@ public class ParseApplication extends Application {
     private String tempPostObjectID = null;
     private boolean exists = false; //all-purpose boolean for query results.
     private ParseObject activeObject = null;
+    private SimpleDateFormat format = new SimpleDateFormat("MMM d, ''yy");
 
     @Override
     public void onCreate() {
@@ -174,6 +176,7 @@ public class ParseApplication extends Application {
         Calendar cal = Calendar.getInstance();
 
         query.whereGreaterThanOrEqualTo("ExpiryDate", cal.getTime()).getLimit();
+        query.orderByAscending("ExpiryDate");
         try {
             list = query.find();
 
@@ -181,10 +184,11 @@ public class ParseApplication extends Application {
                 singleTheme = new ArrayList<String>();
                 ParseObject cur = list.get(i);
                 singleTheme.add(cur.getObjectId());
-                singleTheme.add(cur.getDate("ExpiryDate").toString());
+                singleTheme.add(format.format(cur.getDate("ExpiryDate")).toString());
                 singleTheme.add(cur.getString("Desc"));
                 singleTheme.add(cur.getString("Theme"));
                 singleTheme.add(getUserName(cur.getString("UserID")));
+                singleTheme.add(getTopPun(cur.getObjectId()));
 
                 themes.add(singleTheme);
             }
@@ -196,11 +200,17 @@ public class ParseApplication extends Application {
     return themes;
     }
 
+    public String getTopPun (String themeID){
+        return "This is top pun for " + themeID;
+    }
+
     public int countThemes(){
         int result = 0;
+        Calendar cal = Calendar.getInstance();
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Lobby");
 
         try {
+            query.whereGreaterThanOrEqualTo("ExpiryDate", cal.getTime());
             result = query.count();
         } catch (ParseException e){
             Log.d("PARSE ERROR", "-Error retrieving Theme-");
