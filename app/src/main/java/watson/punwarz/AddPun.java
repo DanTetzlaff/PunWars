@@ -39,13 +39,11 @@ public class AddPun extends AddTitle
     private final TextWatcher editTextWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
             //set TextView to current count
             countText.setText(String.valueOf(s.length()) + "/" + getResources().getString(R.string.PUN_LIMIT));
         }
-
         @Override
         public void afterTextChanged(Editable s) {
         }

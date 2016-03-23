@@ -9,6 +9,9 @@
         android:id="@+id/tool_bar"
         layout="@layout/tool_bar"/>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -17,6 +20,16 @@
         android:id="@+id/textView"
         android:layout_marginTop="20dp" />
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/titleCount"
+        android:layout_marginTop="20dp"
+        android:gravity="right"
+        android:layout_marginRight="5dp"
+        />
+    </LinearLayout>
+
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -24,15 +37,30 @@
         android:hint="@string/prompt"
         android:backgroundTint="#f9f6f6"
         android:layout_marginBottom="20dp"
-        android:visibility="visible" />
+        android:visibility="visible"
+        android:maxLength="@string/TITLE_LIMIT"
+        />
 
-    <TextView
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Description: "
         android:id="@+id/textView2"
          />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/descCount"
+            android:gravity="right"
+            android:layout_marginRight="5dp"
+            />
+    </LinearLayout>
 
     <EditText
         android:layout_width="match_parent"
@@ -41,8 +69,14 @@
         android:inputType="textMultiLine"
         android:ems="5"
         android:id="@+id/promptDescField"
-        android:layout_marginBottom="50dp"/>
-
+        android:layout_marginBottom="30dp"
+        android:maxLength="@string/DESC_LIMIT"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        >
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -53,12 +87,28 @@
         android:layout_alignLeft="@+id/editText"
         android:layout_alignStart="@+id/editText" />
 
-    <Spinner
-        android:layout_width="65dp"
-        android:layout_height="wrap_content"
+
+
+        <Spinner
+        android:layout_width="60dp"
+        android:layout_height="30dp"
         android:id="@+id/spin"
         android:spinnerMode="dropdown"
-        android:layout_marginLeft="105dp" />
+        android:layout_marginBottom="5dp"
+        android:layout_toLeftOf="@+id/daysText"
+        />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/daysText"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:gravity="right"
+            android:text="Days"
+            android:layout_marginRight="5dp"
+            />
+
+    </LinearLayout>
 
     <Button
         android:layout_width="wrap_content"

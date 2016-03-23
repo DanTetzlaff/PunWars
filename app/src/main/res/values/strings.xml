@@ -34,4 +34,6 @@
     </string-array>
 
     <string name="PUN_LIMIT">140</string>
+    <string name="TITLE_LIMIT">20</string>
+    <string name="DESC_LIMIT">140</string>
 </resources>

@@ -6,6 +6,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -17,6 +19,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.FacebookSdk;
@@ -40,6 +43,35 @@ public class AddTitle extends Page
 {
     private int lobbyID;
 
+    private EditText titleEdit;
+    private EditText descEdit;
+    private TextView titleCount;
+    private TextView descCount;
+    private final TextWatcher titleTextWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            //set TextView to current count
+            titleCount.setText(String.valueOf(s.length()) + "/" + getResources().getString(R.string.TITLE_LIMIT));
+        }
+        @Override
+        public void afterTextChanged(Editable s) {
+        }
+    };
+    private final TextWatcher descTextWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            //set TextView to current count
+            descCount.setText(String.valueOf(s.length()) + "/" + getResources().getString(R.string.DESC_LIMIT));
+        }
+        @Override
+        public void afterTextChanged(Editable s) {
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -57,6 +89,16 @@ public class AddTitle extends Page
         InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
 
+        titleEdit = (EditText)findViewById(R.id.promptField);
+        descEdit = (EditText)findViewById(R.id.promptDescField);
+        titleCount = (TextView)findViewById(R.id.titleCount);
+        descCount = (TextView)findViewById(R.id.descCount);
+
+        titleEdit.addTextChangedListener(titleTextWatcher);
+        descEdit.addTextChangedListener(descTextWatcher);
+
+        titleCount.setText("0/" + getResources().getString(R.string.TITLE_LIMIT));
+        descCount.setText("0/" + getResources().getString(R.string.DESC_LIMIT));
         lobbyID = this.getIntent().getIntExtra("LOBBY_ID", 0);
     }
 
