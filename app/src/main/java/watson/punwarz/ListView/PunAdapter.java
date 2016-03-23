@@ -3,12 +3,15 @@ package watson.punwarz.ListView;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import watson.punwarz.Lobby;
+import watson.punwarz.Puns;
 import watson.punwarz.R;
 
 import java.util.ArrayList;
@@ -48,6 +51,26 @@ public class PunAdapter extends BaseAdapter {
         public TextView punText;
         public TextView punVotesText;
 
+    }
+
+    public void upVote(View v){
+        Log.v("CustomAdapter", "=-=-=Row button clicked=-=-=");
+    }
+
+    private class OnItemClickListener implements View.OnClickListener{
+        private int mPosition;
+
+        OnItemClickListener(int position){
+            mPosition = position;
+        }
+
+        @Override
+        public void onClick(View arg0){
+
+            Puns sct = (Puns)activity;
+
+            sct.onItemClick(mPosition);
+        }
     }
 
     public View getView(int position, View convertView, ViewGroup parent){

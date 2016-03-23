@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.Menu;
@@ -69,6 +70,14 @@ public class Puns extends Page
 
         //list.addHeaderView(header);
         setHeader();
+    }
+
+    public void onItemClick(int position)
+    {
+        PunModel tempValues = (PunModel)CustomListViewValuesArr.get(position);
+
+        //lobbyID
+        //tempValues.ge
     }
 
     public void setListData()
