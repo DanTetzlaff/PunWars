@@ -75,9 +75,9 @@ public class Puns extends Page
     public void onItemClick(int position)
     {
         PunModel tempValues = (PunModel)CustomListViewValuesArr.get(position);
+        
+        parse.voteOnPost(tempValues.getPunAuth(),tempValues.getPunID(), lobbyID);
 
-        //lobbyID
-        //tempValues.ge
     }
 
     public void setListData()
