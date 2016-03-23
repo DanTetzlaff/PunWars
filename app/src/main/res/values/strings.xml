@@ -32,4 +32,6 @@
         <item>13</item>
         <item>14</item>
     </string-array>
+
+    <string name="PUN_LIMIT">140</string>
 </resources>

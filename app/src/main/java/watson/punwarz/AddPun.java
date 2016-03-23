@@ -6,6 +6,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -28,8 +30,26 @@ import com.facebook.login.LoginManager;
  */
 public class AddPun extends AddTitle
 {
+
     private String lobbyID;
     private String title;
+
+    private EditText editText;
+    private TextView countText;
+    private final TextWatcher editTextWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            //set TextView to current count
+            countText.setText(String.valueOf(s.length()) + "/" + getResources().getString(R.string.PUN_LIMIT));
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -47,7 +67,15 @@ public class AddPun extends AddTitle
         title = this.getIntent().getStringExtra("THEME_TITLE");
 
         TextView titleView = (TextView)findViewById(R.id.lobbyTitle);
+        editText = (EditText)findViewById(R.id.editText);
+        countText = (TextView)findViewById(R.id.countText);
+
+        countText.setText("0/" + getResources().getString(R.string.PUN_LIMIT));
+
+        editText.addTextChangedListener(editTextWatcher);
         titleView.setText(title);
+
+
     }
 
     public void submitPun(View v)
