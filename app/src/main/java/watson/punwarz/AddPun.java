@@ -14,6 +14,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.*;
@@ -28,6 +29,7 @@ import com.facebook.login.LoginManager;
 public class AddPun extends AddTitle
 {
     private String lobbyID;
+    private String title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -42,6 +44,10 @@ public class AddPun extends AddTitle
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
 
         lobbyID = this.getIntent().getStringExtra("LOBBY_ID");
+        title = this.getIntent().getStringExtra("THEME_TITLE");
+
+        TextView titleView = (TextView)findViewById(R.id.lobbyTitle);
+        titleView.setText(title);
     }
 
     public void submitPun(View v)

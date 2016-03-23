@@ -127,6 +127,10 @@ public class Lobby extends Page
 
         Intent i = new Intent(Lobby.this, Puns.class);
         i.putExtra("LOBBY_ID", tempValues.getLobbyID());
+        i.putExtra("THEME_TITLE", tempValues.getLobbyTitle());
+        i.putExtra("THEME_DESC", tempValues.getLobbyDes());
+        i.putExtra("THEME_AUTHOR", tempValues.getLobbyAuthor());
+        i.putExtra("THEME_EXPIRE", tempValues.getExpireDate());
         startActivity(i);
     }
 

@@ -1,19 +1,22 @@
 package watson.punwarz;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.Menu;
 import android.view.MenuInflater;
 
+import android.view.View;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import watson.punwarz.ListView.PunAdapter;
 import watson.punwarz.ListView.PunModel;
 import com.facebook.FacebookSdk;
-
 
 import java.util.ArrayList;
 
@@ -31,6 +34,12 @@ public class Puns extends Page
     public  ArrayList<PunModel> CustomListViewValuesArr = new ArrayList<>();
     private String lobbyID;
     private ParseApplication parse;
+    private View header;
+
+    private String title = "";
+    private String desc = "";
+    private String author = "";
+    private String expDate = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,10 +49,13 @@ public class Puns extends Page
         Toolbar toolbar = (Toolbar)findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
 
+        header = ( (LayoutInflater)this.getSystemService(Context.LAYOUT_INFLATER_SERVICE) ).inflate(R.layout.themeheader, null, false);
+
         parse = new ParseApplication();
 
         Intent intent = getIntent();
         lobbyID = intent.getStringExtra("LOBBY_ID");
+        getExtras(intent);
 
         CustomListView = this;
 
@@ -54,6 +66,9 @@ public class Puns extends Page
 
         adapter = new PunAdapter( CustomListView, CustomListViewValuesArr,res);
         list.setAdapter( adapter );
+
+        //list.addHeaderView(header);
+        setHeader();
     }
 
     public void setListData()
@@ -71,6 +86,25 @@ public class Puns extends Page
 
             CustomListViewValuesArr.add(sched);
         }
+    }
+
+    public void setHeader(){
+        TextView titleView = (TextView)findViewById(R.id.lobbyTitle);
+        TextView descView = (TextView)findViewById(R.id.lobbyDes);
+        TextView authView = (TextView)findViewById(R.id.lobbyAuthor);
+        TextView expView = (TextView)findViewById(R.id.expireDate);
+
+        titleView.setText(title);
+        descView.setText(desc);
+        authView.setText(author);
+        expView.setText(expDate);
+    }
+
+    private void getExtras(Intent intent){
+        title = intent.getStringExtra("THEME_TITLE");
+        desc = intent.getStringExtra("THEME_DESC");
+        expDate = intent.getStringExtra("THEME_EXPIRE");
+        author = intent.getStringExtra("THEME_AUTHOR");
     }
 
     @Override
@@ -120,6 +154,7 @@ public class Puns extends Page
     {
         Intent i = new Intent(Puns.this, AddPun.class);
         i.putExtra(LOBBY_ID, lobbyID);
+        i.putExtra("THEME_TITLE", title);
         startActivity(i);
     }
 }

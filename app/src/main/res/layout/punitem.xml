@@ -8,6 +8,7 @@
         <TextView
             android:id="@+id/pun"
             android:padding="3dip"
+            android:maxEms="15"
             />
     </TableRow>
     <TableRow>
