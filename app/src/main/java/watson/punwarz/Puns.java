@@ -89,6 +89,7 @@ public class Puns extends Page
             ArrayList<String> current = puns.get(i);
             final PunModel sched = new PunModel();
 
+                sched.setPunID(current.get(2));
                 sched.setPunAuth("By: " + current.get(1));
                 sched.setPun(current.get(0));
                 sched.setPunVotes("num " + i + lobbyID);

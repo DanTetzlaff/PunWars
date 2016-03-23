@@ -7,6 +7,7 @@ public class PunModel {
 
     private String punAuth="";
     private String pun="";
+    private String punID="";
     private String punVotes;
 
     /** Setter Methods **/
@@ -17,6 +18,8 @@ public class PunModel {
 
     public void setPunVotes(String punVotes) { this.punVotes = punVotes; }
 
+    public void setPunID(String punID) { this.punID = punID; }
+
     /** Getter Methods **/
 
     public String getPunAuth() { return this.punAuth; }
@@ -24,4 +27,6 @@ public class PunModel {
     public String getPun() { return this.pun; }
 
     public String getPunVotes() { return this.punVotes; }
+
+    public String getPunID() { return this.punID; }
 }
