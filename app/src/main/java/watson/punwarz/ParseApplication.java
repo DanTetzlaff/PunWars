@@ -364,7 +364,7 @@ public class ParseApplication extends Application {
 
 
     //User votes for a post, incrementing the post score, creators score, and creates vote record
-    public void voteOnPost(String voterID, String postID, String lobbyID, String authID) {
+    public void voteOnPost(String voterID, String postID, String lobbyID) {
         int result;
 
             //Increment Post Score
@@ -402,7 +402,6 @@ public class ParseApplication extends Application {
             newVote.put("VoterID", voterID);
             newVote.put("PostID", postID);
             newVote.put("LobbyID", lobbyID);
-            newVote.put("AuthID", authID);
             newVote.saveInBackground();
 
 
