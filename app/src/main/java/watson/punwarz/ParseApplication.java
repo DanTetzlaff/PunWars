@@ -355,22 +355,19 @@ public class ParseApplication extends Application {
         query.whereEqualTo("PostID", postID);
         try {
             query.getFirst();
-            result = true;
-        } catch (ParseException p) {
             result = false;
+        } catch (ParseException p) {
+            result = true;
         }
     return result;
     }
 
 
     //User votes for a post, incrementing the post score, creators score, and creates vote record
-    public int voteOnPost(String voterID, String postID, String lobbyID) {
+    public void voteOnPost(String voterID, String postID, String lobbyID) {
         int result;
 
-        if(voterOwnsPost(voterID, postID)){result = 0;}
-        else if(voterHasAlreadyVoted(voterID, postID)){result = 1;}
-        else {
-                       //Increment Post Score
+            //Increment Post Score
             ParseQuery<ParseObject> query = ParseQuery.getQuery("Posts");
             query.getInBackground(postID, new GetCallback<ParseObject>() {
                 public void done(ParseObject post, ParseException e) {
@@ -406,13 +403,9 @@ public class ParseApplication extends Application {
             newVote.put("PostID", postID);
             newVote.put("LobbyID", lobbyID);
             newVote.saveInBackground();
-            result = 2;
-        }
 
-      return result;
-        //return 0 = voter owned post
-        //return 1 = voter already voted
-        //return 2 = vote occurred
+
+        //nothing happens if the IF statement wasn't true
     }
 
 
