@@ -77,7 +77,7 @@ public class Puns extends Page
     {
         PunModel tempValues = (PunModel) CustomListViewValuesArr.get(position);
         
-        parse.voteOnPost(tempValues.getPunAuth(),tempValues.getPunID(), lobbyID);
+        parse.voteOnPost(tempValues.getPunAuthID(),tempValues.getPunID(), lobbyID);
         Toast.makeText(getApplicationContext(), "Vote received!", Toast.LENGTH_SHORT).show();
 
     }
