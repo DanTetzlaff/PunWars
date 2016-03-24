@@ -76,8 +76,8 @@ public class Puns extends Page
     public void onItemClick(int position)
     {
         PunModel tempValues = (PunModel) CustomListViewValuesArr.get(position);
-
-        parse.voteOnPost(com.facebook.Profile.getCurrentProfile().getId(), tempValues.getPunID(), lobbyID, tempValues.getPunAuthID());
+        
+        parse.voteOnPost(tempValues.getPunAuthID(),tempValues.getPunID(), lobbyID);
         Toast.makeText(getApplicationContext(), "Vote received!", Toast.LENGTH_SHORT).show();
 
     }
@@ -92,10 +92,10 @@ public class Puns extends Page
             final PunModel sched = new PunModel();
 
                 sched.setPunID(current.get(2));
-            sched.setPunAuth("By: " + current.get(1));
-            sched.setPun(current.get(0));
-            sched.setPunVotes("num " + i + lobbyID);
-            sched.setPunAuthID(current.get(3));
+                sched.setPunAuth("By: " + current.get(1));
+                sched.setPun(current.get(0));
+                sched.setPunVotes("num " + i + lobbyID);
+                sched.setPunAuthID(current.get(3));
 
             CustomListViewValuesArr.add(sched);
         }
