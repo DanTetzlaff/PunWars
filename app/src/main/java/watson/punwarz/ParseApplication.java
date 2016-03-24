@@ -205,10 +205,10 @@ public class ParseApplication extends Application {
 
         ParseQuery<ParseObject> themes = ParseQuery.getQuery("Posts");
         themes.whereEqualTo("LobbyID", themeID);
-        themes.addAscendingOrder("Score");
+        themes.addDescendingOrder("Score");
         try {
            ParseObject top = themes.getFirst();
-            result = "The top pun is: " + top.getString("Pun");
+            result = "Top Pun: " + top.getString("Pun");
         }
         catch (ParseException e){}
 
