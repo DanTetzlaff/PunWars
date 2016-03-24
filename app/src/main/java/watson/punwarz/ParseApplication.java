@@ -286,23 +286,42 @@ public class ParseApplication extends Application {
     }
 
     //Checks to see if a given user has voted on a given post already and returns a boolean.
-    public boolean votedOnPost(String userID, String postID){
-        boolean hasVoted = false;
+    public boolean canVoteOn(String voterID, String postID, String lobbyID){
+        boolean canVote = false;
+        String lobbyCreatorID = "";
 
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("Votes");
-        query.whereEqualTo("VoterID", userID);
-        query.whereEqualTo("PostID", postID);
+        //Pull the ID of the lobby creator
+        ParseQuery<ParseObject> checkOwner = ParseQuery.getQuery("Lobby");
         try {
-            query.getFirst();
-            hasVoted = true;
-        } catch (ParseException p){
-            hasVoted = false;
+            ParseObject lobby = checkOwner.get(lobbyID);
+            lobbyCreatorID = lobby.getString("UserID");
         }
-        return hasVoted;
+        catch (ParseException p){
+
+        }
+
+        //Checks if the lobbyCreatorID is the same as the voterID.
+        //Sets false if true, as the voter cannot vote on their own lobby.
+        if(lobbyCreatorID.equals(voterID)) {
+            canVote = false;
+        }
+        else {
+
+            ParseQuery<ParseObject> query = ParseQuery.getQuery("Votes");
+            query.whereEqualTo("VoterID", voterID);
+            query.whereEqualTo("PostID", postID);
+            try {
+                query.getFirst();
+                canVote = true;
+            } catch (ParseException p) {
+                canVote = false;
+            }
+        }
+        return canVote;
     }
 
     //User votes for a post, incrementing the post score, creators score, and creates vote record
-    public void voteOnPost(String voterID, String postID){
+    public void voteOnPost(String voterID, String postID, String lobbyID){
 
         //Increment Post Score
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Posts");
