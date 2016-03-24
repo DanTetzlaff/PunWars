@@ -287,81 +287,77 @@ public class ParseApplication extends Application {
     }
 
     //Checks to see if a given user has voted on a given post already and returns a boolean.
-    public boolean canVoteOn(String voterID, String postID, String lobbyID){
+    private boolean canVoteOn(String voterID, String postID){
         boolean canVote = false;
-        String lobbyCreatorID = "";
+        String postOwnerID;
 
-        //Pull the ID of the lobby creator
-        ParseQuery<ParseObject> checkOwner = ParseQuery.getQuery("Lobby");
-        try {
-            ParseObject lobby = checkOwner.get(lobbyID);
-            lobbyCreatorID = lobby.getString("UserID");
-        }
-        catch (ParseException p){
-
-        }
-
-        //Checks if the lobbyCreatorID is the same as the voterID.
-        //Sets false if true, as the voter cannot vote on their own lobby.
-        if(lobbyCreatorID.equals(voterID)) {
-            canVote = false;
-        }
-        else {
-
-            ParseQuery<ParseObject> query = ParseQuery.getQuery("Votes");
-            query.whereEqualTo("VoterID", voterID);
-            query.whereEqualTo("PostID", postID);
+            ParseQuery<ParseObject> postOwner = ParseQuery.getQuery("Posts");
             try {
-                query.getFirst();
-                canVote = true;
-            } catch (ParseException p) {
-                canVote = false;
+            ParseObject lobby = postOwner.get(postID);
+                postOwnerID = lobby.getString("UserID");
+             }
+            catch (ParseException p){ postOwnerID = "";}
+
+            if(postOwnerID.equals(voterID)) //voter is post creator, do not allow vote
+            {canVote = false;}
+            else {
+                ParseQuery<ParseObject> query = ParseQuery.getQuery("Votes");
+                query.whereEqualTo("VoterID", voterID);
+                query.whereEqualTo("PostID", postID);
+                try {
+                    query.getFirst();
+                    canVote = false;
+                } catch (ParseException p) {
+                    canVote = true;
+                }
             }
-        }
+
         return canVote;
     }
 
     //User votes for a post, incrementing the post score, creators score, and creates vote record
-    public void voteOnPost(String voterID, String postID, String lobbyID){
+    public void voteOnPost(String voterID, String postID, String lobbyID) {
 
-        //Increment Post Score
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("Posts");
-        query.getInBackground(postID, new GetCallback<ParseObject>() {
-            public void done(ParseObject post, ParseException e) {
-                if (e == null) {
-                    post.increment("Score");
-                    post.saveInBackground();
+        if (canVoteOn(voterID, postID)) {
+            //Increment Post Score
+            ParseQuery<ParseObject> query = ParseQuery.getQuery("Posts");
+            query.getInBackground(postID, new GetCallback<ParseObject>() {
+                public void done(ParseObject post, ParseException e) {
+                    if (e == null) {
+                        post.increment("Score");
+                        post.saveInBackground();
 
-                    String creatorID = post.getString("UserID");
+                        String creatorID = post.getString("UserID");
 
-                    //Increment score of posts creator
-                    //Start of nested query
-                    ParseQuery<ParseObject> query2 = ParseQuery.getQuery("Users");
-                    query2.getInBackground(creatorID, new GetCallback<ParseObject>() {
-                        public void done(ParseObject user, ParseException e) {
-                            if (e == null) {
-                                user.increment("Score");
-                                user.saveInBackground();
-                            }
-                                 else {
-                                     //should never hit here
-                                    }
+                        //Increment score of posts creator
+                        //Start of nested query
+                        ParseQuery<ParseObject> query2 = ParseQuery.getQuery("Users");
+                        query2.getInBackground(creatorID, new GetCallback<ParseObject>() {
+                            public void done(ParseObject user, ParseException e) {
+                                if (e == null) {
+                                    user.increment("Score");
+                                    user.saveInBackground();
+                                } else {
+                                    //should never hit here
+                                }
                             }
                         });
-                     //end of nested query
+                        //end of nested query
+                    } else {
+                        //should never hit here
+                    }
                 }
-                else {
-                //should never hit here
-                }
+            });
+
+            //creates record of vote
+            ParseObject newVote = new ParseObject("Votes");
+            newVote.put("VoterID", voterID);
+            newVote.put("PostID", postID);
+            newVote.put("LobbyID", lobbyID);
+            newVote.saveInBackground();
+
         }
-    });
-
-        //creates record of vote
-        ParseObject newVote = new ParseObject("Votes");
-        newVote.put("VoterID", voterID);
-        newVote.put("PostID", postID);
-        newVote.saveInBackground();
-
+        //nothing happens if the IF statement wasn't true
     }
 
 }
