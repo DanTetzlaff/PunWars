@@ -16,11 +16,11 @@
                 android:id="@+id/votePun"
                 android:layout_height="30dp"
                 android:layout_width="30dp"
-                android:src="@drawable/uparrow"
+                android:background="@drawable/uparrow"
                 android:gravity="right"
                 android:layout_span="2"
                 android:layout_margin="5dp"
-                android:onClick="upVote"/>
+                android:clickable="true"/>
         </LinearLayout>
     </TableRow>
     <TableRow>

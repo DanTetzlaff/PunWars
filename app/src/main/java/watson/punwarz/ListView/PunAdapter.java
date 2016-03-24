@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import watson.punwarz.Lobby;
@@ -19,7 +21,7 @@ import java.util.ArrayList;
 /**
  * Created by Dan on 2016-03-01.
  */
-public class PunAdapter extends BaseAdapter {
+public class PunAdapter extends BaseAdapter implements View.OnClickListener{
 
     private Activity activity;
     private ArrayList data;
@@ -53,7 +55,9 @@ public class PunAdapter extends BaseAdapter {
 
     }
 
-    public void upVote(View v){
+    @Override
+    public void onClick(View v)
+    {
         Log.v("CustomAdapter", "=-=-=Row button clicked=-=-=");
     }
 
@@ -67,15 +71,15 @@ public class PunAdapter extends BaseAdapter {
         @Override
         public void onClick(View arg0){
 
-            Puns sct = (Puns)activity;
-
-            sct.onItemClick(mPosition);
+            Puns pn = (Puns) activity;
+            pn.onItemClick(mPosition);
         }
     }
 
     public View getView(int position, View convertView, ViewGroup parent){
         View vi = convertView;
         ViewHolder holder;
+
 
         if(convertView==null){
             vi = inflater.inflate(R.layout.punitem, null);
@@ -84,7 +88,6 @@ public class PunAdapter extends BaseAdapter {
             holder.punAuthText = (TextView) vi.findViewById(R.id.punAuth);
             holder.punText = (TextView) vi.findViewById(R.id.pun);
             holder.punVotesText = (TextView) vi.findViewById(R.id.punVotes);
-
             vi.setTag( holder );
         }
         else {
@@ -104,6 +107,7 @@ public class PunAdapter extends BaseAdapter {
             holder.punText.setText( tempValues.getPun() );
             holder.punVotesText.setText( tempValues.getPunVotes() );
 
+            vi.findViewById(R.id.votePun).setOnClickListener(new OnItemClickListener(position));
         }
 
         return vi;

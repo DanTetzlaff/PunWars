@@ -14,6 +14,7 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import watson.punwarz.ListView.PunAdapter;
 import watson.punwarz.ListView.PunModel;
@@ -74,9 +75,10 @@ public class Puns extends Page
 
     public void onItemClick(int position)
     {
-        PunModel tempValues = (PunModel)CustomListViewValuesArr.get(position);
+        PunModel tempValues = (PunModel) CustomListViewValuesArr.get(position);
         
         parse.voteOnPost(tempValues.getPunAuth(),tempValues.getPunID(), lobbyID);
+        Toast.makeText(getApplicationContext(), "Vote received!", Toast.LENGTH_SHORT).show();
 
     }
 
