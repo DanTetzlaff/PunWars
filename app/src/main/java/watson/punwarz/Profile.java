@@ -66,14 +66,38 @@ public class Profile extends Page
     private void setRank(){
         String rank;
 
-        if (userPoints < 10){
+        if (userPoints < 30){
             rank = "Punching Bag";
         }
-        else if (userPoints < 30){
+        else if (userPoints < 60){
+            rank = "Pun'kd";
+        }
+        else if (userPoints < 100){
             rank = "Depundable";
         }
-        else if (userPoints < 75){
+        else if (userPoints < 140){
+            rank = "Pungent";
+        }
+        else if (userPoints < 190){
+            rank = "Puntagon";
+        }
+        else if (userPoints < 240){
+            rank = "Punny";
+        }
+        else if (userPoints < 300){
+            rank = "Punctual";
+        }
+        else if (userPoints < 360){
+            rank = "Puntastic";
+        }
+        else if (userPoints < 430){
+            rank = "Punchier";
+        }
+        else if (userPoints < 500){
             rank = "Punderful";
+        }
+        else if (userPoints < 580){
+            rank = "Cyberpun";
         }
         else {
             rank = "Punisher";
