@@ -355,17 +355,20 @@ public class ParseApplication extends Application {
         query.whereEqualTo("PostID", postID);
         try {
             query.getFirst();
-            result = false;
-        } catch (ParseException p) {
             result = true;
+        } catch (ParseException p) {
+            result = false;
         }
     return result;
     }
 
 
     //User votes for a post, incrementing the post score, creators score, and creates vote record
-    public void voteOnPost(String voterID, String postID, String lobbyID, String authID) {
+    public int voteOnPost(String voterID, String postID, String lobbyID, String authID) {
         int result;
+        if(voterOwnsPost(voterID, postID)){result = 0;}
+        else if (voterHasAlreadyVoted(voterID, postID)){result = 1;}
+        else {
 
             //Increment Post Score
             ParseQuery<ParseObject> query = ParseQuery.getQuery("Posts");
@@ -405,8 +408,13 @@ public class ParseApplication extends Application {
             newVote.put("AuthID", authID);
             newVote.saveInBackground();
 
+            result = 2;
+        }
 
-        //nothing happens if the IF statement wasn't true
+        return result;
+        //result 0 = voter owned post being voted on
+        //result 1 = voter already voted on post
+        //result 2 = vote successful.
     }
 
 
