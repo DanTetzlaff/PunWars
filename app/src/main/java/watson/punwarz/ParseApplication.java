@@ -370,25 +370,9 @@ public class ParseApplication extends Application {
         else if (voterHasAlreadyVoted(voterID, postID)){result = 1;}
         else {
 
-            //Increment Post Score
-            ParseQuery<ParseObject> query = ParseQuery.getQuery("Posts");
-            query.whereEqualTo("ObjectID", postID);
-            try {
-                ParseObject post = query.getFirst();
-                post.increment("Score");
-                post.save();
-            }
-            catch (ParseException e){}
+            incrementPostScore(postID);
+            incrementUserScore(authID);
 
-
-            ParseQuery<ParseObject> query2 = ParseQuery.getQuery("Users");
-            query2.whereEqualTo("UserID", authID);
-            try {
-                ParseObject user = query.getFirst();
-                user.increment("Score");
-                user.save();
-            }
-            catch (ParseException e){}
 
             //creates record of vote
             ParseObject newVote = new ParseObject("Votes");
@@ -407,5 +391,31 @@ public class ParseApplication extends Application {
         //result 2 = vote successful.
     }
 
+    private void incrementPostScore(String postID){
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Posts");
+        query.whereEqualTo("objectId", postID);
+        try {
+            ParseObject post = query.getFirst();
+            post.increment("Score");
+            post.saveInBackground();
+        }
+        catch (ParseException e) {}
+
+
+    }
+
+    private void incrementUserScore(String authID){
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Users");
+        query.whereEqualTo("UserID", authID);
+        try {
+            ParseObject user = query.getFirst();
+            user.increment("Score");
+            user.saveInBackground();
+        }
+        catch (ParseException e) {}
+
+
+
+    }
 
 }
