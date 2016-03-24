@@ -77,8 +77,17 @@ public class Puns extends Page
     {
         PunModel tempValues = (PunModel) CustomListViewValuesArr.get(position);
         
-        parse.voteOnPost(com.facebook.Profile.getCurrentProfile().getId(),tempValues.getPunID(), lobbyID, tempValues.getPunAuthID());
-        Toast.makeText(getApplicationContext(), "Vote received!", Toast.LENGTH_SHORT).show();
+        int res = parse.voteOnPost(com.facebook.Profile.getCurrentProfile().getId(),tempValues.getPunID(), lobbyID, tempValues.getPunAuthID());
+        switch(res)
+        {
+            case 0: Toast.makeText(getApplicationContext(), "Vote failed. You can't vote on your own pun.", Toast.LENGTH_SHORT).show();
+                break;
+            case 1: Toast.makeText(getApplicationContext(), "You have already voted for this pun.", Toast.LENGTH_SHORT).show();
+                break;
+            case 2: Toast.makeText(getApplicationContext(), "Vote received!", Toast.LENGTH_SHORT).show();
+                break;
+            default:break;
+        }
 
     }
 
