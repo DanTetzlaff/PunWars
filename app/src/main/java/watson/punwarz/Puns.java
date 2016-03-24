@@ -95,6 +95,7 @@ public class Puns extends Page
                 sched.setPunAuth("By: " + current.get(1));
                 sched.setPun(current.get(0));
                 sched.setPunVotes("num " + i + lobbyID);
+                sched.setPunAuthID(current.get(3));
 
             CustomListViewValuesArr.add(sched);
         }

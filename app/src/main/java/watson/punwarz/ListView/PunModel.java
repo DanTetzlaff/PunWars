@@ -6,6 +6,7 @@ package watson.punwarz.ListView;
 public class PunModel {
 
     private String punAuth="";
+    private String punAuthID="";
     private String pun="";
     private String punID="";
     private String punVotes;
@@ -20,6 +21,8 @@ public class PunModel {
 
     public void setPunID(String punID) { this.punID = punID; }
 
+    public void setPunAuthID(String punAuthID) { this.punAuthID = punAuthID; }
+
     /** Getter Methods **/
 
     public String getPunAuth() { return this.punAuth; }
@@ -29,4 +32,6 @@ public class PunModel {
     public String getPunVotes() { return this.punVotes; }
 
     public String getPunID() { return this.punID; }
+
+    public String getPunAuthID() { return this.punAuthID; }
 }

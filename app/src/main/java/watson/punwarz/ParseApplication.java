@@ -263,6 +263,7 @@ public class ParseApplication extends Application {
                     singlePun.add(cur.getString("Pun"));
                     singlePun.add(getUserName(cur.getString("UserID")));
                     singlePun.add(cur.getObjectId());
+                    singlePun.add(cur.getString("UserID"));
                     puns.add(singlePun);
                 }
         } catch (ParseException e) {
