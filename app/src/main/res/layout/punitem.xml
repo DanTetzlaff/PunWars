@@ -23,19 +23,17 @@
                 android:clickable="true"/>
         </LinearLayout>
     </TableRow>
-    <TableRow>
+    <TableRow
+        android:layout_marginTop="5dp">
         <TextView
             android:id="@+id/punAuth"
             android:padding="3dip"
             />
-
-    </TableRow>
-    <TableRow>
         <TextView
+            android:layout_marginRight="15dp"
             android:id="@+id/punVotes"
-            android:padding="3dip"
             android:gravity="right"
-            android:layout_span="2"
+            android:text='0'
             />
     </TableRow>
 

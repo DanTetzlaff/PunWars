@@ -85,6 +85,8 @@ public class Puns extends Page
             case 1: Toast.makeText(getApplicationContext(), "You have already voted for this pun.", Toast.LENGTH_SHORT).show();
                 break;
             case 2: Toast.makeText(getApplicationContext(), "Vote received!", Toast.LENGTH_SHORT).show();
+                    tempValues.setPunVotes(Integer.toString(Integer.valueOf(tempValues.getPunVotes()) + 1));
+                    adapter.notifyDataSetChanged();
                 break;
             default:break;
         }
@@ -101,10 +103,11 @@ public class Puns extends Page
             final PunModel sched = new PunModel();
 
                 sched.setPunID(current.get(2));
-            sched.setPunAuth("By: " + current.get(1));
-            sched.setPun(current.get(0));
-            sched.setPunVotes("num " + i + lobbyID);
+                sched.setPunAuth("By: " + current.get(1));
+                sched.setPun(current.get(0));
+                sched.setPunVotes(current.get(4));
                 sched.setPunAuthID(current.get(3));
+
 
             CustomListViewValuesArr.add(sched);
         }

@@ -201,7 +201,7 @@ public class ParseApplication extends Application {
     }
 
     public String getTopPun (String themeID){
-        String result = "Lobby is Empty";
+        String result = "Lobby Has No Top Pun Yet";
 
         ParseQuery<ParseObject> themes = ParseQuery.getQuery("Posts");
         themes.whereEqualTo("LobbyID", themeID);
@@ -254,7 +254,8 @@ public class ParseApplication extends Application {
 
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Posts");
         query.whereEqualTo("LobbyID", lobbyID);
-
+        query.addDescendingOrder("Score");
+        query.addAscendingOrder("createdAt");
         try {
                 list = query.find();
 
@@ -265,6 +266,7 @@ public class ParseApplication extends Application {
                     singlePun.add(getUserName(cur.getString("UserID")));
                     singlePun.add(cur.getObjectId());
                     singlePun.add(cur.getString("UserID"));
+                    singlePun.add(Integer.toString(cur.getNumber("Score").intValue()));
                     puns.add(singlePun);
                 }
         } catch (ParseException e) {

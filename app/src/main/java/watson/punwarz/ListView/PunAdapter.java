@@ -97,6 +97,7 @@ public class PunAdapter extends BaseAdapter implements View.OnClickListener{
         if(data.size()<=0)
         {
             holder.punText.setText("No Data");
+            vi.findViewById(R.id.votePun).setVisibility(View.GONE);
         }
         else
         {
