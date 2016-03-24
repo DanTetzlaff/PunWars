@@ -298,6 +298,7 @@ public class ParseApplication extends Application {
         clearTempVars();
     }
 
+    /*
     //Checks to see if a given user has voted on a given post already and returns a boolean.
     private boolean canVoteOn(String voterID, String postID){
         boolean canVote = false;
@@ -326,11 +327,46 @@ public class ParseApplication extends Application {
 
         return canVote;
     }
+    */
+
+    public boolean voterOwnsPost(String voterID, String postID){
+        boolean result;
+        String postOwnerID;
+
+        ParseQuery<ParseObject> postOwner = ParseQuery.getQuery("Posts");
+        try {
+            ParseObject lobby = postOwner.get(postID);
+            postOwnerID = lobby.getString("UserID");
+        }
+        catch (ParseException p){ postOwnerID = "";}
+
+        if(postOwnerID.equals(voterID)) //voter is post creator, do not allow vote
+        {result = true;}
+        else {result = false;}
+
+        return result;
+    }
+
+    public boolean voterHasAlreadyVoted(String voterID, String postID) {
+        boolean result;
+
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Votes");
+        query.whereEqualTo("VoterID", voterID);
+        query.whereEqualTo("PostID", postID);
+        try {
+            query.getFirst();
+            result = false;
+        } catch (ParseException p) {
+            result = true;
+        }
+    return result;
+    }
+
 
     //User votes for a post, incrementing the post score, creators score, and creates vote record
     public void voteOnPost(String voterID, String postID, String lobbyID) {
+        int result;
 
-        if (canVoteOn(voterID, postID)) {
             //Increment Post Score
             ParseQuery<ParseObject> query = ParseQuery.getQuery("Posts");
             query.getInBackground(postID, new GetCallback<ParseObject>() {
@@ -368,7 +404,7 @@ public class ParseApplication extends Application {
             newVote.put("LobbyID", lobbyID);
             newVote.saveInBackground();
 
-        }
+
         //nothing happens if the IF statement wasn't true
     }
 
