@@ -201,7 +201,18 @@ public class ParseApplication extends Application {
     }
 
     public String getTopPun (String themeID){
-        return "This is top pun for " + themeID;
+        String result = "Lobby is Empty";
+
+        ParseQuery<ParseObject> themes = ParseQuery.getQuery("Posts");
+        themes.whereEqualTo("LobbyID", themeID);
+        themes.addAscendingOrder("Score");
+        try {
+           ParseObject top = themes.getFirst();
+            result = "The top pun is: " + top.getString("Pun");
+        }
+        catch (ParseException e){}
+
+        return result;
     }
 
     public int countThemes(){
@@ -359,5 +370,6 @@ public class ParseApplication extends Application {
         }
         //nothing happens if the IF statement wasn't true
     }
+
 
 }
