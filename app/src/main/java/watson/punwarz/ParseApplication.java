@@ -372,33 +372,23 @@ public class ParseApplication extends Application {
 
             //Increment Post Score
             ParseQuery<ParseObject> query = ParseQuery.getQuery("Posts");
-            query.getInBackground(postID, new GetCallback<ParseObject>() {
-                public void done(ParseObject post, ParseException e) {
-                    if (e == null) {
-                        post.increment("Score");
-                        post.saveInBackground();
+            query.whereEqualTo("ObjectID", postID);
+            try {
+                ParseObject post = query.getFirst();
+                post.increment("Score");
+                post.save();
+            }
+            catch (ParseException e){}
 
-                        String creatorID = post.getString("UserID");
 
-                        //Increment score of posts creator
-                        //Start of nested query
-                        ParseQuery<ParseObject> query2 = ParseQuery.getQuery("Users");
-                        query2.getInBackground(creatorID, new GetCallback<ParseObject>() {
-                            public void done(ParseObject user, ParseException e) {
-                                if (e == null) {
-                                    user.increment("Score");
-                                    user.saveInBackground();
-                                } else {
-                                    //should never hit here
-                                }
-                            }
-                        });
-                        //end of nested query
-                    } else {
-                        //should never hit here
-                    }
-                }
-            });
+            ParseQuery<ParseObject> query2 = ParseQuery.getQuery("Users");
+            query2.whereEqualTo("UserID", authID);
+            try {
+                ParseObject user = query.getFirst();
+                user.increment("Score");
+                user.save();
+            }
+            catch (ParseException e){}
 
             //creates record of vote
             ParseObject newVote = new ParseObject("Votes");
