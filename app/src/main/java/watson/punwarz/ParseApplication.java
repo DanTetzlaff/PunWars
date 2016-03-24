@@ -206,6 +206,7 @@ public class ParseApplication extends Application {
         ParseQuery<ParseObject> themes = ParseQuery.getQuery("Posts");
         themes.whereEqualTo("LobbyID", themeID);
         themes.addDescendingOrder("Score");
+        themes.addAscendingOrder("createdAt");
         try {
            ParseObject top = themes.getFirst();
             result = "Top Pun: " + top.getString("Pun");
