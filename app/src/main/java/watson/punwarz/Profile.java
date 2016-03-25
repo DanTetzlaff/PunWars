@@ -6,15 +6,14 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import watson.punwarz.ImageView.RoundedImageView;
-import watson.punwarz.ListView.CustomAdapter;
+import watson.punwarz.ListView.CustomThemeAdapter;
 import watson.punwarz.ListView.ListModel;
-import watson.punwarz.ListView.PunAdapter;
 import watson.punwarz.ListView.PunModel;
+import watson.punwarz.ListView.UserPunAdapter;
 
 import com.facebook.FacebookSdk;
 
@@ -41,8 +40,8 @@ public class Profile extends Page
 
     ListView themeList;
     ListView punList;
-    CustomAdapter themeAdapter;
-    PunAdapter punAdapter;
+    CustomThemeAdapter themeAdapter;
+    UserPunAdapter punAdapter;
 
     public Profile CustomListView = null;
     public ArrayList<ListModel> CustomListViewValuesArrTheme = new ArrayList<ListModel>();
@@ -83,10 +82,10 @@ public class Profile extends Page
         themeList = ( ListView )findViewById( R.id.user_themes_list );
         punList = ( ListView )findViewById( R.id.user_puns_list );
 
-        themeAdapter = new CustomAdapter( CustomListView, CustomListViewValuesArrTheme, res);
+        themeAdapter = new CustomThemeAdapter( CustomListView, CustomListViewValuesArrTheme, res);
         themeList.setAdapter( themeAdapter );
 
-        punAdapter = new PunAdapter( CustomListView, CustomListViewValuesArrPun, res);
+        punAdapter = new UserPunAdapter( CustomListView, CustomListViewValuesArrPun, res);
         punList.setAdapter( punAdapter );
     }
 
@@ -190,7 +189,7 @@ public class Profile extends Page
 
                 sched.setPun(current.get(0));
                 sched.setPunVotes(current.get(1));
-                sched.setThemeID(current.get(2));
+                sched.setThemeTitle(current.get(2));
 
             CustomListViewValuesArrPun.add( sched );
         }

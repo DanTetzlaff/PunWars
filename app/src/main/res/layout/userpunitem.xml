@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:stretchColumns="1"
+    android:paddingBottom="5dp">
+
+    <TableRow>
+        <TextView
+            android:id="@+id/pun"
+            android:padding="3dip"
+            android:maxEms="15"
+            />
+    </TableRow>
+    <TableRow
+        android:layout_marginTop="5dp">
+        <TextView
+            android:id="@+id/punTitle"
+            android:padding="3dip"
+            />
+        <TextView
+            android:layout_marginRight="15dp"
+            android:id="@+id/punVotes"
+            android:gravity="right"
+            android:text='0'
+            />
+    </TableRow>
+
+</TableLayout>

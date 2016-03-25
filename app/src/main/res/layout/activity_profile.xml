@@ -23,7 +23,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/name"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="15dp"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -32,7 +32,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/pts"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="10dp"/>
+        android:layout_marginTop="5dp"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -40,7 +40,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/rnk"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="10dp"/>
+        android:layout_marginTop="5dp"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -48,26 +48,35 @@
         android:id="@+id/themes"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/themes"
-        android:layout_marginTop="30dp"/>
-
+        android:layout_marginTop="5dp"/>
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginRight="10dp">
     <ListView
         android:id="@+id/user_themes_list"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"/>
-
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/themes"/>
+</ScrollView>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/puns"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/puns"
-        android:layout_marginTop="30dp"/>
+        android:layout_marginTop="5dp"/>
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="10dp"
+        android:paddingBottom="10dp">
     <ListView
         android:id="@+id/user_puns_list"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"/>
-
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/puns"
+        />
+    </ScrollView>
 </LinearLayout>

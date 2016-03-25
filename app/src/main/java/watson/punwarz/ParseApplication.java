@@ -329,7 +329,7 @@ public class ParseApplication extends Application {
 
                 singlePun.add(cur.getString("Pun"));
                 singlePun.add(Integer.toString(cur.getNumber("Score").intValue()));
-                singlePun.add(cur.getString("LobbyID"));
+                singlePun.add(getLobbyTitle(cur.getString("LobbyID")));
 
                 puns.add(singlePun);
             }
@@ -339,6 +339,22 @@ public class ParseApplication extends Application {
         }
 
         return puns;
+    }
+
+    public String getLobbyTitle(String lobbyID) {
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Lobby");
+        ParseObject result;
+        String title="";
+        query.whereEqualTo("objectId", lobbyID);
+        try {
+            result = query.getFirst();
+            title = result.getString("Theme");
+
+        } catch (ParseException e) {
+            Log.d("PARSE ERROR", "-Error retrieving theme title-");
+        }
+
+        return title;
     }
 
     //checks if a lobby with an existing prompt description already exists. currently not case sensitive

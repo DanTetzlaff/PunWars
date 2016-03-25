@@ -10,7 +10,7 @@ public class PunModel {
     private String pun="";
     private String punID="";
     private String punVotes;
-    private String themeID="";
+    private String themeTitle="";
 
     /** Setter Methods **/
 
@@ -24,7 +24,7 @@ public class PunModel {
 
     public void setPunAuthID(String punAuthID) { this.punAuthID = punAuthID; }
 
-    public void setThemeID(String themeID) { this.themeID = themeID; }
+    public void setThemeTitle(String themeTitle) { this.themeTitle = themeTitle; }
 
     /** Getter Methods **/
 
@@ -38,5 +38,5 @@ public class PunModel {
 
     public String getPunAuthID() { return this.punAuthID; }
 
-    public String getThemeID() { return this.themeID; }
+    public String getThemeTitle() { return this.themeTitle; }
 }

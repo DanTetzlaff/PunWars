@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:stretchColumns="1">
+
+    <TableRow>
+        <TextView
+            android:id="@+id/lobbyTitle"
+            android:padding="3dip"
+            />
+        <TextView
+            android:id="@+id/expireDate"
+            android:padding="3dip"
+            android:gravity="right"
+            />
+    </TableRow>
+    <TableRow>
+        <TextView
+            android:id="@+id/lobbyDes"
+            android:padding="3dip"
+            android:maxEms="15"
+            android:maxLines="1"
+            android:ellipsize="marquee"
+            />
+    </TableRow>
+    <TableRow android:layout_gravity="center_horizontal">
+        <TextView
+            android:id="@+id/topPun"
+            android:padding="3dip"
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:layout_span="2"
+            android:maxEms="14"
+            android:maxLines="1"
+            android:ellipsize="marquee"
+            />
+    </TableRow>
+
+</TableLayout>
