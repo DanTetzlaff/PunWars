@@ -3,12 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:stretchColumns="1"
-    android:paddingBottom="5dp">
+    android:paddingBottom="10dp">
 
     <TableRow>
         <TextView
             android:id="@+id/pun"
-            android:padding="3dip"
+            android:padding="3dp"
             android:maxEms="15"
             />
     </TableRow>
@@ -16,7 +16,7 @@
         android:layout_marginTop="5dp">
         <TextView
             android:id="@+id/punTitle"
-            android:padding="3dip"
+            android:paddingLeft="3dp"
             />
         <TextView
             android:layout_marginRight="15dp"

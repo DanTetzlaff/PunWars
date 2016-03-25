@@ -4,8 +4,10 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -74,9 +76,9 @@ public class Profile extends Page
         setRank();
         setProfilePic();
 
-        setThemeList();
+        new SetThemeList().execute(userID);
 
-        setPunList();
+        new SetPunList().execute(userID);
 
         Resources res = getResources();
         themeList = ( ListView )findViewById( R.id.user_themes_list );
@@ -86,7 +88,7 @@ public class Profile extends Page
         themeList.setAdapter( themeAdapter );
 
         punAdapter = new UserPunAdapter( CustomListView, CustomListViewValuesArrPun, res);
-        punList.setAdapter( punAdapter );
+        punList.setAdapter(punAdapter);
     }
 
     private void setName(){
@@ -164,34 +166,63 @@ public class Profile extends Page
         }).start();
     }
 
-    private void setThemeList(){
-        ArrayList<ArrayList<String>> themes = parse.getUserThemes(userID);
+    private class SetThemeList extends AsyncTask<String, Integer, Long> {
+        @Override
+        protected Long doInBackground(String... userID) {
+            /*try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+            } */ // Sleep to test loading spinner
 
-        for (int i = 0; i < themes.size(); i++) {
-            ArrayList<String> current = themes.get(i);
-            final ListModel sched = new ListModel();
+            ArrayList<ArrayList<String>> themes = parse.getUserThemes(userID[0]);
+
+            for (int i = 0; i < themes.size(); i++) {
+                ArrayList<String> current = themes.get(i);
+                final ListModel sched = new ListModel();
 
                 sched.setLobbyTitle(current.get(0));
                 sched.setExpireDate(current.get(1));
                 sched.setLobbyDes(current.get(2));
                 sched.setTopPun(current.get(3));
 
-            CustomListViewValuesArrTheme.add( sched );
+                CustomListViewValuesArrTheme.add(sched);
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Long result) {
+            findViewById(R.id.themeProgressBar).setVisibility(View.INVISIBLE);
+            themeAdapter.notifyDataSetChanged();
         }
     }
 
-    private void setPunList(){
-        ArrayList<ArrayList<String>> puns = parse.getUserPuns(userID);
+    private class SetPunList extends AsyncTask<String, Integer, Long> {
+        @Override
+        protected Long doInBackground(String... userID) {
+            /*try {
+                Thread.sleep(3000);
+            } catch (InterruptedException e) {
+            }*/ // Sleep to test loading spinner
 
-        for (int i = 0; i < puns.size(); i++) {
-            ArrayList<String> current = puns.get(i);
-            final PunModel sched = new PunModel();
+            ArrayList<ArrayList<String>> puns = parse.getUserPuns(userID[0]);
+
+            for (int i = 0; i < puns.size(); i++) {
+                ArrayList<String> current = puns.get(i);
+                final PunModel sched = new PunModel();
 
                 sched.setPun(current.get(0));
                 sched.setPunVotes(current.get(1));
                 sched.setThemeTitle(current.get(2));
 
-            CustomListViewValuesArrPun.add( sched );
+                CustomListViewValuesArrPun.add(sched);
+            }
+            return null;
+        }
+        @Override
+        protected void onPostExecute(Long result) {
+            findViewById(R.id.punProgressBar).setVisibility(View.INVISIBLE);
+            punAdapter.notifyDataSetChanged();
         }
     }
 
