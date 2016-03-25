@@ -87,7 +87,12 @@ public class AddPun extends AddTitle
 
         Toast.makeText(getApplicationContext(), "Pun added Successfully!", Toast.LENGTH_SHORT).show();
         Intent i = new Intent(AddPun.this, Puns.class);
+        Intent intent = getIntent();
         i.putExtra("LOBBY_ID", lobbyID);
+        i.putExtra("THEME_TITLE", title);
+        i.putExtra("THEME_DESC", intent.getStringExtra("THEME_DESC"));
+        i.putExtra("THEME_AUTHOR", intent.getStringExtra("THEME_AUTHOR"));
+        i.putExtra("THEME_EXPIRE", intent.getStringExtra("THEME_EXPIRE"));
 
         destroyKeyboard();
         startActivity(i);

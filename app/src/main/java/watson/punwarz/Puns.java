@@ -180,6 +180,9 @@ public class Puns extends Page
         Intent i = new Intent(Puns.this, AddPun.class);
         i.putExtra(LOBBY_ID, lobbyID);
         i.putExtra("THEME_TITLE", title);
+        i.putExtra("THEME_DESC", desc);
+        i.putExtra("THEME_AUTHOR", author);
+        i.putExtra("THEME_EXPIRE", expDate);
         startActivity(i);
     }
 }
