@@ -112,7 +112,6 @@ public class Lobby extends Page
             sched.setLobbyAuthor("By: " + current.get(4));
             sched.setExpireDate(current.get(1));
             sched.setLobbyDes(current.get(2));
-            sched.setTopPun("Best Pun "+i);
             sched.setLobbyID(current.get(0));
             sched.setTopPun(current.get(5));
 

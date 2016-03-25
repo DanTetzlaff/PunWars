@@ -183,6 +183,7 @@ public class ParseApplication extends Application {
             for (int i = 0 ; i < list.size() ; i++){
                 singleTheme = new ArrayList<String>();
                 ParseObject cur = list.get(i);
+
                 singleTheme.add(cur.getObjectId());
                 singleTheme.add(format.format(cur.getDate("ExpiryDate")).toString());
                 singleTheme.add(cur.getString("Desc"));
@@ -198,6 +199,39 @@ public class ParseApplication extends Application {
         }
 
     return themes;
+    }
+
+    public ArrayList<ArrayList<String>> getUserThemes(String userID) {
+        ArrayList<ArrayList<String>> themes = new ArrayList<ArrayList<String>>();
+        ArrayList<String> singleTheme = new ArrayList<String>();
+        List<ParseObject> list;
+
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Lobby");
+        Calendar cal = Calendar.getInstance();
+
+        query.whereEqualTo("UserID", userID);
+        query.whereGreaterThanOrEqualTo("ExpiryDate", cal.getTime());
+        query.orderByAscending("ExpiryDate");
+        try {
+            list = query.find();
+
+            for (int i = 0; i < list.size(); i++) {
+                singleTheme = new ArrayList<String>();
+                ParseObject cur = list.get(i);
+
+                singleTheme.add(cur.getString("Theme"));
+                singleTheme.add(format.format(cur.getDate("ExpiryDate")).toString());
+                singleTheme.add(cur.getString("Desc"));
+                singleTheme.add(getTopPun(cur.getObjectId()));
+
+                themes.add(singleTheme);
+            }
+
+        } catch (ParseException e) {
+            Log.d("PARSE ERROR", "-Error retrieving userTheme-");
+        }
+
+        return themes;
     }
 
     public String getTopPun (String themeID){
@@ -271,6 +305,37 @@ public class ParseApplication extends Application {
                 }
         } catch (ParseException e) {
             Log.d("PARSE ERROR", "-Error retrieving puns-");
+        }
+
+        return puns;
+    }
+
+    public ArrayList<ArrayList<String>> getUserPuns(String userID) {
+        ArrayList<ArrayList<String>> puns = new ArrayList<ArrayList<String>>();
+        ArrayList<String> singlePun;
+        List<ParseObject> list;
+
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Posts");
+        query.whereEqualTo("UserID", userID);
+        query.addDescendingOrder("Score");
+        query.addAscendingOrder("createdAt");
+
+        try {
+            list = query.find();
+
+            for (int i = 0; i < list.size(); i++) {
+                singlePun = new ArrayList<String>();
+                ParseObject cur = list.get(i);
+
+                singlePun.add(cur.getString("Pun"));
+                singlePun.add(Integer.toString(cur.getNumber("Score").intValue()));
+                singlePun.add(cur.getString("LobbyID"));
+
+                puns.add(singlePun);
+            }
+
+        } catch (ParseException e) {
+            Log.d("PARSE ERROR", "-Error retrieving userPuns-");
         }
 
         return puns;
