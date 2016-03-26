@@ -19,6 +19,7 @@
     <string name="rnk">Rank: </string>
     <string name="themes">Themes: </string>
     <string name="puns">Puns: </string>
+    <string name="topPuns">Top Puns: </string>
     <string name="cancel">Cancel</string>
     <string-array name="spinner_array">
         <item>5</item>
