@@ -96,9 +96,9 @@ public class CustomThemeAdapter extends BaseAdapter implements View.OnClickListe
         }
 
         if (position % 2 == 1) {
-            vi.setBackgroundColor(Color.parseColor("#ffa147"));
-        } else {
             vi.setBackgroundColor(Color.parseColor("#d5d3d3"));
+        } else {
+            vi.setBackgroundColor(Color.parseColor("#ffa147"));
         }
 
         return vi;

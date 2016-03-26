@@ -42,12 +42,16 @@ public class Profile extends Page
 
     ListView themeList;
     ListView punList;
+    ListView topPunList;
     CustomThemeAdapter themeAdapter;
     UserPunAdapter punAdapter;
+    UserPunAdapter topPunAdapter;
+
 
     public Profile CustomListView = null;
     public ArrayList<ListModel> CustomListViewValuesArrTheme = new ArrayList<ListModel>();
     public ArrayList<PunModel> CustomListViewValuesArrPun = new ArrayList<PunModel>();
+    public ArrayList<PunModel> CustomListViewValuesArrTopPun = new ArrayList<PunModel>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -77,18 +81,22 @@ public class Profile extends Page
         setProfilePic();
 
         new SetThemeList().execute(userID);
-
         new SetPunList().execute(userID);
+        new SetTopPunList().execute(userID);
 
         Resources res = getResources();
         themeList = ( ListView )findViewById( R.id.user_themes_list );
         punList = ( ListView )findViewById( R.id.user_puns_list );
+        topPunList = ( ListView )findViewById(R.id.user_topPuns_list);
 
         themeAdapter = new CustomThemeAdapter( CustomListView, CustomListViewValuesArrTheme, res);
         themeList.setAdapter( themeAdapter );
 
         punAdapter = new UserPunAdapter( CustomListView, CustomListViewValuesArrPun, res);
         punList.setAdapter(punAdapter);
+
+        topPunAdapter = new UserPunAdapter( CustomListView, CustomListViewValuesArrTopPun, res);
+        topPunList.setAdapter(topPunAdapter);
     }
 
     private void setName(){
@@ -224,6 +232,36 @@ public class Profile extends Page
         protected void onPostExecute(Long result) {
             findViewById(R.id.punProgressBar).setVisibility(View.INVISIBLE);
             punAdapter.notifyDataSetChanged();
+        }
+    }
+
+    private class SetTopPunList extends AsyncTask<String, Integer, Long> {
+        @Override
+        protected Long doInBackground(String... userID) {
+            /*try {
+                Thread.sleep(3000);
+            } catch (InterruptedException e) {
+            }*/ // Sleep to test loading spinner
+
+            ArrayList<ArrayList<String>> puns = parse.getUserTopPuns(userID[0]);
+
+            for (int i = 0; i < puns.size(); i++) {
+                ArrayList<String> current = puns.get(i);
+                final PunModel sched = new PunModel();
+
+                sched.setPun(current.get(0));
+                sched.setPunVotes(current.get(1));
+                sched.setThemeTitle(current.get(2));
+
+                CustomListViewValuesArrTopPun.add(sched);
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Long result) {
+            findViewById(R.id.topPunProgressBar).setVisibility(View.INVISIBLE);
+            topPunAdapter.notifyDataSetChanged();
         }
     }
 
