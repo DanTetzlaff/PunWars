@@ -10,7 +10,12 @@ public class PunModel {
     private String pun="";
     private String punID="";
     private String punVotes;
+
     private String themeTitle="";
+    private String themeID="";
+    private String themeDesc="";
+    private String themeAuth="";
+    private String themeExp="";
 
     /** Setter Methods **/
 
@@ -26,6 +31,14 @@ public class PunModel {
 
     public void setThemeTitle(String themeTitle) { this.themeTitle = themeTitle; }
 
+    public void setThemeID(String themeID) { this.themeID = themeID; }
+
+    public void setThemeDesc(String themeDesc) { this.themeDesc = themeDesc; }
+
+    public void setThemeAuth(String themeAuth) { this.themeAuth = themeAuth; }
+
+    public void setThemeExp(String themeExp) { this.themeExp = themeExp; }
+
     /** Getter Methods **/
 
     public String getPunAuth() { return this.punAuth; }
@@ -39,4 +52,13 @@ public class PunModel {
     public String getPunAuthID() { return this.punAuthID; }
 
     public String getThemeTitle() { return this.themeTitle; }
+
+    public String getThemeID() { return this.themeID; }
+
+    public String getThemeDesc() { return this.themeDesc; }
+
+    public String getThemeExp() { return this.themeExp; }
+
+    public String getThemeAuth() { return this.themeAuth; }
+
 }

@@ -1,5 +1,6 @@
 package watson.punwarz;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -16,6 +17,7 @@ import watson.punwarz.ListView.CustomThemeAdapter;
 import watson.punwarz.ListView.ListModel;
 import watson.punwarz.ListView.PunModel;
 import watson.punwarz.ListView.UserPunAdapter;
+import watson.punwarz.ListView.UserTopPunAdapter;
 
 import com.facebook.FacebookSdk;
 
@@ -45,7 +47,7 @@ public class Profile extends Page
     ListView topPunList;
     CustomThemeAdapter themeAdapter;
     UserPunAdapter punAdapter;
-    UserPunAdapter topPunAdapter;
+    UserTopPunAdapter topPunAdapter;
 
 
     public Profile CustomListView = null;
@@ -95,7 +97,7 @@ public class Profile extends Page
         punAdapter = new UserPunAdapter( CustomListView, CustomListViewValuesArrPun, res);
         punList.setAdapter(punAdapter);
 
-        topPunAdapter = new UserPunAdapter( CustomListView, CustomListViewValuesArrTopPun, res);
+        topPunAdapter = new UserTopPunAdapter( CustomListView, CustomListViewValuesArrTopPun, res);
         topPunList.setAdapter(topPunAdapter);
     }
 
@@ -193,6 +195,8 @@ public class Profile extends Page
                 sched.setExpireDate(current.get(1));
                 sched.setLobbyDes(current.get(2));
                 sched.setTopPun(current.get(3));
+                sched.setLobbyAuthor(current.get(4));
+                sched.setLobbyID(current.get(5));
 
                 CustomListViewValuesArrTheme.add(sched);
             }
@@ -223,6 +227,10 @@ public class Profile extends Page
                 sched.setPun(current.get(0));
                 sched.setPunVotes(current.get(1));
                 sched.setThemeTitle(current.get(2));
+                sched.setThemeID(current.get(3));
+                sched.setThemeAuth(current.get(4));
+                sched.setThemeDesc(current.get(5));
+                sched.setThemeExp(current.get(6));
 
                 CustomListViewValuesArrPun.add(sched);
             }
@@ -265,4 +273,27 @@ public class Profile extends Page
         }
     }
 
+    public void onThemeItemClick(int mPosition){
+        ListModel tempValues = ( ListModel ) CustomListViewValuesArrTheme.get(mPosition);
+
+        Intent i = new Intent(Profile.this, Puns.class);
+        i.putExtra("LOBBY_ID", tempValues.getLobbyID());
+        i.putExtra("THEME_TITLE", tempValues.getLobbyTitle());
+        i.putExtra("THEME_DESC", tempValues.getLobbyDes());
+        i.putExtra("THEME_AUTHOR", tempValues.getLobbyAuthor());
+        i.putExtra("THEME_EXPIRE", tempValues.getExpireDate());
+        startActivity(i);
+    }
+
+    public void onPunItemClick(int mPosition){
+        PunModel tempValues = ( PunModel ) CustomListViewValuesArrPun.get(mPosition);
+
+        Intent i = new Intent(Profile.this, Puns.class);
+        i.putExtra("LOBBY_ID", tempValues.getThemeID());
+        i.putExtra("THEME_TITLE", tempValues.getThemeTitle());
+        i.putExtra("THEME_DESC", tempValues.getThemeDesc());
+        i.putExtra("THEME_AUTHOR", tempValues.getThemeAuth());
+        i.putExtra("THEME_EXPIRE", tempValues.getThemeExp());
+        startActivity(i);
+    }
 }

@@ -121,7 +121,7 @@ public class CustomThemeAdapter extends BaseAdapter implements View.OnClickListe
 
             Profile sct = (Profile)activity;
 
-            //sct.onItemClick(mPosition);
+            sct.onThemeItemClick(mPosition);
         }
     }
 }

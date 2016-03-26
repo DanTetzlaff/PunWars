@@ -242,7 +242,9 @@ public class ParseApplication extends Application {
                 singleTheme.add(cur.getString("Theme"));
                 singleTheme.add(format.format(cur.getDate("ExpiryDate")).toString());
                 singleTheme.add(cur.getString("Desc"));
-                singleTheme.add(getTopPun(cur.getObjectId()));
+                singleTheme.add(getUserName(cur.getString("UserID")));
+                singleTheme.add(getUserName(cur.getString("UserID")));
+                singleTheme.add(cur.getObjectId());
 
                 themes.add(singleTheme);
             }
@@ -333,6 +335,7 @@ public class ParseApplication extends Application {
         ArrayList<ArrayList<String>> puns = new ArrayList<ArrayList<String>>();
         ArrayList<String> singlePun;
         List<ParseObject> list;
+        ParseObject object;
 
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Posts");
         query.whereEqualTo("UserID", userID);
@@ -349,6 +352,21 @@ public class ParseApplication extends Application {
                 singlePun.add(cur.getString("Pun"));
                 singlePun.add(Integer.toString(cur.getNumber("Score").intValue()));
                 singlePun.add(getLobbyTitle(cur.getString("LobbyID")));
+                singlePun.add(cur.getString("LobbyID"));
+
+                ParseQuery<ParseObject> lobbyQuery = ParseQuery.getQuery("Lobby");
+                lobbyQuery.whereEqualTo("objectId", cur.getString("LobbyID"));
+                try {
+                    object = lobbyQuery.getFirst();
+
+                    singlePun.add(getUserName(object.getString("UserID")));
+                    singlePun.add(object.getString("Desc"));
+                    singlePun.add(format.format(object.getDate("ExpiryDate")).toString());
+
+                } catch (ParseException e){
+                    Log.d("PARSE ERROR", "-Error retrieving userPuns-");
+                }
+
 
                 if (!isLobbyExpired(cur.getString("LobbyID"))) {
                     puns.add(singlePun);

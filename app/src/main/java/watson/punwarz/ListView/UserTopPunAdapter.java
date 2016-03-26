@@ -17,9 +17,9 @@ import watson.punwarz.R;
 import java.util.ArrayList;
 
 /**
- * Created by Dan on 2016-03-25.
+ * Created by Dan on 2016-03-26.
  */
-public class UserPunAdapter extends BaseAdapter implements View.OnClickListener{
+public class UserTopPunAdapter extends BaseAdapter implements View.OnClickListener{
 
     private Activity activity;
     private ArrayList data;
@@ -28,7 +28,7 @@ public class UserPunAdapter extends BaseAdapter implements View.OnClickListener{
     PunModel tempValues=null;
     int i=0;
 
-    public UserPunAdapter(Activity a, ArrayList d, Resources resLocal){
+    public UserTopPunAdapter(Activity a, ArrayList d, Resources resLocal){
         activity = a;
         data = d;
         res = resLocal;
@@ -70,7 +70,7 @@ public class UserPunAdapter extends BaseAdapter implements View.OnClickListener{
         public void onClick(View arg0){
 
             Profile pn = (Profile) activity;
-            pn.onPunItemClick(mPosition);
+            //pn.onPunItemClick(mPosition);
         }
     }
 
