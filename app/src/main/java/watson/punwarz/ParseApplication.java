@@ -566,9 +566,12 @@ public class ParseApplication extends Application {
             user.saveInBackground();
         }
         catch (ParseException e) {}
+    }
 
-
-
+    //removes pun from pun table
+    public void deletePun(String punID)
+    {
+        //still working on this one
     }
 
 }

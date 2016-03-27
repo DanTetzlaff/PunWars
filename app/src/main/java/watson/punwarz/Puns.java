@@ -1,9 +1,12 @@
 package watson.punwarz;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -81,7 +84,9 @@ public class Puns extends Page
         int res = parse.voteOnPost(com.facebook.Profile.getCurrentProfile().getId(),tempValues.getPunID(), lobbyID, tempValues.getPunAuthID());
         switch(res)
         {
-            case 0: Toast.makeText(getApplicationContext(), "Vote failed. You can't vote on your own pun.", Toast.LENGTH_SHORT).show();
+            case 0:
+                deletionConfirm(tempValues.getPunID());
+                //Toast.makeText(getApplicationContext(), "Vote failed. You can't vote on your own pun.", Toast.LENGTH_SHORT).show();
                 break;
             case 1: Toast.makeText(getApplicationContext(), "You have already voted for this pun.", Toast.LENGTH_SHORT).show();
                 break;
@@ -92,6 +97,25 @@ public class Puns extends Page
             default:break;
         }
 
+    }
+
+    public void deletionConfirm(final String punID)
+    {
+        AlertDialog alert = new AlertDialog.Builder(this).create();
+        alert.setTitle("Delete Confirmation");
+        alert.setMessage("Are you sure you want to delete this pun?");
+        alert.setCancelable(false);
+        alert.setButton(Dialog.BUTTON_POSITIVE, "Delete", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                parse.deletePun(punID);
+            }
+        });
+        alert.setButton(Dialog.BUTTON_NEGATIVE, "Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }});
+
+        alert.show();
     }
 
     public void setListData()

@@ -60,5 +60,4 @@ public class PunModel {
     public String getThemeExp() { return this.themeExp; }
 
     public String getThemeAuth() { return this.themeAuth; }
-
 }
