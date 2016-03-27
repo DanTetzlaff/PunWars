@@ -3,6 +3,7 @@ package watson.punwarz.ListView;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
+import android.media.Image;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -105,8 +106,17 @@ public class PunAdapter extends BaseAdapter implements View.OnClickListener{
             tempValues = ( PunModel ) data.get( position );
 
             holder.punAuthText.setText( tempValues.getPunAuth() );
-            holder.punText.setText( tempValues.getPun() );
+            holder.punText.setText(tempValues.getPun());
             holder.punVotesText.setText( tempValues.getPunVotes() );
+
+
+            String authId = tempValues.getPunAuthID();
+            String userId = com.facebook.Profile.getCurrentProfile().getId();
+            if(authId.equalsIgnoreCase(userId))
+            {
+                ImageView img = (ImageView)vi.findViewById(R.id.votePun);
+                img.setImageResource(R.drawable.delete);
+            }
 
             vi.findViewById(R.id.votePun).setOnClickListener(new OnItemClickListener(position));
         }
