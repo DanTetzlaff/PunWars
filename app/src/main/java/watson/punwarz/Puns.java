@@ -108,6 +108,9 @@ public class Puns extends Page
         alert.setButton(Dialog.BUTTON_POSITIVE, "Delete", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 parse.deletePun(punID);
+                Intent i = getIntent();
+                finish();
+                startActivity(i);
             }
         });
         alert.setButton(Dialog.BUTTON_NEGATIVE, "Cancel", new DialogInterface.OnClickListener() {

@@ -571,7 +571,14 @@ public class ParseApplication extends Application {
     //removes pun from pun table
     public void deletePun(String punID)
     {
-        //still working on this one
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Posts");
+        query.whereEqualTo("objectId", punID);
+        try
+        {
+            ParseObject pun = query.getFirst();
+            pun.delete();
+        }
+        catch (ParseException e) {}
     }
 
 }
