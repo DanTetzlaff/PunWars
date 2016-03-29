@@ -8,8 +8,8 @@ android {
         applicationId "watson.punwarz"
         minSdkVersion 15
         targetSdkVersion 23
-        versionCode 4
-        versionName "0.5.6"
+        versionCode 5
+        versionName "0.6.7"
     }
     buildTypes {
         release {
