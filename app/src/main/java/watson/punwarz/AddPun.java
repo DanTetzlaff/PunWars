@@ -82,20 +82,30 @@ public class AddPun extends AddTitle
         Profile profile = Profile.getCurrentProfile();
 
         EditText punText = (EditText)findViewById(R.id.editText);
+        String pun = punText.getText().toString();
 
-        parse.createNewPun(profile.getId(), lobbyID, punText.getText().toString());
+        if(!parse.doesPunExist(pun))
+        {
+            parse.createNewPun(profile.getId(), lobbyID, pun);
 
-        Toast.makeText(getApplicationContext(), "Pun added Successfully!", Toast.LENGTH_SHORT).show();
-        Intent i = new Intent(AddPun.this, Puns.class);
-        Intent intent = getIntent();
-        i.putExtra("LOBBY_ID", lobbyID);
-        i.putExtra("THEME_TITLE", title);
-        i.putExtra("THEME_DESC", intent.getStringExtra("THEME_DESC"));
-        i.putExtra("THEME_AUTHOR", intent.getStringExtra("THEME_AUTHOR"));
-        i.putExtra("THEME_EXPIRE", intent.getStringExtra("THEME_EXPIRE"));
+            Toast.makeText(getApplicationContext(), "Pun added Successfully!", Toast.LENGTH_SHORT).show();
+            Intent i = new Intent(AddPun.this, Puns.class);
+            Intent intent = getIntent();
+            i.putExtra("LOBBY_ID", lobbyID);
+            i.putExtra("THEME_TITLE", title);
+            i.putExtra("THEME_DESC", intent.getStringExtra("THEME_DESC"));
+            i.putExtra("THEME_AUTHOR", intent.getStringExtra("THEME_AUTHOR"));
+            i.putExtra("THEME_EXPIRE", intent.getStringExtra("THEME_EXPIRE"));
 
-        destroyKeyboard();
-        startActivity(i);
+            destroyKeyboard();
+            startActivity(i);
+        }
+        else
+        {
+            Toast.makeText(getApplicationContext(), "Pun already exists!", Toast.LENGTH_SHORT).show();
+            destroyKeyboard();
+        }
+
     }
 
     public void cancelEvent(View v)

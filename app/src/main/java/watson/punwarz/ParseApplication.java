@@ -51,13 +51,27 @@ public class ParseApplication extends Application {
 
     //creates a new Post associated to a particular Lobby
     public void createNewPun(String userID, String lobbyID, String punText){
-        ParseObject newPost = new ParseObject("Posts");
-        newPost.put("UserID", userID);
-        newPost.put("LobbyID", lobbyID);
-        newPost.put("Pun", punText);
-        newPost.put("Score", 0);
-        newPost.saveInBackground();
-        //String postObjectID = newPost.getObjectId(); //may have to move this before the save??
+            ParseObject newPost = new ParseObject("Posts");
+            newPost.put("UserID", userID);
+            newPost.put("LobbyID", lobbyID);
+            newPost.put("Pun", punText);
+            newPost.put("Score", 0);
+            newPost.saveInBackground();
+            //String postObjectID = newPost.getObjectId(); //may have to move this before the save??
+    }
+
+    public boolean doesPunExist(String punText)
+    {
+        boolean exist = false;
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Posts");
+        query.whereEqualTo("Pun", punText);
+        try {
+            query.getFirst();
+            exist = true;
+        } catch (ParseException p){
+            exist = false;
+        }
+        return exist;
     }
 
     //sets the userObjectID variable so that it does not have to be queried multiple times.
