@@ -5,8 +5,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.Menu;
@@ -39,6 +41,7 @@ public class Lobby extends Page
     public  ArrayList<ListModel> CustomListViewValuesArr = new ArrayList<ListModel>();
     private boolean loadingMore = false;
     private ParseApplication parse = new ParseApplication();
+    public SwipeRefreshLayout refresh = null;
 
     final private int numNeeded = 5; //max number of items displayed at once
     private int numSkipped = 0; //holds number of items we have displayed so far on screen
@@ -63,6 +66,7 @@ public class Lobby extends Page
 
         Resources res = getResources();
         list = ( ListView )findViewById( R.id.list );
+        refresh = ( SwipeRefreshLayout )findViewById( R.id.refresh );
 
         //make footer with inflator for when we are loading more themes
         footer = ( (LayoutInflater)this.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.footer, null, false);
@@ -73,6 +77,7 @@ public class Lobby extends Page
 
         adapter = new CustomAdapter( CustomListView, CustomListViewValuesArr,res);
         list.setAdapter( adapter );
+
 
         list.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
@@ -89,14 +94,23 @@ public class Lobby extends Page
                         Thread thread = new Thread(null, loadMoreListItems);
                         thread.start();
                     }
-                }
-                else if (numSkipped == numIn){
+                } else if (numSkipped == numIn) {
                     list.removeFooterView(footer);
                     list.addFooterView(noItemFooter);
                     numSkipped++;
                 }
             }
         });
+
+        refresh.setOnRefreshListener(
+                new SwipeRefreshLayout.OnRefreshListener() {
+                    @Override
+                    public void onRefresh() {
+                        Log.d("REFRESH", "onRefresh called from SwipeRefreshLayout");
+                        doRefresh();
+                    }
+                }
+        );
     }
 
     public void setListData()
@@ -214,6 +228,12 @@ public class Lobby extends Page
     public void addAPrompt(MenuItem item)
     {
         Intent i = new Intent(Lobby.this, AddTitle.class);
+        startActivity(i);
+    }
+
+    public void doRefresh()
+    {
+        Intent i = new Intent(Lobby.this, Lobby.class);
         startActivity(i);
     }
 }
