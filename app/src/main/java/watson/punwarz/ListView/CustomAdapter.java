@@ -84,7 +84,11 @@ public class CustomAdapter extends BaseAdapter implements View.OnClickListener{
 
         if (data.size()<=0)
         {
-            holder.titleText.setText("No Data");
+            holder.titleText.setText("Loading..");
+            holder.desText.setText("");
+            holder.authorText.setText("");
+            holder.expireDate.setText("");
+            holder.topPun.setText("");
         }
         else
         {
@@ -94,9 +98,6 @@ public class CustomAdapter extends BaseAdapter implements View.OnClickListener{
             holder.titleText.setText( tempValues.getLobbyTitle() );
             holder.authorText.setText( tempValues.getLobbyAuthor() );
             holder.desText.setText( tempValues.getLobbyDes() );
-            //holder.desText.setMaxEms(5);
-            //holder.desText.setMaxLines(1);
-            //holder.desText.setEllipsize(TextUtils.TruncateAt.END);
             holder.expireDate.setText( tempValues.getExpireDate() );
             holder.topPun.setText( tempValues.getTopPun() );
 

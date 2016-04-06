@@ -36,6 +36,7 @@ public class Lobby extends Page
     View noItemFooter;  // holder for "no more items" footer
     View footer;        // holder for "loading more items" footer
     CustomAdapter adapter;
+    boolean noMore = false;
 
     public  Lobby CustomListView = null;
     public  ArrayList<ListModel> CustomListViewValuesArr = new ArrayList<ListModel>();
@@ -59,14 +60,14 @@ public class Lobby extends Page
         checkUser();
 
         numIn = parse.countThemes();
-
+        refresh = ( SwipeRefreshLayout )findViewById( R.id.refresh );
         CustomListView = this;
 
         setListData();
 
         Resources res = getResources();
         list = ( ListView )findViewById( R.id.list );
-        refresh = ( SwipeRefreshLayout )findViewById( R.id.refresh );
+
 
         //make footer with inflator for when we are loading more themes
         footer = ( (LayoutInflater)this.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.footer, null, false);
@@ -97,6 +98,7 @@ public class Lobby extends Page
                 } else if (numSkipped == numIn) {
                     list.removeFooterView(footer);
                     list.addFooterView(noItemFooter);
+                    noMore = true;
                     numSkipped++;
                 }
             }
@@ -133,6 +135,9 @@ public class Lobby extends Page
         }
 
         numSkipped += themes.size();
+        if(refresh.isRefreshing()) {
+            refresh.setRefreshing(false);
+        }
     }
 
     public void onItemClick(int mPosition){
@@ -233,7 +238,15 @@ public class Lobby extends Page
 
     public void doRefresh()
     {
-        Intent i = new Intent(Lobby.this, Lobby.class);
-        startActivity(i);
+        CustomListViewValuesArr.clear();
+        if (noMore) {
+            list.removeFooterView(noItemFooter);
+            list.addFooterView(footer);
+            noMore = false;
+        }
+        numSkipped = 0;
+        numIn = parse.countThemes();
+        adapter.notifyDataSetChanged();
+        //refresh.setRefreshing(false);
     }
 }
