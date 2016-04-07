@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -42,6 +43,8 @@ public class Puns extends Page
     private ParseApplication parse;
     private View header;
 
+    public SwipeRefreshLayout punRefresh = null;
+
     private String title = "";
     private String desc = "";
     private String author = "";
@@ -64,7 +67,7 @@ public class Puns extends Page
         getExtras(intent);
 
         CustomListView = this;
-
+        punRefresh = ( SwipeRefreshLayout )findViewById( R.id.punrefresh );
         setListData();
 
         Resources res = getResources();
@@ -75,6 +78,16 @@ public class Puns extends Page
 
         //list.addHeaderView(header);
         setHeader();
+
+        punRefresh.setOnRefreshListener(
+                new SwipeRefreshLayout.OnRefreshListener() {
+                    @Override
+                    public void onRefresh() {
+                        Log.d("REFRESH", "onRefresh called from SwipeRefreshLayout");
+                        doRefresh();
+                    }
+                }
+        );
     }
 
     public void onItemClick(int position)
@@ -213,5 +226,12 @@ public class Puns extends Page
         i.putExtra("THEME_AUTHOR", author);
         i.putExtra("THEME_EXPIRE", expDate);
         startActivity(i);
+    }
+
+    public void doRefresh(){
+        CustomListViewValuesArr.clear();
+        adapter.notifyDataSetChanged();
+        setListData();
+        punRefresh.setRefreshing(false);
     }
 }
