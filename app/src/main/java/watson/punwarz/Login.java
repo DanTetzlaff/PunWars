@@ -1,11 +1,15 @@
 package watson.punwarz;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.util.Log;
@@ -61,9 +65,9 @@ public class Login extends AppCompatActivity {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 //info.setText(loginResult.getAccessToken().getToken() + "\n" +
-                        //loginResult.getAccessToken().getUserId());
+                //loginResult.getAccessToken().getUserId());
 
-                if(Profile.getCurrentProfile() == null) {
+                if (Profile.getCurrentProfile() == null) {
                     ProfileTracker mProfileTracker = new ProfileTracker() {
                         @Override
                         protected void onCurrentProfileChanged(Profile profile, Profile profile2) {
@@ -73,18 +77,16 @@ public class Login extends AppCompatActivity {
                         }
                     };
                     mProfileTracker.startTracking();
-                }
-                else {
+                } else {
                     Profile profile = Profile.getCurrentProfile();
                     Log.v("facebook - profile", profile.getFirstName());
                     //printName();
                 }
 
                 ParseApplication parse = new ParseApplication();
-                if(!parse.doesUserExist(loginResult.getAccessToken().getUserId()))
-                {
+                if (!parse.doesUserExist(loginResult.getAccessToken().getUserId())) {
                     Profile profile = Profile.getCurrentProfile();
-                    if(profile != null) {
+                    if (profile != null) {
                         parse.createNewUser(loginResult.getAccessToken().getUserId(), profile.getFirstName());
                     }
                 }

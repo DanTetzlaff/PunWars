@@ -1,8 +1,12 @@
 package watson.punwarz;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -23,6 +27,17 @@ public class Page extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("CLOSE_ALL");
+        BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                // close activity
+                Intent i = new Intent(Page.this, Login.class);
+                startActivity(i);
+            }
+        };
+        registerReceiver(broadcastReceiver, intentFilter);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_page);
         FacebookSdk.sdkInitialize(getApplicationContext());
@@ -78,7 +93,11 @@ public class Page extends AppCompatActivity
 
         LoginManager.getInstance().logOut();
 
-        Intent i = new Intent(Page.this, Login.class);
-        startActivity(i);
+        Intent intent = new Intent("CLOSE_ALL");
+        this.sendBroadcast(intent);
+
+        Intent i = new Intent(this, Login.class);
+        i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+        this.startActivity(i);
     }
 }
