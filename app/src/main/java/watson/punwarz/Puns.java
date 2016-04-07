@@ -68,7 +68,8 @@ public class Puns extends Page
 
         CustomListView = this;
         punRefresh = ( SwipeRefreshLayout )findViewById( R.id.punrefresh );
-        setListData();
+        punRefresh.setRefreshing(true);
+        setListData.run();
 
         Resources res = getResources();
         list = ( ListView )findViewById( R.id.list );
@@ -134,14 +135,16 @@ public class Puns extends Page
         alert.show();
     }
 
-    public void setListData()
+    public Runnable setListData = new Runnable()
     {
-        ArrayList<ArrayList<String>> puns = parse.getPuns(lobbyID);
+        @Override
+                public void run() {
+            ArrayList<ArrayList<String>> puns = parse.getPuns(lobbyID);
 
 
-        for (int i = 0; i < puns.size(); i++){
-            ArrayList<String> current = puns.get(i);
-            final PunModel sched = new PunModel();
+            for (int i = 0; i < puns.size(); i++) {
+                ArrayList<String> current = puns.get(i);
+                final PunModel sched = new PunModel();
 
                 sched.setPunID(current.get(2));
                 sched.setPunAuth("By: " + current.get(1));
@@ -150,9 +153,12 @@ public class Puns extends Page
                 sched.setPunAuthID(current.get(3));
 
 
-            CustomListViewValuesArr.add(sched);
+                CustomListViewValuesArr.add(sched);
+            }
+
+            punRefresh.setRefreshing(false);
         }
-    }
+    };
 
 
     public void setHeader(){
@@ -231,7 +237,6 @@ public class Puns extends Page
     public void doRefresh(){
         CustomListViewValuesArr.clear();
         adapter.notifyDataSetChanged();
-        setListData();
-        punRefresh.setRefreshing(false);
+        setListData.run();
     }
 }

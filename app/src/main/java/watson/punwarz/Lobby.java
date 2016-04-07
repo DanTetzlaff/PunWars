@@ -60,10 +60,11 @@ public class Lobby extends Page
         checkUser();
 
         numIn = parse.countThemes();
-        refresh = ( SwipeRefreshLayout )findViewById( R.id.refresh );
-        CustomListView = this;
 
-        setListData();
+        CustomListView = this;
+        refresh = ( SwipeRefreshLayout )findViewById( R.id.refresh );
+        refresh.setRefreshing(true);
+        setListData.run();
 
         Resources res = getResources();
         list = ( ListView )findViewById( R.id.list );
@@ -115,30 +116,33 @@ public class Lobby extends Page
         );
     }
 
-    public void setListData()
+    public Runnable setListData = new Runnable()
     {
-        ArrayList<ArrayList<String>> themes = parse.getThemes(numNeeded, numSkipped);
+        @Override
+                public void run() {
+            ArrayList<ArrayList<String>> themes = parse.getThemes(numNeeded, numSkipped);
 
 
-        for (int i = 0; i < themes.size(); i++){
-            ArrayList<String> current = themes.get(i);
-            final ListModel sched = new ListModel();
+            for (int i = 0; i < themes.size(); i++) {
+                ArrayList<String> current = themes.get(i);
+                final ListModel sched = new ListModel();
 
-            sched.setLobbyTitle(current.get(3));
-            sched.setLobbyAuthor("By: " + current.get(4));
-            sched.setExpireDate(current.get(1));
-            sched.setLobbyDes(current.get(2));
-            sched.setLobbyID(current.get(0));
-            sched.setTopPun(current.get(5));
+                sched.setLobbyTitle(current.get(3));
+                sched.setLobbyAuthor("By: " + current.get(4));
+                sched.setExpireDate(current.get(1));
+                sched.setLobbyDes(current.get(2));
+                sched.setLobbyID(current.get(0));
+                sched.setTopPun(current.get(5));
 
-            CustomListViewValuesArr.add( sched );
+                CustomListViewValuesArr.add(sched);
+            }
+
+            numSkipped += themes.size();
+            if (refresh.isRefreshing()) {
+                refresh.setRefreshing(false);
+            }
         }
-
-        numSkipped += themes.size();
-        if(refresh.isRefreshing()) {
-            refresh.setRefreshing(false);
-        }
-    }
+    };
 
     public void onItemClick(int mPosition){
         ListModel tempValues = ( ListModel ) CustomListViewValuesArr.get(mPosition);
@@ -205,7 +209,7 @@ public class Lobby extends Page
     private Runnable returnRes = new Runnable() {
         @Override
         public void run() {
-            setListData();
+            setListData.run();
 
             adapter.notifyDataSetChanged();
 
