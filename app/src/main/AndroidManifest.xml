@@ -73,6 +73,8 @@
             android:name="com.parse.APPLICATION_ID" android:value="@string/parse_app_id" />
         <meta-data
             android:name="com.parse.CLIENT_ID" android:value="@string/parse_client_id" />
+        <meta-data
+            android:name="com.parse.SERVER_URL" android:value="@string/parse_server_url" />
     </application>
 
 </manifest>

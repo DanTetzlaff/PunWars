@@ -26,7 +26,7 @@ public class ParseApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
-        Parse.initialize(this, getResources().getString(R.string.parse_app_id), getResources().getString(R.string.parse_client_id));
+        Parse.initialize(this, "2ecdb6a0-82a8-4ed3-82dd-f15d048adea5", "i4fKI1z1ofOHQVmfPjfZMxHc9Ji1yRFK");
     }
 
     //creates a new user object in Parse if the user has not previously used app.
@@ -147,7 +147,7 @@ public class ParseApplication extends Application {
         }
 
 
-        //Log.d("EXISTS#####", Boolean.toString(exists)); debugging log
+        Log.d("EXISTS#####", Boolean.toString(exists)); //debugging log
         return exists;
     }
 
