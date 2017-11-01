@@ -16,14 +16,20 @@
         app:showAsAction="never"
         android:onClick="goToProfile"/>
     <item
+        android:title="@string/settings"
+        android:id="@+id/setting_settings"
+        android:orderInCategory="300"
+        app:showAsAction="never"
+        android:onClick="goToSettings" />
+    <item
         android:title="@string/log_out"
         android:id="@+id/logout_settings"
-        android:orderInCategory="300"
+        android:orderInCategory="400"
         app:showAsAction="never"
         android:onClick="logOut"/>
     <item
         android:id="@+id/addPun_settings"
-        android:orderInCategory="400"
+        android:orderInCategory="500"
         android:title="@string/add_pun"
         app:showAsAction="ifRoom"
         android:onClick="addAPun"/>

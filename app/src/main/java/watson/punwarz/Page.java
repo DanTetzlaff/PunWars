@@ -64,9 +64,19 @@ public class Page extends AppCompatActivity
             logOut(item);
             return true;
         }
+        else if (id == R.id.setting_settings)
+        {
+            goToSettings(item);
+            return true;
+        }
         else if(id == R.id.lobby_settings)
         {
             goToLobby(item);
+            return true;
+        }
+        else if(id == R.id.profile_settings)
+        {
+            goToProfile(item);
             return true;
         }
 
@@ -76,6 +86,18 @@ public class Page extends AppCompatActivity
     public void goToLobby(MenuItem item)
     {
         Intent i = new Intent(Page.this, Lobby.class);
+        startActivity(i);
+    }
+
+    public void goToSettings(MenuItem item)
+    {
+        Intent i = new Intent(Page.this, Settings.class);
+        startActivity(i);
+    }
+
+    public void goToProfile(MenuItem item)
+    {
+        Intent i = new Intent(Page.this, Profile.class);
         startActivity(i);
     }
 

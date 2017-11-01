@@ -8,6 +8,9 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -99,6 +102,14 @@ public class Profile extends Page
 
         topPunAdapter = new UserTopPunAdapter( CustomListView, CustomListViewValuesArrTopPun, res);
         topPunList.setAdapter(topPunAdapter);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_profile, menu);
+        return true;
     }
 
     private void setName(){

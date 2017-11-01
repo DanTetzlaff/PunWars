@@ -8,6 +8,7 @@
     <string name="log_out">Log Out</string>
     <string name="home">Lobby</string>
     <string name="profile">Profile</string>
+    <string name="settings">Settings</string>
     <string name="add_lobby">Add theme</string>
     <string name="add_pun">Add pun</string>
     <string name="prompt">Enter your prompt</string>
