@@ -8,6 +8,8 @@ import android.content.Context;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
 
 import com.facebook.FacebookSdk;
 
@@ -34,6 +36,27 @@ public class Settings extends Page
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_settingspage, menu);
         return true;
+    }
+
+    public void goToPrivacyPolicy(View v)
+    {
+        Intent i = new Intent(Settings.this, PrivacyPolicy.class);
+        startActivity(i);
+    }
+
+    public void goToChangeName(View v)
+    {
+        Toast.makeText(getApplicationContext(), "This will take you to a page to chnage your name", Toast.LENGTH_SHORT).show();
+    }
+
+    public void goToChangeProfilePic(View v)
+    {
+        Toast.makeText(getApplicationContext(), "This will take you to a page to change your picture", Toast.LENGTH_SHORT).show();
+    }
+
+    public void deleteAccount(View v)
+    {
+        Toast.makeText(getApplicationContext(), "This will delete your account", Toast.LENGTH_SHORT).show();
     }
 
 }

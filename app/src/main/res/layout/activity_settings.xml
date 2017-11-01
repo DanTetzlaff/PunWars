@@ -9,4 +9,37 @@
         android:id="@+id/tool_bar"
         layout="@layout/tool_bar"/>
 
+    <Button
+        android:id="@+id/settingspp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/linkpp"
+        android:onClick="goToPrivacyPolicy"/>
+
+    <Button
+        android:id="@+id/settingschangename"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/settingschangename"
+        android:onClick="goToChangeName" />
+
+    <Button
+        android:id="@+id/settingschangeprofilepic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/settingschangeprofilepic"
+        android:onClick="goToChangeProfilePic"/>
+
+    <Button
+        android:id="@+id/deleteaccount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/settingsdeleteaccount"
+        android:onClick="deleteAccount"/>
+
+
 </LinearLayout>

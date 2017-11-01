@@ -23,6 +23,10 @@
     <string name="puns">Puns: </string>
     <string name="topPuns">Top Puns: </string>
     <string name="cancel">Cancel</string>
+    <string name="linkpp">Privacy Policy</string>
+    <string name="settingschangename">Change Name</string>
+    <string name="settingschangeprofilepic">Change Profile Picture</string>
+    <string name="settingsdeleteaccount">Delete Profile</string>
     <string-array name="spinner_array">
         <item>5</item>
         <item>6</item>
