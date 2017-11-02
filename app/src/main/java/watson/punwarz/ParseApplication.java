@@ -327,7 +327,29 @@ public class ParseApplication extends Application {
             tempUser.put("DisplayName", newName);
             tempUser.saveInBackground();
         } catch (ParseException e) {
-            Log.d("PARSE ERROR", "-Error retrieving name-");
+            Log.d("PARSE ERROR", "-Error retrieving user-");
+        }
+    }
+
+    public void changeUserPic(String facebookID, int newPic){
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Users");
+        query.whereEqualTo("UserID", facebookID);
+        ParseObject tempUser;
+
+        try{
+            tempUser = query.getFirst();
+            if (newPic != 0)
+            {
+                tempUser.put("ProfilePictureBy", true);
+            }
+            else
+            {
+                tempUser.put("ProfilePictureBy", false);
+            }
+            tempUser.put("ProfilePictureID", newPic);
+            tempUser.saveInBackground();
+        } catch (ParseException e) {
+            Log.d("PARSE ERROR", "-Error retrieving user-");
         }
     }
 
@@ -453,6 +475,35 @@ public class ParseApplication extends Application {
         }
 
         return title;
+    }
+
+    public boolean userPicBypass(String facebookID)
+    {
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Users");
+        query.whereEqualTo("UserID", facebookID);
+        ParseObject tempUser = null;
+        try {
+            tempUser = query.getFirst();
+        } catch (ParseException e) {
+            Log.d("PARSE ERROR", "-Error retrieving user-");
+        }
+        if (tempUser != null ) {return tempUser.getBoolean("ProfilePictureBy");}
+        else {return false;}
+    }
+
+    public int getUserPicture(String facebookID)
+    {
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Users");
+        query.whereEqualTo("UserID", facebookID);
+        ParseObject tempUser = null;
+
+        try{
+            tempUser = query.getFirst();
+        } catch (ParseException e) {
+            Log.d("PARSE ERROR", "-Error retrieving user-");
+        }
+        if (tempUser != null ) {return tempUser.getInt("ProfilePictureID");}
+        else {return 0;}
     }
 
     //checks if a lobby with an existing prompt description already exists. currently not case sensitive

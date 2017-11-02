@@ -52,7 +52,8 @@ public class Settings extends Page
 
     public void goToChangeProfilePic(View v)
     {
-        Toast.makeText(getApplicationContext(), "This will take you to a page to change your picture", Toast.LENGTH_SHORT).show();
+        Intent i = new Intent(Settings.this, ChangePicture.class);
+        startActivity(i);
     }
 
     public void deleteAccount(View v)

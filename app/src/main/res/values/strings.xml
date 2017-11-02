@@ -18,6 +18,8 @@
     <string name="submit_prompt">Submit Prompt</string>
     <string name="submit_pun">Submit Pun</string>
     <string name="submit_newname">Submit Name</string>
+    <string name="submit_newpicture">Select Picture</string>
+    <string name="submit_defaultpicture">Select Facebook Picture</string>
     <string name="name">Name</string>
     <string name="pts">N pts</string>
     <string name="rnk">Rank: </string>

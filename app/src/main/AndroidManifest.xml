@@ -73,8 +73,13 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
         </activity>
 
-        <!--Change Name page-->
+        <!--Change Name page -->
         <activity android:name=".ChangeName"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
+        </activity>
+
+        <!--Change Picture page -->
+        <activity android:name=".ChangePicture"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
         </activity>
 

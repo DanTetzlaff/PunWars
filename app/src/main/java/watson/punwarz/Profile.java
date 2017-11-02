@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -165,26 +166,60 @@ public class Profile extends Page
     }
 
     private void setProfilePic(){
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                Uri uri = profile.getProfilePictureUri(150, 150);
+        if (!parse.userPicBypass(userID)) {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    Uri uri = profile.getProfilePictureUri(150, 150);
 
-                try{
-                    URL facebookProfileURL = new URL(uri.toString());
-                    final Bitmap bitmap = BitmapFactory.decodeStream(facebookProfileURL.openConnection().getInputStream());
+                    try {
+                        URL facebookProfileURL = new URL(uri.toString());
+                        final Bitmap bitmap = BitmapFactory.decodeStream(facebookProfileURL.openConnection().getInputStream());
 
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            profilePic.setImageBitmap(bitmap);
-                        }
-                    });
-                } catch (IOException e) {
-                    e.printStackTrace();
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                profilePic.setImageBitmap(bitmap);
+                            }
+                        });
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
+            }).start();
+        }
+        else
+        {
+            Bitmap img = null;
+            int temp = parse.getUserPicture(userID);
+
+            switch (temp){
+                case 1:
+                    img = BitmapFactory.decodeResource(getResources(), R.drawable.avatar1);
+                    break;
+                case 2:
+                    img = BitmapFactory.decodeResource(getResources(), R.drawable.avatar2);
+                    break;
+                case 3:
+                    img = BitmapFactory.decodeResource(getResources(), R.drawable.avatar3);
+                    break;
+                case 4:
+                    img = BitmapFactory.decodeResource(getResources(), R.drawable.avatar4);
+                    break;
+                case 5:
+                    img = BitmapFactory.decodeResource(getResources(), R.drawable.avatar5);
+                    break;
             }
-        }).start();
+            img = Bitmap.createScaledBitmap(img, 150, 150, false);
+            final Bitmap bitmap = img;
+
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    profilePic.setImageBitmap(bitmap);
+                }
+            });
+        }
     }
 
     private class SetThemeList extends AsyncTask<String, Integer, Long> {
