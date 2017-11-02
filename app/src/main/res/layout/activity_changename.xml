@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ChangeName">
+
+    <include
+        android:id="@+id/tool_bar"
+        layout="@layout/tool_bar"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/CurUserName"
+        android:gravity="center"
+        android:background="@drawable/border_set"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="New Name: "
+        android:id="@+id/newName"
+     />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/editText"
+        android:hint="@string/hintName"
+        android:backgroundTint="#f9f6f6"
+        android:layout_marginBottom="20dp"
+        android:visibility="visible"
+        android:maxLength="@string/U_LIMIT"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/countText"
+        android:layout_gravity="right"
+        android:layout_marginRight="5dp"
+        />
+
+    <Button
+        android:id="@+id/subButt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/submit_newname"
+        android:onClick="submitNewName"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/cancel"
+        android:onClick="cancelEvent"/>
+</LinearLayout>

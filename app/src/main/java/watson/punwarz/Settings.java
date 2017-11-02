@@ -46,7 +46,8 @@ public class Settings extends Page
 
     public void goToChangeName(View v)
     {
-        Toast.makeText(getApplicationContext(), "This will take you to a page to chnage your name", Toast.LENGTH_SHORT).show();
+        Intent i = new Intent(Settings.this, ChangeName.class);
+        startActivity(i);
     }
 
     public void goToChangeProfilePic(View v)

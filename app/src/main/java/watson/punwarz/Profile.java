@@ -113,7 +113,7 @@ public class Profile extends Page
     }
 
     private void setName(){
-        name.setText(profile.getName());
+        name.setText(parse.getUserName(userID));
     }
 
     private void setPoints(){

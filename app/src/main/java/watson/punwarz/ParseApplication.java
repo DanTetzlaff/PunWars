@@ -4,9 +4,10 @@ import android.app.Application;
 import android.util.Log;
 
 import com.parse.*;
+import com.parse.ParseException;
 
 import java.lang.reflect.Array;
-import java.text.SimpleDateFormat;
+import java.text.*;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -314,6 +315,20 @@ public class ParseApplication extends Application {
         }
 
         return result;
+    }
+
+    public void changeUserName(String facebookID, String newName){
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Users");
+        query.whereEqualTo("UserID", facebookID);
+        ParseObject tempUser;
+
+        try{
+            tempUser = query.getFirst();
+            tempUser.put("DisplayName", newName);
+            tempUser.saveInBackground();
+        } catch (ParseException e) {
+            Log.d("PARSE ERROR", "-Error retrieving name-");
+        }
     }
 
     public ArrayList<ArrayList<String>> getPuns(String lobbyID){

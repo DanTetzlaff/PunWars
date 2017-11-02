@@ -73,6 +73,11 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
         </activity>
 
+        <!--Change Name page-->
+        <activity android:name=".ChangeName"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
+        </activity>
+
         <!--connects to facebook-->
         <activity android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
