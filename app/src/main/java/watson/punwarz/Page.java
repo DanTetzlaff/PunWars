@@ -101,6 +101,12 @@ public class Page extends AppCompatActivity
         startActivity(i);
     }
 
+    public void goToLeaderboard(MenuItem item)
+    {
+        Intent i = new Intent(Page.this, Leaderboard.class);
+        startActivity(i);
+    }
+
     public void logOut(MenuItem item)
     {
         SharedPreferences sharedPref = getSharedPreferences("Toke_Settings", MODE_PRIVATE);

@@ -164,31 +164,6 @@ public class Lobby extends Page
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-        int id = item.getItemId();
-
-    if(id == R.id.logout_settings)
-        {
-            logOut(item);
-            return true;
-        }
-        else if(id == R.id.profile_settings)
-        {
-            goToProfile(item);
-            return true;
-        }
-        else if(id == R.id.addTheme_settings)
-        {
-            addAPrompt(item);
-            return true;
-        }
-
-
-        return super.onOptionsItemSelected(item);
-    }
-
     //Never ending listView runnable #1 - initiation
     private Runnable loadMoreListItems = new Runnable() {
         @Override

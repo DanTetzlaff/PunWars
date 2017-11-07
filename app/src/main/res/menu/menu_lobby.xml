@@ -23,8 +23,14 @@
         app:showAsAction="never"
         android:onClick="goToSettings" />
     <item
-        android:id="@+id/addTheme_settings"
+        android:title="@string/leaderboard"
+        android:id="@+id/leaderboard_settings"
         android:orderInCategory="400"
+        app:showAsAction="never"
+        android:onClick="goToLeaderboard" />
+    <item
+        android:id="@+id/addTheme_settings"
+        android:orderInCategory="500"
         android:title="@string/add_lobby"
         app:showAsAction="ifRoom"
         android:onClick="addAPrompt"/>

@@ -11,6 +11,7 @@
     <string name="settings">Settings</string>
     <string name="add_lobby">Add theme</string>
     <string name="add_pun">Add pun</string>
+    <string name="leaderboard">Leaderboard</string>
     <string name="hintName">Type New Name Here</string>
     <string name="prompt">Enter your prompt</string>
     <string name="enter_pun">Enter your pun</string>
@@ -31,6 +32,8 @@
     <string name="settingschangename">Change Name</string>
     <string name="settingschangeprofilepic">Change Profile Picture</string>
     <string name="settingsdeleteaccount">Delete Profile</string>
+    <string name="noitems">No More Items</string>
+    <string name="loading">Loading Items</string>
     <string-array name="spinner_array">
         <item>5</item>
         <item>6</item>

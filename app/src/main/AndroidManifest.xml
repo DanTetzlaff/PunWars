@@ -83,6 +83,11 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
         </activity>
 
+        <!--Leaderboard page -->
+        <activity android:name=".Leaderboard"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
+        </activity>
+
         <!--connects to facebook-->
         <activity android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"

@@ -3,15 +3,11 @@ package watson.punwarz;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -25,8 +21,6 @@ import watson.punwarz.ListView.UserTopPunAdapter;
 
 import com.facebook.FacebookSdk;
 
-import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 
 
@@ -41,6 +35,7 @@ public class Profile extends Page
     private TextView points;
     private TextView rankText;
     private RoundedImageView profilePic;
+    private Bitmap tempPic;
     private com.facebook.Profile profile;
     private ParseApplication parse;
     private int userPoints;
@@ -84,8 +79,8 @@ public class Profile extends Page
         setName();
         setPoints();
         setRank();
-        setProfilePic();
 
+        new setProfilePic().execute(userID);
         new SetThemeList().execute(userID);
         new SetPunList().execute(userID);
         new SetTopPunList().execute(userID);
@@ -165,60 +160,18 @@ public class Profile extends Page
         rankText.setText("Rank: " + rank);
     }
 
-    private void setProfilePic(){
-        if (!parse.userPicBypass(userID)) {
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    Uri uri = profile.getProfilePictureUri(150, 150);
-
-                    try {
-                        URL facebookProfileURL = new URL(uri.toString());
-                        final Bitmap bitmap = BitmapFactory.decodeStream(facebookProfileURL.openConnection().getInputStream());
-
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                profilePic.setImageBitmap(bitmap);
-                            }
-                        });
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }).start();
+    private class setProfilePic extends AsyncTask<String, Integer, Long>
+    {
+        @Override
+        protected Long doInBackground(String... userID) {
+            PictureGrabber pic = new PictureGrabber();
+            tempPic = pic.getUserPicture(getApplicationContext(), userID[0]);
+            return null;
         }
-        else
-        {
-            Bitmap img = null;
-            int temp = parse.getUserPicture(userID);
 
-            switch (temp){
-                case 1:
-                    img = BitmapFactory.decodeResource(getResources(), R.drawable.avatar1);
-                    break;
-                case 2:
-                    img = BitmapFactory.decodeResource(getResources(), R.drawable.avatar2);
-                    break;
-                case 3:
-                    img = BitmapFactory.decodeResource(getResources(), R.drawable.avatar3);
-                    break;
-                case 4:
-                    img = BitmapFactory.decodeResource(getResources(), R.drawable.avatar4);
-                    break;
-                case 5:
-                    img = BitmapFactory.decodeResource(getResources(), R.drawable.avatar5);
-                    break;
-            }
-            img = Bitmap.createScaledBitmap(img, 150, 150, false);
-            final Bitmap bitmap = img;
-
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    profilePic.setImageBitmap(bitmap);
-                }
-            });
+        @Override
+        protected void onPostExecute(Long result) {
+            profilePic.setImageBitmap(tempPic);
         }
     }
 

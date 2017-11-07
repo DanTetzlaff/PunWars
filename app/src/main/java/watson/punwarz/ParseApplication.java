@@ -36,6 +36,8 @@ public class ParseApplication extends Application {
         newUser.put("UserID", facebookID);
         newUser.put("DisplayName", displayName);
         newUser.put("Score", 0);
+        newUser.put("ProfilePictureBy", false);
+        newUser.put("ProfilePictureID", 0);
         userObjectID = newUser.getObjectId(); //This may have to be after the save??
         newUser.saveInBackground();
     }
@@ -271,6 +273,41 @@ public class ParseApplication extends Application {
         return themes;
     }
 
+    public ArrayList<ArrayList<String>> getUserLeaderboard(int numNeeded, int numSkipped)
+    {
+        ArrayList<ArrayList<String>> users = new  ArrayList<ArrayList<String>>();
+        ArrayList<String> singleUser = new ArrayList<String>();
+        List<ParseObject> list;
+
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Users");
+        query.setLimit(numNeeded);
+        query.setSkip(numSkipped);
+
+        query.orderByDescending("Score");
+
+        try {
+            list = query.find();
+
+            for (int i = 0; i < list.size(); i++)
+            {
+                singleUser = new ArrayList<String>();
+                ParseObject cur = list.get(i);
+
+                singleUser.add(cur.getString("DisplayName"));
+                singleUser.add(cur.getString("ProfilePictureID"));
+                singleUser.add(Integer.toString(cur.getInt("Score")));
+                singleUser.add(Integer.toString(numSkipped+i+1));
+                singleUser.add(cur.getString("UserID"));
+
+                users.add(singleUser);
+            }
+        } catch (ParseException e) {
+            Log.d("PARSE ERROR", "-Error retrieving User-");
+        }
+
+        return users;
+    }
+
     public String getTopPun (String themeID){
         String result = "Lobby Has No Top Pun Yet";
 
@@ -297,6 +334,21 @@ public class ParseApplication extends Application {
             result = query.count();
         } catch (ParseException e){
             Log.d("PARSE ERROR", "-Error retrieving Theme-");
+        }
+
+        return result;
+    }
+
+    public int countUsers()
+    {
+        int result = 0;
+
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Users");
+
+        try{
+            result = query.count();
+        } catch (ParseException e){
+            Log.d("PARSE ERROR", "-Error retrieving User-");
         }
 
         return result;

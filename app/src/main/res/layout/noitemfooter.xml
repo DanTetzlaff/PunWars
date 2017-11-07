@@ -11,5 +11,5 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="10dp"
-        android:text="No More Themes"/>
+        android:text="@string/noitems"/>
 </LinearLayout>
