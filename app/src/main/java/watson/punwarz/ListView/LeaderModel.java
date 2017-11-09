@@ -1,20 +1,18 @@
 package watson.punwarz.ListView;
 
+import android.graphics.Bitmap;
+
 /**
  * Created by Dan on 2016-02-28.
  */
 public class LeaderModel {
 
-    private String leaderImage="";
+    private Bitmap leaderImg= Bitmap.createBitmap(150, 150, Bitmap.Config.ARGB_8888);
     private String leaderName="";
     private String leaderScore="";
     private String pos="";
 
     /** Setter Methods **/
-
-    public void setLeaderImage(String leaderImage){
-        this.leaderImage = leaderImage;
-    }
 
     public void setLeaderName(String leaderName){
         this.leaderName = leaderName;
@@ -24,11 +22,9 @@ public class LeaderModel {
 
     public void setPos(String pos){ this.pos = pos; }
 
-    /** Getter Methods **/
+    public void setLeaderImg(Bitmap leaderImg){ this.leaderImg = leaderImg; }
 
-    public String getLeaderImage(){
-        return this.leaderImage;
-    }
+    /** Getter Methods **/
 
     public String getLeaderName(){
         return this.leaderName;
@@ -37,4 +33,6 @@ public class LeaderModel {
     public String getLeaderScore(){ return this.leaderScore; }
 
     public String getPos() { return this.pos; }
+
+    public Bitmap getLeaderImg() {return this.leaderImg; }
 }

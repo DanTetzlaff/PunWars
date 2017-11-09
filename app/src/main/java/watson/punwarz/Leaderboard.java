@@ -2,6 +2,8 @@ package watson.punwarz;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.Toolbar;
@@ -12,10 +14,10 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.ListView;
-import android.content.Intent;
-
+import android.graphics.Bitmap;
 import java.util.ArrayList;
 
+import watson.punwarz.ImageView.RoundedImageView;
 import watson.punwarz.ListView.CustomLeaderAdapter;
 import watson.punwarz.ListView.LeaderModel;
 
@@ -31,6 +33,7 @@ public class Leaderboard extends Page
     View footer;        // holder for "loading more items" footer
     CustomLeaderAdapter adapter;
     boolean noMore = false;
+    Bitmap tempPic;
 
     public Leaderboard CustomListView = null;
     public  ArrayList<LeaderModel> CustomListViewValuesArr = new ArrayList<LeaderModel>();
@@ -38,6 +41,7 @@ public class Leaderboard extends Page
     private ParseApplication parse = new ParseApplication();
     public SwipeRefreshLayout refresh = null;
 
+    private int curLeadNum = 0;
     final private int numNeeded = 5; //max number of items displayed at once
     private int numSkipped = 0; //holds number of items we have displayed so far on screen
     private int numIn = 0; //holds number of items in parse as of page startup
@@ -107,23 +111,61 @@ public class Leaderboard extends Page
         );
     }
 
+    private static class setProfilePicParams {
+        String userID;
+        int mPosition;
+
+        setProfilePicParams(String userID, int mPosition) {
+            this.userID = userID;
+            this.mPosition = mPosition;
+        }
+    }
+
+    private static class imageParams {
+        Bitmap img;
+        int mPosition;
+
+        imageParams(Bitmap img, int mPosition) {
+            this.img = img;
+            this.mPosition = mPosition;
+        }
+    }
+
+    private class setProfilePic extends AsyncTask<String, Integer, Long>
+    {
+        @Override
+        protected Long doInBackground(String... userID)
+        {
+            PictureGrabber pic = new PictureGrabber();
+            tempPic = pic.getUserPicture(getApplicationContext(), userID[0]);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Long result)
+        {
+            LeaderModel leader = (LeaderModel) CustomListViewValuesArr.get(curLeadNum);
+            leader.setLeaderImg(tempPic);
+            adapter.notifyDataSetChanged();
+            curLeadNum++;
+        }
+    }
+
     public Runnable setListData = new Runnable()
     {
         @Override
                 public void run() {
             ArrayList<ArrayList<String>> users = parse.getUserLeaderboard(numNeeded, numSkipped);
 
-
             for (int i = 0; i < users.size(); i++) {
                 ArrayList<String> current = users.get(i);
                 final LeaderModel sched = new LeaderModel();
 
-                //sched.setLeaderImage(current.get(2));
                 sched.setLeaderName(current.get(0));
                 sched.setPos(current.get(3));
                 sched.setLeaderScore(current.get(2));
 
-
+                new setProfilePic().execute(current.get(4));
                 CustomListViewValuesArr.add(sched);
             }
 
@@ -194,6 +236,7 @@ public class Leaderboard extends Page
         numSkipped = 0;
         numIn = parse.countUsers();
         adapter.notifyDataSetChanged();
+        curLeadNum = 0;
         //refresh.setRefreshing(false);
     }
 }

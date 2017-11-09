@@ -3,7 +3,11 @@ package watson.punwarz.ListView;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +18,7 @@ import android.widget.ImageView;
 
 import java.util.ArrayList;
 
+import watson.punwarz.ImageView.RoundedImageView;
 import watson.punwarz.Leaderboard;
 import watson.punwarz.R;
 
@@ -56,7 +61,7 @@ public class CustomLeaderAdapter extends BaseAdapter implements View.OnClickList
         public TextView leaderName;
         public TextView score;
         public TextView pos;
-        public ImageView leaderImg;
+        public RoundedImageView leaderImg;
 
     }
 
@@ -72,7 +77,7 @@ public class CustomLeaderAdapter extends BaseAdapter implements View.OnClickList
             holder.leaderName = (TextView) vi.findViewById(R.id.leaderName);
             holder.score = (TextView) vi.findViewById(R.id.leaderScore);
             holder.pos = (TextView) vi.findViewById(R.id.pos);
-            holder.leaderImg = (ImageView) vi.findViewById(R.id.leaderImage);
+            holder.leaderImg = (RoundedImageView) vi.findViewById(R.id.leaderImage);
 
             vi.setTag( holder );
         }
@@ -92,7 +97,8 @@ public class CustomLeaderAdapter extends BaseAdapter implements View.OnClickList
             holder.leaderName.setText( tempValues.getLeaderName() );
             holder.score.setText( tempValues.getLeaderScore() );
             holder.pos.setText( tempValues.getPos() );
-            //holder.leaderImg.( tempValues.getTopPun() );
+            holder.leaderImg.setImageBitmap( tempValues.getLeaderImg() );
+
 
             vi.setOnClickListener(new OnItemClickListener( position ));
         }
