@@ -37,7 +37,7 @@ public class Page extends AppCompatActivity
                 startActivity(i);
             }
         };
-        registerReceiver(broadcastReceiver, intentFilter);
+        registerReceiver(broadcastReceiver, intentFilter); //Why is this here? causing leaked intentreceiver
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_page);
         FacebookSdk.sdkInitialize(getApplicationContext());
