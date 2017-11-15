@@ -127,8 +127,11 @@ public class Lobby extends Page
                 ArrayList<String> current = themes.get(i);
                 final ListModel sched = new ListModel();
 
+                String tempAuth = current.get(4);
+                if (tempAuth.isEmpty()) {tempAuth="Powered by Wordnik";}
+
                 sched.setLobbyTitle(current.get(3));
-                sched.setLobbyAuthor("By: " + current.get(4));
+                sched.setLobbyAuthor("By: " + tempAuth);
                 sched.setExpireDate(current.get(1));
                 sched.setLobbyDes(current.get(2));
                 sched.setLobbyID(current.get(0));
