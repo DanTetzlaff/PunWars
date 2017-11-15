@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -15,6 +14,9 @@ import android.view.MenuItem;
 
 import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
+import com.instabug.library.Instabug;
+import com.instabug.library.invocation.InstabugInvocationEvent;
+
 
 /**
  * Author: Carille
@@ -43,6 +45,10 @@ public class Page extends AppCompatActivity
         FacebookSdk.sdkInitialize(getApplicationContext());
         Toolbar toolbar = (Toolbar) findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
+
+        new Instabug.Builder(getApplication(), getResources().getString(R.string.instabug_app_id))
+                .setInvocationEvent(InstabugInvocationEvent.SHAKE)
+                .build();
 
     }
 
