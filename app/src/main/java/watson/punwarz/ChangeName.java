@@ -13,7 +13,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.FacebookSdk;
-import com.facebook.Profile;
 
 /**
  * Author: Daniel

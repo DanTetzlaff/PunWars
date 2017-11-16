@@ -22,14 +22,20 @@
         app:showAsAction="never"
         android:onClick="goToSettings" />
     <item
+        android:title="@string/leaderboard"
+        android:id="@+id/leaderboard_settings"
+        android:orderInCategory="400"
+        app:showAsAction="never"
+        android:onClick="goToLeaderboard" />
+    <item
         android:title="@string/log_out"
         android:id="@+id/logout_settings"
-        android:orderInCategory="400"
+        android:orderInCategory="500"
         app:showAsAction="never"
         android:onClick="logOut"/>
     <item
         android:id="@+id/addPun_settings"
-        android:orderInCategory="500"
+        android:orderInCategory="600"
         android:title="@string/add_pun"
         app:showAsAction="ifRoom"
         android:onClick="addAPun"/>

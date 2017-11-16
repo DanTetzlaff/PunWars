@@ -2,7 +2,6 @@ package watson.punwarz;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -17,7 +16,6 @@ import android.widget.ListView;
 import android.graphics.Bitmap;
 import java.util.ArrayList;
 
-import watson.punwarz.ImageView.RoundedImageView;
 import watson.punwarz.ListView.CustomLeaderAdapter;
 import watson.punwarz.ListView.LeaderModel;
 
@@ -176,9 +174,10 @@ public class Leaderboard extends Page
         }
     };
 
+    //TODO implement view selected profile from leaderboard
     public void onLeaderItemClick(int mPosition){
         LeaderModel tempValues = ( LeaderModel ) CustomListViewValuesArr.get(mPosition);
-
+//SEND USER TO VIEW PROFILE PAGE OF SELECTED USER
 //        Intent i = new Intent(Leaderboard.this, Puns.class);
 //        i.putExtra("LOBBY_ID", tempValues.getLobbyID());
 //        i.putExtra("THEME_TITLE", tempValues.getLobbyTitle());
