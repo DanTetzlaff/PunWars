@@ -1,6 +1,7 @@
 package watson.punwarz;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -162,6 +163,7 @@ public class Leaderboard extends Page
                 sched.setLeaderName(current.get(0));
                 sched.setPos(current.get(3));
                 sched.setLeaderScore(current.get(2));
+                sched.setLeaderID(current.get(4));
 
                 new setProfilePic().execute(current.get(4));
                 CustomListViewValuesArr.add(sched);
@@ -174,17 +176,11 @@ public class Leaderboard extends Page
         }
     };
 
-    //TODO implement view selected profile from leaderboard
     public void onLeaderItemClick(int mPosition){
         LeaderModel tempValues = ( LeaderModel ) CustomListViewValuesArr.get(mPosition);
-//SEND USER TO VIEW PROFILE PAGE OF SELECTED USER
-//        Intent i = new Intent(Leaderboard.this, Puns.class);
-//        i.putExtra("LOBBY_ID", tempValues.getLobbyID());
-//        i.putExtra("THEME_TITLE", tempValues.getLobbyTitle());
-//        i.putExtra("THEME_DESC", tempValues.getLobbyDes());
-//        i.putExtra("THEME_AUTHOR", tempValues.getLobbyAuthor());
-//        i.putExtra("THEME_EXPIRE", tempValues.getExpireDate());
-//        startActivity(i);
+        Intent i = new Intent(Leaderboard.this, Profile.class);
+        i.putExtra("UserID", tempValues.getLeaderID());
+        startActivity(i);
     }
 
     @Override

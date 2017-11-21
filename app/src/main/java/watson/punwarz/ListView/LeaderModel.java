@@ -11,6 +11,7 @@ public class LeaderModel {
     private String leaderName="";
     private String leaderScore="";
     private String pos="";
+    private String leaderID="";
 
     /** Setter Methods **/
 
@@ -24,6 +25,8 @@ public class LeaderModel {
 
     public void setLeaderImg(Bitmap leaderImg){ this.leaderImg = leaderImg; }
 
+    public void setLeaderID(String leaderID){ this.leaderID = leaderID; }
+
     /** Getter Methods **/
 
     public String getLeaderName(){
@@ -34,5 +37,7 @@ public class LeaderModel {
 
     public String getPos() { return this.pos; }
 
-    public Bitmap getLeaderImg() {return this.leaderImg; }
+    public Bitmap getLeaderImg() { return this.leaderImg; }
+
+    public String getLeaderID() { return this.leaderID; }
 }

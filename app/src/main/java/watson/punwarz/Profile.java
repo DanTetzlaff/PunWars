@@ -68,10 +68,14 @@ public class Profile extends Page
         rankText = (TextView)findViewById(R.id.rank);
         profilePic = (RoundedImageView)findViewById(R.id.profilePic);
 
-
         setSupportActionBar(toolbar);
-        profile = com.facebook.Profile.getCurrentProfile();
-        userID = profile.getId();
+
+        userID = this.getIntent().getStringExtra("UserID");
+        if (userID == null)
+        {
+            profile = com.facebook.Profile.getCurrentProfile();
+            userID = profile.getId();
+        }
         parse = new ParseApplication();
 
         CustomListView = this;
@@ -113,7 +117,7 @@ public class Profile extends Page
     }
 
     private void setPoints(){
-        userPoints = parse.getUserPoints(profile.getId());
+        userPoints = parse.getUserPoints(userID);
         points.setText("Points: " + Integer.toString(userPoints));
     }
 
