@@ -13,7 +13,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-
+//TODO remove unused statements
+//TODO FULL DOCUMENTATION OF CLASS
 public class ParseApplication extends Application {
 
     private String userObjectID = null; //the active user

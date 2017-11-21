@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import watson.punwarz.ListView.CustomLeaderAdapter;
 import watson.punwarz.ListView.LeaderModel;
 
+//TODO DOCUMENTATION
 /**
  * Author: Daniel Tetzlaff
  * Created: 2017-11-07
