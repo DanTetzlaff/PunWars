@@ -10,10 +10,14 @@ import android.webkit.WebView;
 import com.facebook.FacebookSdk;
 
 /**
- * Author: Daniel Tetzlaff
+ * @author Daniel Tetzlaff
+ * @version 1.0
  * Created: 2017-11-01
- * Description: This class will handle user settings and privacy policy info
+ *
+ * Description: displays privacy policy info on pages based on html file containing current policy
  */
+
+//TODO add hyperlink (possibly in html file) to the policy webpage
 public class PrivacyPolicy extends Page
 {
 

@@ -3,20 +3,19 @@ package watson.punwarz;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.content.Context;
 import android.view.Menu;
 import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
 import com.facebook.FacebookSdk;
 
 /**
- * Author: Daniel Tetzlaff
+ * @author Daniel Tetzlaff
+ * @version 1.0
  * Created: 2017-11-01
- * Description: This class will handle user settings and privacy policy info
+ *
+ * Description: This class will handle user settings and provide linked access to privacy policy info
  */
 public class Settings extends Page
 {

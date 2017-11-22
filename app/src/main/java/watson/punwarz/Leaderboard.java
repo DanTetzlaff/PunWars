@@ -22,9 +22,11 @@ import watson.punwarz.ListView.LeaderModel;
 
 //TODO DOCUMENTATION
 /**
- * Author: Daniel Tetzlaff
+ * @author Daniel Tetzlaff
+ * @version 1.0
  * Created: 2017-11-07
- * Description: This class will handle the Leaderboard
+ *
+ * Description: This class will display and control the Leaderboard (roughly an extension based on the lobby page)
  */
 public class Leaderboard extends Page
 {
