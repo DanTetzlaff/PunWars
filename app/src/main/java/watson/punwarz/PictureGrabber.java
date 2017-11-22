@@ -8,9 +8,15 @@ import java.io.IOException;
 import java.net.URL;
 
 /**
- * Created by Dan on 2017-11-07.
+ * @author Daniel Tetzlaff
+ * @version 1.0
+ * Created: 2017-11-07
+ *
+ * Description: This class returns a picture resource based on a method required. i.e. if the user allows the use of their
+ *              Facebook profile picture this will make a call to the Facebook Graph API to retrieve said picture
  */
 
+//TODO enhance documentation
 public class PictureGrabber
 {
     private Bitmap result;

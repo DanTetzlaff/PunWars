@@ -6,7 +6,6 @@ import android.util.Log;
 import com.parse.*;
 import com.parse.ParseException;
 
-import java.lang.reflect.Array;
 import java.text.*;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -17,34 +16,32 @@ import java.util.List;
 //TODO FULL DOCUMENTATION OF CLASS
 public class ParseApplication extends Application {
 
-    private String userObjectID = null; //the active user
-    private String tempLobbyObjectID = null; //since Parse queries can't actually return???
-    private String tempPostObjectID = null;
     private boolean exists = false; //all-purpose boolean for query results.
-    private ParseObject activeObject = null;
     private SimpleDateFormat format = new SimpleDateFormat("MMM d, ''yy");
 
     @Override
-    public void onCreate() {
+    public void onCreate()
+    {
         super.onCreate();
 
         Parse.initialize(this, getResources().getString(R.string.parse_app_id), getResources().getString(R.string.parse_client_id));
     }
 
     //creates a new user object in Parse if the user has not previously used app.
-    public void createNewUser(String facebookID, String displayName) {
+    public void createNewUser(String facebookID, String displayName)
+    {
         ParseObject newUser = new ParseObject("Users");
         newUser.put("UserID", facebookID);
         newUser.put("DisplayName", displayName);
         newUser.put("Score", 0);
         newUser.put("ProfilePictureBy", false);
         newUser.put("ProfilePictureID", 0);
-        userObjectID = newUser.getObjectId(); //This may have to be after the save??
         newUser.saveInBackground();
     }
 
     //creates a new lobby associated with the active user
-    public void createNewLobby(String userID, String lobbyTheme, String lobbyDesc, Date expiryDate){
+    public void createNewLobby(String userID, String lobbyTheme, String lobbyDesc, Date expiryDate)
+    {
         ParseObject newLobby = new ParseObject("Lobby");
         newLobby.put("Theme", lobbyTheme);
         newLobby.put("Desc", lobbyDesc);
@@ -54,15 +51,53 @@ public class ParseApplication extends Application {
     }
 
     //creates a new Post associated to a particular Lobby
-    public void createNewPun(String userID, String lobbyID, String punText){
+    public void createNewPun(String userID, String lobbyID, String punText)
+    {
             ParseObject newPost = new ParseObject("Posts");
             newPost.put("UserID", userID);
             newPost.put("LobbyID", lobbyID);
             newPost.put("Pun", punText);
             newPost.put("Score", 0);
             newPost.saveInBackground();
-            //String postObjectID = newPost.getObjectId(); //may have to move this before the save??
     }
+
+    //creates a friend request
+    public void createFriendRequest(String requestFromID, String requestToID)
+    {
+        ParseObject newFriendRequest = new ParseObject("FriendRequests");
+        newFriendRequest.put("RequestFromID", requestFromID);
+        newFriendRequest.put("RequestToID", requestToID);
+        newFriendRequest.saveInBackground();
+    }
+
+    //creates friend relation
+    public void createFriendRelation(String friendOneID, String friendTwoID)
+    {
+        ParseObject newFriends = new ParseObject("FriendPairs");
+        newFriends.put("FriendOneID", friendOneID);
+        newFriends.put("FriendTwoID", friendTwoID);
+        newFriends.saveInBackground();
+    }
+
+    //remove friend request
+    public void removeFriendRequest(String requestFromID, String requestToID) {
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("FriendRequests");
+        query.whereEqualTo("RequestFromID", requestFromID);
+        query.whereEqualTo("RequestToID", requestToID);
+        try {
+            ParseObject requestToRemove = query.getFirst();
+            requestToRemove.delete();
+
+        } catch (ParseException e) {}
+    }
+
+    //TODO remove a friendship
+
+    //TODO check if friendship exists
+
+    //TODO return all friend requests
+
+    //TODO return all friends
 
     public boolean doesPunExist(String punText)
     {
@@ -78,26 +113,10 @@ public class ParseApplication extends Application {
         return exist;
     }
 
-    //sets the userObjectID variable so that it does not have to be queried multiple times.
-    private void setUserObjectID(final String FacebookID){
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("Users");
-        query.whereEqualTo("UserID", FacebookID);
-        query.getFirstInBackground(new GetCallback<ParseObject>() {
-            public void done(ParseObject object, ParseException e) {
-                if (object == null) {
-                    //The getFirst request failed.
-                } else {
-                    //Retrieved the object.
-                    userObjectID = object.getObjectId();
-                }
-            }
-        });
-
-    }
-
     //Checks if an object from the selected tableName, in the selected tableRow, and the searchedValue already exists
     //This is the general use function.
-    private boolean checkIfObjectExists(String tableName, String tableRow, String searchedValue) {
+    private boolean checkIfObjectExists(String tableName, String tableRow, String searchedValue)
+    {
         ParseQuery<ParseObject> query = ParseQuery.getQuery(tableName);
         query.whereEqualTo(tableRow, searchedValue);
         boolean objectExists = false;
@@ -110,36 +129,13 @@ public class ParseApplication extends Application {
                 //Object does exist already.
                 objectExists = true;
             }
-        } catch (ParseException e) {
-        }
+        } catch (ParseException e) {}
         return objectExists;
     }
 
-
-
-
-    //runs a query and returns a ParseObject for manipulation.
-    private ParseObject getParseObject(String tableName, String objectID){
-
-        ParseQuery<ParseObject> query = ParseQuery.getQuery(tableName);
-        query.whereEqualTo("ObjectID", objectID);
-        query.getFirstInBackground(new GetCallback<ParseObject>() {
-            public void done(ParseObject object, ParseException e) {
-                if (object == null) {
-                    //Object does not exist.
-
-                } else {
-                    //Object does exist.
-                    activeObject = object;
-                }
-            }
-        });
-        return activeObject;
-    }
-
-
     //Checks if a given Facebook user ID is already in the Parse database
-    public boolean doesUserExist(String facebookID) {
+    public boolean doesUserExist(String facebookID)
+    {
         exists = false;
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Users");
         query.whereEqualTo("UserID", facebookID);
@@ -169,7 +165,8 @@ public class ParseApplication extends Application {
         return exist;
     }
 
-    public int getUserPoints(String facebookID){
+    public int getUserPoints(String facebookID)
+    {
         int result = 0;
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Users");
         query.whereEqualTo("UserID", facebookID);
@@ -182,7 +179,8 @@ public class ParseApplication extends Application {
         return result;
     }
 
-    public boolean isLobbyExpired(String lobbyID) {
+    public boolean isLobbyExpired(String lobbyID)
+    {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Lobby");
         Calendar cal = Calendar.getInstance();
         List<ParseObject> object;
@@ -202,7 +200,8 @@ public class ParseApplication extends Application {
        return result;
     }
 
-    public ArrayList<ArrayList<String>> getThemes(int numNeeded, int numSkipped) {
+    public ArrayList<ArrayList<String>> getThemes(int numNeeded, int numSkipped)
+    {
         ArrayList<ArrayList<String>> themes = new  ArrayList<ArrayList<String>>();
         ArrayList<String> singleTheme = new ArrayList<String>();
         List<ParseObject> list;
@@ -218,7 +217,8 @@ public class ParseApplication extends Application {
         try {
             list = query.find();
 
-            for (int i = 0 ; i < list.size() ; i++){
+            for (int i = 0 ; i < list.size() ; i++)
+            {
                 singleTheme = new ArrayList<String>();
                 ParseObject cur = list.get(i);
 
@@ -239,7 +239,8 @@ public class ParseApplication extends Application {
     return themes;
     }
 
-    public ArrayList<ArrayList<String>> getUserThemes(String userID) {
+    public ArrayList<ArrayList<String>> getUserThemes(String userID)
+    {
         ArrayList<ArrayList<String>> themes = new ArrayList<ArrayList<String>>();
         ArrayList<String> singleTheme = new ArrayList<String>();
         List<ParseObject> list;
@@ -253,7 +254,8 @@ public class ParseApplication extends Application {
         try {
             list = query.find();
 
-            for (int i = 0; i < list.size(); i++) {
+            for (int i = 0; i < list.size(); i++)
+            {
                 singleTheme = new ArrayList<String>();
                 ParseObject cur = list.get(i);
 
@@ -309,7 +311,8 @@ public class ParseApplication extends Application {
         return users;
     }
 
-    public String getTopPun (String themeID){
+    public String getTopPun (String themeID)
+    {
         String result = "Lobby Has No Top Pun Yet";
 
         ParseQuery<ParseObject> themes = ParseQuery.getQuery("Posts");
@@ -325,7 +328,8 @@ public class ParseApplication extends Application {
         return result;
     }
 
-    public int countThemes(){
+    public int countThemes()
+    {
         int result = 0;
         Calendar cal = Calendar.getInstance();
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Lobby");
@@ -355,11 +359,12 @@ public class ParseApplication extends Application {
         return result;
     }
 
-    public String getUserName(String facebookID){
+    public String getUserName(String userID)
+    {
         String result = "";
 
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Users");
-        query.whereEqualTo("UserID", facebookID);
+        query.whereEqualTo("UserID", userID);
 
         try{
             result = query.getFirst().getString("DisplayName");
@@ -370,9 +375,10 @@ public class ParseApplication extends Application {
         return result;
     }
 
-    public void changeUserName(String facebookID, String newName){
+    public void changeUserName(String userID, String newName)
+    {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Users");
-        query.whereEqualTo("UserID", facebookID);
+        query.whereEqualTo("UserID", userID);
         ParseObject tempUser;
 
         try{
@@ -384,9 +390,10 @@ public class ParseApplication extends Application {
         }
     }
 
-    public void changeUserPic(String facebookID, int newPic){
+    public void changeUserPic(String userID, int newPic)
+    {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Users");
-        query.whereEqualTo("UserID", facebookID);
+        query.whereEqualTo("UserID", userID);
         ParseObject tempUser;
 
         try{
@@ -406,7 +413,8 @@ public class ParseApplication extends Application {
         }
     }
 
-    public ArrayList<ArrayList<String>> getPuns(String lobbyID){
+    public ArrayList<ArrayList<String>> getPuns(String lobbyID)
+    {
         ArrayList<ArrayList<String>> puns = new ArrayList<ArrayList<String>>();
         ArrayList<String> singlePun;
         List<ParseObject> list;
@@ -418,7 +426,8 @@ public class ParseApplication extends Application {
         try {
                 list = query.find();
 
-                for (int i=0; i < list.size(); i++) {
+                for (int i=0; i < list.size(); i++)
+                {
                     singlePun = new ArrayList<String>();
                     ParseObject cur = list.get(i);
                     singlePun.add(cur.getString("Pun"));
@@ -435,7 +444,8 @@ public class ParseApplication extends Application {
         return puns;
     }
 
-    public ArrayList<ArrayList<String>> getUserPuns(String userID) {
+    public ArrayList<ArrayList<String>> getUserPuns(String userID)
+    {
         ArrayList<ArrayList<String>> puns = new ArrayList<ArrayList<String>>();
         ArrayList<String> singlePun;
         List<ParseObject> list;
@@ -449,7 +459,8 @@ public class ParseApplication extends Application {
         try {
             list = query.find();
 
-            for (int i = 0; i < list.size(); i++) {
+            for (int i = 0; i < list.size(); i++)
+            {
                 singlePun = new ArrayList<String>();
                 ParseObject cur = list.get(i);
 
@@ -484,7 +495,8 @@ public class ParseApplication extends Application {
         return puns;
     }
 
-    public ArrayList<ArrayList<String>> getUserTopPuns(String userID) {
+    public ArrayList<ArrayList<String>> getUserTopPuns(String userID)
+    {
         ArrayList<ArrayList<String>> puns = new ArrayList<ArrayList<String>>();
         ArrayList<String> singlePun;
         List<ParseObject> list;
@@ -496,7 +508,8 @@ public class ParseApplication extends Application {
         try {
             list = query.find();
 
-            for (int i = 0; i < list.size(); i++) {
+            for (int i = 0; i < list.size(); i++)
+            {
                 singlePun = new ArrayList<String>();
                 ParseObject cur = list.get(i);
 
@@ -514,7 +527,8 @@ public class ParseApplication extends Application {
         return puns;
     }
 
-    public String getLobbyTitle(String lobbyID) {
+    public String getLobbyTitle(String lobbyID)
+    {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Lobby");
         ParseObject result;
         String title="";
@@ -530,10 +544,10 @@ public class ParseApplication extends Application {
         return title;
     }
 
-    public boolean userPicBypass(String facebookID)
+    public boolean userPicBypass(String userID)
     {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Users");
-        query.whereEqualTo("UserID", facebookID);
+        query.whereEqualTo("UserID", userID);
         ParseObject tempUser = null;
         try {
             tempUser = query.getFirst();
@@ -544,10 +558,10 @@ public class ParseApplication extends Application {
         else {return false;}
     }
 
-    public int getUserPicture(String facebookID)
+    public int getUserPicture(String userID)
     {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Users");
-        query.whereEqualTo("UserID", facebookID);
+        query.whereEqualTo("UserID", userID);
         ParseObject tempUser = null;
 
         try{
@@ -558,62 +572,6 @@ public class ParseApplication extends Application {
         if (tempUser != null ) {return tempUser.getInt("ProfilePictureID");}
         else {return 0;}
     }
-
-    //checks if a lobby with an existing prompt description already exists. currently not case sensitive
-    public boolean doesLobbyExist(String description){
-        clearTempVars();
-        checkIfObjectExists("Lobby", "Prompt", description);
-        return exists;
-    }
-
-    public String getLobbyObjectID(){
-        return tempLobbyObjectID;
-    }
-
-    //resets the Global variables to ensure data from previous calls does not persist
-    private void clearTempVars(){
-        tempLobbyObjectID = null;
-        tempPostObjectID = null;
-        exists = false;
-    }
-
-    //Call this when logging out to clear the userObjectID
-    private void deactivateUser(){
-        userObjectID = null;
-        activeObject = null;
-        clearTempVars();
-    }
-
-    /*
-    //Checks to see if a given user has voted on a given post already and returns a boolean.
-    private boolean canVoteOn(String voterID, String postID){
-        boolean canVote = false;
-        String postOwnerID;
-
-            ParseQuery<ParseObject> postOwner = ParseQuery.getQuery("Posts");
-            try {
-            ParseObject lobby = postOwner.get(postID);
-                postOwnerID = lobby.getString("UserID");
-             }
-            catch (ParseException p){ postOwnerID = "";}
-
-            if(postOwnerID.equals(voterID)) //voter is post creator, do not allow vote
-            {canVote = false;}
-            else {
-                ParseQuery<ParseObject> query = ParseQuery.getQuery("Votes");
-                query.whereEqualTo("VoterID", voterID);
-                query.whereEqualTo("PostID", postID);
-                try {
-                    query.getFirst();
-                    canVote = false;
-                } catch (ParseException p) {
-                    canVote = true;
-                }
-            }
-
-        return canVote;
-    }
-    */
 
     public boolean voterOwnsPost(String voterID, String postID){
         boolean result;
@@ -633,7 +591,8 @@ public class ParseApplication extends Application {
         return result;
     }
 
-    public boolean voterHasAlreadyVoted(String voterID, String postID) {
+    public boolean voterHasAlreadyVoted(String voterID, String postID)
+    {
         boolean result;
 
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Votes");
@@ -650,15 +609,15 @@ public class ParseApplication extends Application {
 
 
     //User votes for a post, incrementing the post score, creators score, and creates vote record
-    public int voteOnPost(String voterID, String postID, String lobbyID, String authID) {
+    public int voteOnPost(String voterID, String postID, String lobbyID, String authID)
+    {
         int result;
         if(voterOwnsPost(voterID, postID)){result = 0;}
         else if (voterHasAlreadyVoted(voterID, postID)){result = 1;}
-        else {
-
+        else
+        {
             incrementPostScore(postID);
             incrementUserScore(authID);
-
 
             //creates record of vote
             ParseObject newVote = new ParseObject("Votes");
@@ -677,7 +636,8 @@ public class ParseApplication extends Application {
         //result 2 = vote successful.
     }
 
-    private void incrementPostScore(String postID){
+    private void incrementPostScore(String postID)
+    {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Posts");
         query.whereEqualTo("objectId", postID);
         try {
@@ -690,7 +650,8 @@ public class ParseApplication extends Application {
 
     }
 
-    private void incrementUserScore(String authID){
+    private void incrementUserScore(String authID)
+    {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Users");
         query.whereEqualTo("UserID", authID);
         try {

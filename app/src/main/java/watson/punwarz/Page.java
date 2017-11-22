@@ -20,10 +20,16 @@ import com.instabug.library.invocation.InstabugInvocationEvent;
 
 
 /**
- * Author: Carille
+ * @author Carille Mendoza
+ * @author Daniel Tetzlaff
+ * @version 1.1
  * Created: 2016-03-06
- * Desc: Test inheritance
+ * Updated: 2017-11-22  - documentation improvements
+ *                      - addition of friend requesting function
+ *
+ * Description: Basic framework for all pages that use inheritance
  */
+//TODO enhance documentation
 public class Page extends AppCompatActivity
 {
 

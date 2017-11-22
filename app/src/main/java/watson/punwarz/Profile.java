@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -27,10 +26,10 @@ import java.util.ArrayList;
 
 /**
  * @author Daniel Tetzlaff (tetzlaffdanielj@gmail.com)
+ * @version 1.2
  * Created: 2016-03-08
  * Updated: 2017-11-22
- * @version 1.2
- * Description: Provides summary of user based on the userID provided via Intent, utilizes intheritance from Page.class
+ * Description: Provides summary of user based on the userID provided via Intent, utilizes inheritance from Page.class
  */
 public class Profile extends Page
 {
@@ -181,11 +180,10 @@ public class Profile extends Page
         @Override
         protected Long doInBackground(String... userID)
         {
-
-            /*try {
-                Thread.sleep(5000);
-            } catch (InterruptedException e) {
-            } */ // Sleep to test loading spinner
+//            try {
+//                Thread.sleep(5000);
+//            } catch (InterruptedException e) { }
+//            Sleep to test loading spinner
 
             ArrayList<ArrayList<String>> themes = parse.getUserThemes(userID[0]);
 
@@ -219,10 +217,10 @@ public class Profile extends Page
         @Override
         protected Long doInBackground(String... userID)
         {
-            /*try {
-                Thread.sleep(3000);
-            } catch (InterruptedException e) {
-            }*/ // Sleep to test loading spinner
+//            try {
+//                Thread.sleep(3000);
+//            } catch (InterruptedException e) {
+//            Sleep to test loading spinner
 
             ArrayList<ArrayList<String>> puns = parse.getUserPuns(userID[0]);
 
@@ -256,10 +254,10 @@ public class Profile extends Page
         @Override
         protected Long doInBackground(String... userID)
         {
-            /*try {
-                Thread.sleep(3000);
-            } catch (InterruptedException e) {
-            }*/ // Sleep to test loading spinner
+//            try {
+//                Thread.sleep(3000);
+//            } catch (InterruptedException e) {
+//            Sleep to test loading spinner
 
             ArrayList<ArrayList<String>> puns = parse.getUserTopPuns(userID[0]);
 
