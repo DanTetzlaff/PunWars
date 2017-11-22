@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
@@ -111,6 +112,11 @@ public class Page extends AppCompatActivity
     {
         Intent i = new Intent(Page.this, Leaderboard.class);
         startActivity(i);
+    }
+
+    public void sendFriendRequest(MenuItem item)
+    {
+        Toast.makeText(getApplicationContext(), "sent friend request", Toast.LENGTH_SHORT).show();
     }
 
     public void logOut(MenuItem item)

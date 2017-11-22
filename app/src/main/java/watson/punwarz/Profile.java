@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -25,12 +26,15 @@ import java.util.ArrayList;
 
 
 /**
- * Author: Carille
+ * @author Daniel Tetzlaff (tetzlaffdanielj@gmail.com)
  * Created: 2016-03-08
- * Desc: Using inheritance, takes after page and will display user, the user's points, rank, themes created, and puns submitted.
+ * Updated: 2017-11-22
+ * @version 1.2
+ * Description: Provides summary of user based on the userID provided via Intent, utilizes intheritance from Page.class
  */
 public class Profile extends Page
 {
+    //initialization of variable names for holding items that we will update
     private TextView name;
     private TextView points;
     private TextView rankText;
@@ -40,7 +44,9 @@ public class Profile extends Page
     private ParseApplication parse;
     private int userPoints;
     private String userID;
+    private Boolean isFriend = false;
 
+    //initialization of listviews and corresponding adapters
     ListView themeList;
     ListView punList;
     ListView topPunList;
@@ -49,6 +55,7 @@ public class Profile extends Page
     UserTopPunAdapter topPunAdapter;
 
 
+    //array lists initialized for use with never-ending listviews
     public Profile CustomListView = null;
     public ArrayList<ListModel> CustomListViewValuesArrTheme = new ArrayList<ListModel>();
     public ArrayList<PunModel> CustomListViewValuesArrPun = new ArrayList<PunModel>();
@@ -60,7 +67,7 @@ public class Profile extends Page
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         FacebookSdk.sdkInitialize(getApplicationContext());
-        Toolbar toolbar = (Toolbar)findViewById(R.id.tool_bar);
+        Toolbar toolbar = (Toolbar)findViewById(R.id.tool_bar); //set toolbar
 
         //Set textViews here
         name = (TextView)findViewById(R.id.name);
@@ -70,12 +77,18 @@ public class Profile extends Page
 
         setSupportActionBar(toolbar);
 
+        //get the UserID that was passed through intent
         userID = this.getIntent().getStringExtra("UserID");
-        if (userID == null)
+
+        if (userID == null) //if this was null, nothing passed through intent ∴ user is viewing their own profile
         {
+            //get current user's ID
             profile = com.facebook.Profile.getCurrentProfile();
             userID = profile.getId();
+            isFriend = true;
         }
+
+        //initialize DB
         parse = new ParseApplication();
 
         CustomListView = this;
@@ -84,6 +97,7 @@ public class Profile extends Page
         setPoints();
         setRank();
 
+        //AsyncTaskss that make DB calls that may be longer and could cause delays if not async
         new setProfilePic().execute(userID);
         new SetThemeList().execute(userID);
         new SetPunList().execute(userID);
@@ -109,6 +123,10 @@ public class Profile extends Page
     {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_profile, menu);
+        if (isFriend)
+        {
+            menu.findItem(R.id.addfriend_settings).setVisible(false);
+        }
         return true;
     }
 
@@ -116,50 +134,28 @@ public class Profile extends Page
         name.setText(parse.getUserName(userID));
     }
 
-    private void setPoints(){
+    private void setPoints()
+    {
         userPoints = parse.getUserPoints(userID);
         points.setText("Points: " + Integer.toString(userPoints));
     }
 
-    private void setRank(){
+    private void setRank()
+    {
         String rank;
 
-        if (userPoints < 30){
-            rank = "Punching Bag";
-        }
-        else if (userPoints < 60){
-            rank = "Pun'kd";
-        }
-        else if (userPoints < 100){
-            rank = "Depundable";
-        }
-        else if (userPoints < 140){
-            rank = "Pungent";
-        }
-        else if (userPoints < 190){
-            rank = "Puntagon";
-        }
-        else if (userPoints < 240){
-            rank = "Punny";
-        }
-        else if (userPoints < 300){
-            rank = "Punctual";
-        }
-        else if (userPoints < 360){
-            rank = "Puntastic";
-        }
-        else if (userPoints < 430){
-            rank = "Punchier";
-        }
-        else if (userPoints < 500){
-            rank = "Punderful";
-        }
-        else if (userPoints < 580){
-            rank = "Cyberpun";
-        }
-        else {
-            rank = "Punisher";
-        }
+        if (userPoints < 30){ rank = "Punching Bag"; }
+        else if (userPoints < 60){ rank = "Pun'kd"; }
+        else if (userPoints < 100){ rank = "Depundable"; }
+        else if (userPoints < 140){ rank = "Pungent"; }
+        else if (userPoints < 190){ rank = "Puntagon"; }
+        else if (userPoints < 240){ rank = "Punny"; }
+        else if (userPoints < 300){ rank = "Punctual"; }
+        else if (userPoints < 360){ rank = "Puntastic"; }
+        else if (userPoints < 430){ rank = "Punchier"; }
+        else if (userPoints < 500){ rank = "Punderful"; }
+        else if (userPoints < 580){ rank = "Cyberpun"; }
+        else { rank = "Punisher"; }
 
         rankText.setText("Rank: " + rank);
     }
@@ -167,7 +163,8 @@ public class Profile extends Page
     private class setProfilePic extends AsyncTask<String, Integer, Long>
     {
         @Override
-        protected Long doInBackground(String... userID) {
+        protected Long doInBackground(String... userID)
+        {
             PictureGrabber pic = new PictureGrabber();
             tempPic = pic.getUserPicture(getApplicationContext(), userID[0]);
             return null;
@@ -179,9 +176,11 @@ public class Profile extends Page
         }
     }
 
-    private class SetThemeList extends AsyncTask<String, Integer, Long> {
+    private class SetThemeList extends AsyncTask<String, Integer, Long>
+    {
         @Override
-        protected Long doInBackground(String... userID) {
+        protected Long doInBackground(String... userID)
+        {
 
             /*try {
                 Thread.sleep(5000);
@@ -190,7 +189,8 @@ public class Profile extends Page
 
             ArrayList<ArrayList<String>> themes = parse.getUserThemes(userID[0]);
 
-            for (int i = 0; i < themes.size(); i++) {
+            for (int i = 0; i < themes.size(); i++)
+            {
                 ArrayList<String> current = themes.get(i);
                 final ListModel sched = new ListModel();
 
@@ -207,15 +207,18 @@ public class Profile extends Page
         }
 
         @Override
-        protected void onPostExecute(Long result) {
+        protected void onPostExecute(Long result)
+        {
             findViewById(R.id.themeProgressBar).setVisibility(View.INVISIBLE);
             themeAdapter.notifyDataSetChanged();
         }
     }
 
-    private class SetPunList extends AsyncTask<String, Integer, Long> {
+    private class SetPunList extends AsyncTask<String, Integer, Long>
+    {
         @Override
-        protected Long doInBackground(String... userID) {
+        protected Long doInBackground(String... userID)
+        {
             /*try {
                 Thread.sleep(3000);
             } catch (InterruptedException e) {
@@ -223,7 +226,8 @@ public class Profile extends Page
 
             ArrayList<ArrayList<String>> puns = parse.getUserPuns(userID[0]);
 
-            for (int i = 0; i < puns.size(); i++) {
+            for (int i = 0; i < puns.size(); i++)
+            {
                 ArrayList<String> current = puns.get(i);
                 final PunModel sched = new PunModel();
 
@@ -240,15 +244,18 @@ public class Profile extends Page
             return null;
         }
         @Override
-        protected void onPostExecute(Long result) {
+        protected void onPostExecute(Long result)
+        {
             findViewById(R.id.punProgressBar).setVisibility(View.INVISIBLE);
             punAdapter.notifyDataSetChanged();
         }
     }
 
-    private class SetTopPunList extends AsyncTask<String, Integer, Long> {
+    private class SetTopPunList extends AsyncTask<String, Integer, Long>
+    {
         @Override
-        protected Long doInBackground(String... userID) {
+        protected Long doInBackground(String... userID)
+        {
             /*try {
                 Thread.sleep(3000);
             } catch (InterruptedException e) {
@@ -256,7 +263,8 @@ public class Profile extends Page
 
             ArrayList<ArrayList<String>> puns = parse.getUserTopPuns(userID[0]);
 
-            for (int i = 0; i < puns.size(); i++) {
+            for (int i = 0; i < puns.size(); i++)
+            {
                 ArrayList<String> current = puns.get(i);
                 final PunModel sched = new PunModel();
 
@@ -270,13 +278,15 @@ public class Profile extends Page
         }
 
         @Override
-        protected void onPostExecute(Long result) {
+        protected void onPostExecute(Long result)
+        {
             findViewById(R.id.topPunProgressBar).setVisibility(View.INVISIBLE);
             topPunAdapter.notifyDataSetChanged();
         }
     }
 
-    public void onThemeItemClick(int mPosition){
+    public void onThemeItemClick(int mPosition)
+    {
         ListModel tempValues = ( ListModel ) CustomListViewValuesArrTheme.get(mPosition);
 
         Intent i = new Intent(Profile.this, Puns.class);
@@ -288,7 +298,8 @@ public class Profile extends Page
         startActivity(i);
     }
 
-    public void onPunItemClick(int mPosition){
+    public void onPunItemClick(int mPosition)
+    {
         PunModel tempValues = ( PunModel ) CustomListViewValuesArrPun.get(mPosition);
 
         Intent i = new Intent(Profile.this, Puns.class);

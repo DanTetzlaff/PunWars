@@ -27,4 +27,10 @@
         android:orderInCategory="400"
         app:showAsAction="never"
         android:onClick="logOut"/>
+    <item
+        android:title="@string/addfriend"
+        android:id="@+id/addfriend_settings"
+        android:orderInCategory="500"
+        app:showAsAction="ifRoom"
+        android:onClick="sendFriendRequest" />
 </menu>
