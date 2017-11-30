@@ -1,10 +1,13 @@
 <resources>
+    <!-- TECHNICAL ITEMS -->
     <string name="app_name">PunWars</string>
     <string name="facebook_app_id">530734863765480</string>
     <string name="parse_app_id">2ecdb6a0-82a8-4ed3-82dd-f15d048adea5</string>
     <string name="parse_client_id">i4fKI1z1ofOHQVmfPjfZMxHc9Ji1yRFK</string>
     <string name="parse_server_url">https://api.parse.buddy.com/parse/</string>
     <string name="instabug_app_id">fc940c3486484d19d88fbb651b3464c3</string>
+
+    <!-- BUTTONS -->
     <string name="action_settings">Settings</string>
     <string name="log_out">Log Out</string>
     <string name="home">Lobby</string>
@@ -14,15 +17,17 @@
     <string name="add_lobby">Add theme</string>
     <string name="add_pun">Add pun</string>
     <string name="leaderboard">Leaderboard</string>
-    <string name="hintName">Type New Name Here</string>
-    <string name="prompt">Enter your prompt</string>
-    <string name="enter_pun">Enter your pun</string>
-    <string name="desc">Describe your theme</string>
     <string name="submit_prompt">Submit Prompt</string>
     <string name="submit_pun">Submit Pun</string>
     <string name="submit_newname">Submit Name</string>
     <string name="submit_newpicture">Select Picture</string>
     <string name="submit_defaultpicture">Select Facebook Picture</string>
+
+    <!-- LABELS -->
+    <string name="hintName">Type New Name Here</string>
+    <string name="prompt">Enter your prompt</string>
+    <string name="enter_pun">Enter your pun</string>
+    <string name="desc">Describe your theme</string>
     <string name="name">Name</string>
     <string name="pts">N pts</string>
     <string name="rnk">Rank: </string>
@@ -49,6 +54,7 @@
         <item>14</item>
     </string-array>
 
+    <!-- LIMITS -->
     <string name="PUN_LIMIT">140</string>
     <string name="TITLE_LIMIT">20</string>
     <string name="DESC_LIMIT">140</string>

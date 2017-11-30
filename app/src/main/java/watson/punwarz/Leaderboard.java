@@ -158,6 +158,7 @@ public class Leaderboard extends Page
         @Override
                 public void run() {
             ArrayList<ArrayList<String>> users = parse.getUserLeaderboard(numNeeded, numSkipped);
+            Ranks rank = new Ranks();
 
             for (int i = 0; i < users.size(); i++) {
                 ArrayList<String> current = users.get(i);
@@ -167,6 +168,7 @@ public class Leaderboard extends Page
                 sched.setPos(current.get(3));
                 sched.setLeaderScore(current.get(2));
                 sched.setLeaderID(current.get(4));
+                sched.setLeaderRank(rank.getRankName(Integer.parseInt(current.get(2))));
 
                 new setProfilePic().execute(current.get(4));
                 CustomListViewValuesArr.add(sched);

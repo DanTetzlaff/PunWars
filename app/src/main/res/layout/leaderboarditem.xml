@@ -32,13 +32,27 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
             android:layout_marginTop="11dp" />
+
         <TextView
             android:id="@+id/leaderScore"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/leaderName"
+            android:layout_marginEnd="42dp"
+            android:layout_marginRight="42dp"
+            android:layout_toLeftOf="@+id/leaderName"
+            android:layout_toStartOf="@+id/leaderName"
             android:gravity="center"
             android:padding="3dip"
-            android:text="400"
-            android:layout_below="@+id/leaderName"
-            android:layout_centerHorizontal="true" />
+            android:text="400" />
+
+        <TextView
+            android:id="@+id/leaderRank"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/leaderScore"
+            android:layout_alignBottom="@+id/leaderScore"
+            android:layout_toEndOf="@+id/leaderScore"
+            android:layout_toRightOf="@+id/leaderScore"
+            android:text="temp Rank" />
 </RelativeLayout>

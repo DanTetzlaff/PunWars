@@ -61,6 +61,7 @@ public class CustomLeaderAdapter extends BaseAdapter implements View.OnClickList
         public TextView leaderName;
         public TextView score;
         public TextView pos;
+        public TextView rank;
         public RoundedImageView leaderImg;
 
     }
@@ -77,6 +78,7 @@ public class CustomLeaderAdapter extends BaseAdapter implements View.OnClickList
             holder.leaderName = (TextView) vi.findViewById(R.id.leaderName);
             holder.score = (TextView) vi.findViewById(R.id.leaderScore);
             holder.pos = (TextView) vi.findViewById(R.id.pos);
+            holder.rank = (TextView) vi.findViewById(R.id.leaderRank);
             holder.leaderImg = (RoundedImageView) vi.findViewById(R.id.leaderImage);
 
             vi.setTag( holder );
@@ -97,6 +99,7 @@ public class CustomLeaderAdapter extends BaseAdapter implements View.OnClickList
             holder.leaderName.setText( tempValues.getLeaderName() );
             holder.score.setText( tempValues.getLeaderScore() );
             holder.pos.setText( tempValues.getPos() );
+            holder.rank.setText( tempValues.getLeaderRank() );
             holder.leaderImg.setImageBitmap( tempValues.getLeaderImg() );
 
 

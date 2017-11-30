@@ -8,6 +8,7 @@ import com.parse.ParseException;
 
 import java.text.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -91,9 +92,58 @@ public class ParseApplication extends Application {
         } catch (ParseException e) {}
     }
 
-    //TODO remove a friendship
+    //remove a friendship
+    //TODO test if this works
+    public void removeFriendship(String friendOneID, String friendTwoID)
+    {
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("FriendPairs");
+        String[] tempIDsList = {friendOneID, friendTwoID};
 
-    //TODO check if friendship exists
+        query.whereContainedIn("FriendOneID", Arrays.asList(tempIDsList));
+        query.whereContainedIn("FriendTwoID", Arrays.asList(tempIDsList));
+        try {
+            ParseObject friendshipToRemove = query.getFirst();
+            friendshipToRemove.delete();
+        } catch (ParseException e) {}
+    }
+
+    //check if friendship exists
+    public boolean doesFriendshipExist(String friendOneID, String friendTwoID)
+    {
+        boolean exist;
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("FriendPairs");
+        String[] tempIDsList = {friendOneID, friendTwoID};
+
+        query.whereContainedIn("FriendOneID", Arrays.asList(tempIDsList));
+        query.whereContainedIn("FriendTwoID", Arrays.asList(tempIDsList));
+        try {
+            query.getFirst();
+            exist = true;
+        } catch (ParseException p) {
+            exist = false;
+        }
+
+        return exist;
+    }
+
+    //check if friend request is outstanding
+    public boolean doesFriendRequestExist(String friendOneID, String friendTwoID)
+    {
+        boolean exist;
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("FriendRequests");
+        String[] tempIDsList = {friendOneID, friendTwoID};
+
+        query.whereContainedIn("RequestFromID", Arrays.asList(tempIDsList));
+        query.whereContainedIn("RequestToID", Arrays.asList(tempIDsList));
+        try {
+            query.getFirst();
+            exist = true;
+        } catch (ParseException p) {
+            exist = false;
+        }
+
+        return exist;
+    }
 
     //TODO return all friend requests
 
@@ -101,13 +151,13 @@ public class ParseApplication extends Application {
 
     public boolean doesPunExist(String punText)
     {
-        boolean exist = false;
+        boolean exist;
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Posts");
         query.whereEqualTo("Pun", punText);
         try {
             query.getFirst();
             exist = true;
-        } catch (ParseException p){
+        } catch (ParseException p) {
             exist = false;
         }
         return exist;

@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -63,32 +64,44 @@ public class Profile extends Page
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
+        //initialize DB
+        parse = new ParseApplication();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         FacebookSdk.sdkInitialize(getApplicationContext());
-        Toolbar toolbar = (Toolbar)findViewById(R.id.tool_bar); //set toolbar
 
         //Set textViews here
         name = (TextView)findViewById(R.id.name);
         points = (TextView)findViewById(R.id.points);
         rankText = (TextView)findViewById(R.id.rank);
         profilePic = (RoundedImageView)findViewById(R.id.profilePic);
-
-        setSupportActionBar(toolbar);
+        profile = com.facebook.Profile.getCurrentProfile();
 
         //get the UserID that was passed through intent
         userID = this.getIntent().getStringExtra("UserID");
 
+        // if/else ONLY changes isFriend when it is verified that a relation already exists
         if (userID == null) //if this was null, nothing passed through intent ∴ user is viewing their own profile
         {
             //get current user's ID
-            profile = com.facebook.Profile.getCurrentProfile();
             userID = profile.getId();
             isFriend = true;
         }
+        else if (userID.equals(profile.getId())) //check if user selected their own profile from list
+        {
+            isFriend = true;
+        }
+        else
+        {
+            //check if a friendship or request already exists for pair
+            if (parse.doesFriendRequestExist(profile.getId(), userID) || parse.doesFriendshipExist(profile.getId(), userID)) {
+                isFriend = true;
+            }
+        }
 
-        //initialize DB
-        parse = new ParseApplication();
+        Toolbar toolbar = (Toolbar)findViewById(R.id.tool_bar); //set toolbar
+
+        setSupportActionBar(toolbar);
 
         CustomListView = this;
 
@@ -141,22 +154,9 @@ public class Profile extends Page
 
     private void setRank()
     {
-        String rank;
+        Ranks rank = new Ranks();
 
-        if (userPoints < 30){ rank = "Punching Bag"; }
-        else if (userPoints < 60){ rank = "Pun'kd"; }
-        else if (userPoints < 100){ rank = "Depundable"; }
-        else if (userPoints < 140){ rank = "Pungent"; }
-        else if (userPoints < 190){ rank = "Puntagon"; }
-        else if (userPoints < 240){ rank = "Punny"; }
-        else if (userPoints < 300){ rank = "Punctual"; }
-        else if (userPoints < 360){ rank = "Puntastic"; }
-        else if (userPoints < 430){ rank = "Punchier"; }
-        else if (userPoints < 500){ rank = "Punderful"; }
-        else if (userPoints < 580){ rank = "Cyberpun"; }
-        else { rank = "Punisher"; }
-
-        rankText.setText("Rank: " + rank);
+        rankText.setText("Rank: " + rank.getRankName(userPoints));
     }
 
     private class setProfilePic extends AsyncTask<String, Integer, Long>
@@ -307,5 +307,14 @@ public class Profile extends Page
         i.putExtra("THEME_AUTHOR", tempValues.getThemeAuth());
         i.putExtra("THEME_EXPIRE", tempValues.getThemeExp());
         startActivity(i);
+    }
+
+    @Override
+    public void sendFriendRequest (MenuItem item)
+    {
+        String tempFriendOne = profile.getId();
+        String tempFriendTwo = userID;
+
+        parse.createFriendRequest(tempFriendOne, tempFriendTwo);
     }
 }
