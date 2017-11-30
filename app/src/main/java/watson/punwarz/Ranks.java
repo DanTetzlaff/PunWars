@@ -11,6 +11,11 @@ package watson.punwarz;
 
 public class Ranks 
 {
+    /**
+     *
+     * @param points the number of points earn by a user, corresponds to a range = to a String name
+     * @return rank as a String name corresponding to the number of points provided
+     */
     public String getRankName(int points)
     {
         String rank = "";
