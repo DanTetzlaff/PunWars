@@ -33,4 +33,18 @@
         android:orderInCategory="500"
         app:showAsAction="ifRoom"
         android:onClick="sendFriendRequest" />
+    <item
+        android:title="@string/removefriend"
+        android:id="@+id/removefriend_settings"
+        android:orderInCategory="600"
+        app:showAsAction="ifRoom"
+        android:onClick="removeFriend"
+        android:visible="false"/>
+    <item
+        android:title="@string/removerequest"
+        android:id="@+id/removerequest_settings"
+        android:orderInCategory="700"
+        app:showAsAction="ifRoom"
+        android:onClick="removeRequest"
+        android:visible="false" />
 </menu>

@@ -83,8 +83,10 @@ public class ParseApplication extends Application {
     //remove friend request
     public void removeFriendRequest(String requestFromID, String requestToID) {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("FriendRequests");
-        query.whereEqualTo("RequestFromID", requestFromID);
-        query.whereEqualTo("RequestToID", requestToID);
+        String[] tempIDsList = {requestFromID, requestToID};
+
+        query.whereContainedIn("RequestFromID", Arrays.asList(tempIDsList));
+        query.whereContainedIn("RequestToID", Arrays.asList(tempIDsList));
         try {
             ParseObject requestToRemove = query.getFirst();
             requestToRemove.delete();
@@ -93,7 +95,7 @@ public class ParseApplication extends Application {
     }
 
     //remove a friendship
-    //TODO test if this works
+    //TODO test if this works (it should)
     public void removeFriendship(String friendOneID, String friendTwoID)
     {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("FriendPairs");

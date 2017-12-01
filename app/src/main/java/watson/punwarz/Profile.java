@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import watson.punwarz.ImageView.RoundedImageView;
 import watson.punwarz.ListView.CustomThemeAdapter;
@@ -23,7 +24,6 @@ import watson.punwarz.ListView.UserTopPunAdapter;
 import com.facebook.FacebookSdk;
 
 import java.util.ArrayList;
-
 
 /**
  * @author Daniel Tetzlaff (tetzlaffdanielj@gmail.com)
@@ -45,6 +45,8 @@ public class Profile extends Page
     private int userPoints;
     private String userID;
     private Boolean isFriend = false;
+    private Boolean notSelf = false;
+    private Boolean requestSent = false;
 
     //initialization of listviews and corresponding adapters
     ListView themeList;
@@ -53,7 +55,6 @@ public class Profile extends Page
     CustomThemeAdapter themeAdapter;
     UserPunAdapter punAdapter;
     UserTopPunAdapter topPunAdapter;
-
 
     //array lists initialized for use with never-ending listviews
     public Profile CustomListView = null;
@@ -94,8 +95,14 @@ public class Profile extends Page
         else
         {
             //check if a friendship or request already exists for pair
-            if (parse.doesFriendRequestExist(profile.getId(), userID) || parse.doesFriendshipExist(profile.getId(), userID)) {
+            if (parse.doesFriendRequestExist(profile.getId(), userID)) {
                 isFriend = true;
+                requestSent = true;
+            }
+            else if (parse.doesFriendshipExist(profile.getId(), userID))
+            {
+                isFriend = true;
+                notSelf = true;
             }
         }
 
@@ -135,10 +142,10 @@ public class Profile extends Page
     {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_profile, menu);
-        if (isFriend)
-        {
-            menu.findItem(R.id.addfriend_settings).setVisible(false);
-        }
+        if (isFriend) { menu.findItem(R.id.addfriend_settings).setVisible(false); }
+        if (notSelf)  { menu.findItem(R.id.removefriend_settings).setVisible(true); }
+        if (requestSent) { menu.findItem(R.id.removerequest_settings).setVisible(true); }
+
         return true;
     }
 
@@ -155,7 +162,6 @@ public class Profile extends Page
     private void setRank()
     {
         Ranks rank = new Ranks();
-
         rankText.setText("Rank: " + rank.getRankName(userPoints));
     }
 
@@ -316,5 +322,35 @@ public class Profile extends Page
         String tempFriendTwo = userID;
 
         parse.createFriendRequest(tempFriendOne, tempFriendTwo);
+        isFriend = true;
+        requestSent = true;
+        this.invalidateOptionsMenu();
+        Toast.makeText(getApplicationContext(), "Request sent to: " + name.getText(), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void removeFriend (MenuItem item)
+    {
+        String tempFriendOne = profile.getId();
+        String tempFriendTwo = userID;
+
+        parse.removeFriendship(tempFriendOne, tempFriendTwo);
+        isFriend = false;
+        requestSent = false;
+        this.invalidateOptionsMenu();
+        Toast.makeText(getApplicationContext(), "Friend: " + name.getText() + " removed", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void removeRequest (MenuItem item)
+    {
+        String tempFriendOne = profile.getId();
+        String tempFriendTwo = userID;
+
+        parse.removeFriendRequest(tempFriendOne, tempFriendTwo);
+        isFriend = false;
+        requestSent = false;
+        this.invalidateOptionsMenu();
+        Toast.makeText(getApplicationContext(), "Request to: " + name.getText() + " removed", Toast.LENGTH_SHORT).show();
     }
 }

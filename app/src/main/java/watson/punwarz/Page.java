@@ -122,7 +122,17 @@ public class Page extends AppCompatActivity
 
     public void sendFriendRequest(MenuItem item)
     {
-        Toast.makeText(getApplicationContext(), "sent friend request", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "!sent friend request", Toast.LENGTH_SHORT).show();
+    }
+
+    public void removeFriend (MenuItem item)
+    {
+        Toast.makeText(getApplicationContext(), "!removed friend", Toast.LENGTH_SHORT).show();
+    }
+
+    public void removeRequest (MenuItem item)
+    {
+        Toast.makeText(getApplicationContext(), "!removeRequest", Toast.LENGTH_SHORT).show();
     }
 
     public void logOut(MenuItem item)
