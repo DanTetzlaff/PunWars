@@ -13,28 +13,28 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import watson.punwarz.Friends;
 import watson.punwarz.ImageView.RoundedImageView;
-import watson.punwarz.Leaderboard;
 import watson.punwarz.R;
 
-//TODO COMPLETE DOC
 /**
  * @author Daniel Tetzlaff
  * @version 1.0
- * Created: 2017-11-07
+ * Created: 2017-12-01
  *
  * Description:
  */
-public class CustomLeaderAdapter extends BaseAdapter implements View.OnClickListener
+
+public class CustomFriendAdapter extends BaseAdapter implements View.OnClickListener
 {
     private Activity activity;
     private ArrayList data;
     private static LayoutInflater inflater=null;
     public Resources res;
-    LeaderModel tempValues=null;
+    FriendModel tempValues=null;
     int i=0;
 
-    public CustomLeaderAdapter(Activity a, ArrayList d, Resources resLocal){
+    public CustomFriendAdapter(Activity a, ArrayList d, Resources resLocal){
         activity = a;
         data = d;
         res = resLocal;
@@ -58,52 +58,46 @@ public class CustomLeaderAdapter extends BaseAdapter implements View.OnClickList
 
     public static class ViewHolder {
 
-        public TextView leaderName;
-        public TextView score;
-        public TextView pos;
-        public TextView rank;
-        public RoundedImageView leaderImg;
+        public TextView friendName;
+        public TextView friendScore;
+        public RoundedImageView friendImg;
 
     }
 
     public View getView(int position, View convertView, ViewGroup parent){
 
         View vi = convertView;
-        ViewHolder holder;
+        CustomFriendAdapter.ViewHolder holder;
 
         if(convertView==null){
-            vi = inflater.inflate(R.layout.leaderboarditem, null);
+            vi = inflater.inflate(R.layout.frienditem, null);
 
-            holder = new ViewHolder();
-            holder.leaderName = (TextView) vi.findViewById(R.id.leaderName);
-            holder.score = (TextView) vi.findViewById(R.id.leaderScore);
-            holder.pos = (TextView) vi.findViewById(R.id.pos);
-            holder.rank = (TextView) vi.findViewById(R.id.leaderRank);
-            holder.leaderImg = (RoundedImageView) vi.findViewById(R.id.leaderImage);
+            holder = new CustomFriendAdapter.ViewHolder();
+            holder.friendName = (TextView) vi.findViewById(R.id.friendName);
+            holder.friendScore = (TextView) vi.findViewById(R.id.friendScore);
+            holder.friendImg = (RoundedImageView) vi.findViewById(R.id.friendImage);
 
             vi.setTag( holder );
         }
         else {
-            holder=(ViewHolder)vi.getTag();
+            holder=(CustomFriendAdapter.ViewHolder)vi.getTag();
         }
 
         if (data.size()<=0)
         {
-            holder.leaderName.setText("No Users");
+            holder.friendName.setText("No Users");
         }
         else
         {
             tempValues=null;
-            tempValues = ( LeaderModel ) data.get( position );
+            tempValues = ( FriendModel ) data.get( position );
 
-            holder.leaderName.setText( tempValues.getLeaderName() );
-            holder.score.setText( tempValues.getLeaderScore() );
-            holder.pos.setText( tempValues.getPos() );
-            holder.rank.setText( tempValues.getLeaderRank() );
-            holder.leaderImg.setImageBitmap( tempValues.getLeaderImg() );
+            holder.friendName.setText( tempValues.getFriendName() );
+            holder.friendScore.setText( tempValues.getFriendScore() );
+            holder.friendImg.setImageBitmap( tempValues.getFriendImg() );
 
 
-            vi.setOnClickListener(new OnItemClickListener( position ));
+            vi.setOnClickListener(new CustomFriendAdapter.OnItemClickListener( position ));
         }
 
         if (position % 2 == 1) {
@@ -117,7 +111,7 @@ public class CustomLeaderAdapter extends BaseAdapter implements View.OnClickList
 
     @Override
     public void onClick(View v){
-        Log.v("CustomLeaderAdapter", "=-=-=Row button clicked=-=-=");
+        Log.v("CustomFriendAdapter", "=-=-=Row button clicked=-=-=");
     }
 
     private class OnItemClickListener implements View.OnClickListener{
@@ -130,9 +124,9 @@ public class CustomLeaderAdapter extends BaseAdapter implements View.OnClickList
         @Override
         public void onClick(View arg0){
 
-            Leaderboard sct = (Leaderboard) activity;
+            Friends sct = (Friends) activity;
 
-            sct.onLeaderItemClick(mPosition);
+            sct.onFriendItemClick(mPosition);
         }
     }
 }

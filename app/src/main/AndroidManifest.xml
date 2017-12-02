@@ -88,6 +88,11 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
         </activity>
 
+        <!--Friends page-->
+        <activity android:name=".Friends"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
+        </activity>
+
         <!--connects to facebook-->
         <activity android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"

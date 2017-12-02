@@ -147,6 +147,7 @@ public class ParseApplication extends Application {
         return exist;
     }
 
+    //return information to display name and link to their profile
     //TODO return all friend requests
 
     //TODO return all friends

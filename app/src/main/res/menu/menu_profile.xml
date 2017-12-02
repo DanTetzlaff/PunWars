@@ -22,28 +22,34 @@
         app:showAsAction="never"
         android:onClick="goToLeaderboard" />
     <item
+        android:title="@string/friends"
+        android:id="@+id/friends_settings"
+        android:orderInCategory="400"
+        app:showAsAction="never"
+        android:onClick="goToFriends" />
+    <item
         android:title="@string/log_out"
         android:id="@+id/logout_settings"
-        android:orderInCategory="400"
+        android:orderInCategory="500"
         app:showAsAction="never"
         android:onClick="logOut"/>
     <item
         android:title="@string/addfriend"
         android:id="@+id/addfriend_settings"
-        android:orderInCategory="500"
+        android:orderInCategory="600"
         app:showAsAction="ifRoom"
         android:onClick="sendFriendRequest" />
     <item
         android:title="@string/removefriend"
         android:id="@+id/removefriend_settings"
-        android:orderInCategory="600"
+        android:orderInCategory="700"
         app:showAsAction="ifRoom"
         android:onClick="removeFriend"
         android:visible="false"/>
     <item
         android:title="@string/removerequest"
         android:id="@+id/removerequest_settings"
-        android:orderInCategory="700"
+        android:orderInCategory="800"
         app:showAsAction="ifRoom"
         android:onClick="removeRequest"
         android:visible="false" />

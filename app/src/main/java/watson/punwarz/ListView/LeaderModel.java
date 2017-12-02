@@ -3,10 +3,12 @@ package watson.punwarz.ListView;
 import android.graphics.Bitmap;
 
 /**
- * Created by Dan on 2016-02-28.
+ * @author Daniel Tetzlaff
+ * @version 1.0
+ * Created: 2017-11-07
  */
-public class LeaderModel {
-
+public class LeaderModel
+{
     private Bitmap leaderImg= Bitmap.createBitmap(150, 150, Bitmap.Config.ARGB_8888);
     private String leaderName="";
     private String leaderScore="";
