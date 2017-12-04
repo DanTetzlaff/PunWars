@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.AbsListView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.facebook.FacebookSdk;
 
@@ -42,7 +43,9 @@ public class Friends extends Page
     Bitmap tempPic;
     int numFriendRequests = 0;
     String userID;
+    String userName;
     Button requestsButton;
+    TextView pageName;
 
     public Friends CustomListView = null;
     public ArrayList<FriendModel> CustomListViewValuesArr = new ArrayList<FriendModel>();
@@ -65,13 +68,17 @@ public class Friends extends Page
         FacebookSdk.sdkInitialize(getApplicationContext());
 
         requestsButton = (Button)findViewById(R.id.goToRequests);
+        pageName = (TextView)findViewById(R.id.userName);
 
         userID = com.facebook.Profile.getCurrentProfile().getId();
 
+
         numIn = parse.countUserFriends(userID);
         numFriendRequests = parse.countUserFriendRequests(userID);
+        userName = parse.getUserName(userID);
 
         setButton();
+        setName();
 
         CustomListView = this;
         refresh = ( SwipeRefreshLayout )findViewById( R.id.refresh );
@@ -133,6 +140,8 @@ public class Friends extends Page
         requestsButton.setText(Integer.toString(numFriendRequests));
         if (numFriendRequests == 0) { requestsButton.setClickable(false); }
     }
+
+    private void setName() { pageName.setText(userName); }
 
     private static class setProfilePicParams {
         String userID;

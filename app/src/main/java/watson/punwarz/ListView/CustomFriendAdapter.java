@@ -85,7 +85,7 @@ public class CustomFriendAdapter extends BaseAdapter implements View.OnClickList
 
         if (data.size()<=0)
         {
-            holder.friendName.setText("No Users");
+            holder.friendName.setText("Add Some Friends, See Them Here");
         }
         else
         {

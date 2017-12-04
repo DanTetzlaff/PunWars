@@ -14,7 +14,7 @@ import android.widget.Toast;
 
 import com.facebook.*;
 import com.facebook.Profile;
-
+//TODO javadoc
 /**
  * Author: Carille
  * Created: 2016-03-06
@@ -76,7 +76,7 @@ public class AddPun extends AddTitle
         EditText punText = (EditText)findViewById(R.id.editText);
         String pun = punText.getText().toString();
 
-        if(!parse.doesPunExist(pun))
+        if(!parse.doesPunExist(pun, lobbyID))
         {
             parse.createNewPun(profile.getId(), lobbyID, pun);
 

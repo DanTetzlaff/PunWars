@@ -14,6 +14,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
+        android:layout_marginBottom="2dp"
         android:src="@drawable/avatar1" />
     <TextView
         android:id="@+id/friendName"
@@ -33,5 +34,5 @@
         android:layout_centerHorizontal="true"
         android:gravity="center"
         android:padding="3dip"
-        android:text="400" />
+        android:text="0" />
 </RelativeLayout>
