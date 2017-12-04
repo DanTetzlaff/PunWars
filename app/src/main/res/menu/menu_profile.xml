@@ -53,4 +53,11 @@
         app:showAsAction="ifRoom"
         android:onClick="removeRequest"
         android:visible="false" />
+    <item
+        android:title="@string/acceptrequest"
+        android:id="@+id/acceptrequest_settings"
+        android:orderInCategory="900"
+        app:showAsAction="ifRoom"
+        android:onClick="acceptRequest"
+        android:visible="false" />
 </menu>

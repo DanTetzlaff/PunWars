@@ -122,9 +122,8 @@ public class Page extends AppCompatActivity
 
     public void goToFriends(MenuItem item)
     {
-        //TODO activate
-        //Intent i = new Intent(Page.this, Friends.class);
-        //startActivity(i);
+        Intent i = new Intent(Page.this, Friends.class);
+        startActivity(i);
     }
 
     public void sendFriendRequest(MenuItem item)
@@ -140,6 +139,11 @@ public class Page extends AppCompatActivity
     public void removeRequest (MenuItem item)
     {
         Toast.makeText(getApplicationContext(), "!removeRequest", Toast.LENGTH_SHORT).show();
+    }
+
+    public void acceptRequest (MenuItem item)
+    {
+        Toast.makeText(getApplicationContext(), "!acceptRequest", Toast.LENGTH_SHORT).show();
     }
 
     public void logOut(MenuItem item)

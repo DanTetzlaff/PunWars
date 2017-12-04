@@ -14,6 +14,7 @@
     <string name="addfriend">Add Friend</string>
     <string name="removefriend">Remove Friend</string>
     <string name="removerequest">Remove Request</string>
+    <string name="acceptrequest">Accept Request</string>
     <string name="friends">Friends</string>
     <string name="profile">Profile</string>
     <string name="settings">Settings</string>

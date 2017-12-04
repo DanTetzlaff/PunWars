@@ -8,6 +8,9 @@
     <include
         android:id="@+id/tool_bar"
         layout="@layout/tool_bar"/>
+    <include
+        android:id="@+id/friendsheader"
+        layout="@layout/friendsheader" />
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:layout_width="wrap_content"

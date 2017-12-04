@@ -14,7 +14,10 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.widget.AbsListView;
+import android.widget.Button;
 import android.widget.ListView;
+
+import com.facebook.FacebookSdk;
 
 import java.util.ArrayList;
 
@@ -37,6 +40,9 @@ public class Friends extends Page
     CustomFriendAdapter adapter;
     boolean noMore = false;
     Bitmap tempPic;
+    int numFriendRequests = 0;
+    String userID;
+    Button requestsButton;
 
     public Friends CustomListView = null;
     public ArrayList<FriendModel> CustomListViewValuesArr = new ArrayList<FriendModel>();
@@ -56,9 +62,16 @@ public class Friends extends Page
         setContentView(R.layout.activity_friends);
         Toolbar toolbar = (Toolbar)findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
+        FacebookSdk.sdkInitialize(getApplicationContext());
 
-        //TODO count number of friends current user has
-        numIn = parse.countUsers();
+        requestsButton = (Button)findViewById(R.id.goToRequests);
+
+        userID = com.facebook.Profile.getCurrentProfile().getId();
+
+        numIn = parse.countUserFriends(userID);
+        numFriendRequests = parse.countUserFriendRequests(userID);
+
+        setButton();
 
         CustomListView = this;
         refresh = ( SwipeRefreshLayout )findViewById( R.id.refresh );
@@ -115,6 +128,12 @@ public class Friends extends Page
         );
     }
 
+    private void setButton()
+    {
+        requestsButton.setText(Integer.toString(numFriendRequests));
+        if (numFriendRequests == 0) { requestsButton.setClickable(false); }
+    }
+
     private static class setProfilePicParams {
         String userID;
         int mPosition;
@@ -159,8 +178,7 @@ public class Friends extends Page
     {
         @Override
         public void run() {
-            //TODO chnage to get current user's friends
-            ArrayList<ArrayList<String>> users = parse.getUserLeaderboard(numNeeded, numSkipped);
+            ArrayList<ArrayList<String>> users = parse.getFriends(numNeeded, numSkipped, userID);
             Ranks rank = new Ranks();
 
             for (int i = 0; i < users.size(); i++) {
@@ -235,8 +253,7 @@ public class Friends extends Page
             noMore = false;
         }
         numSkipped = 0;
-        //TODO change to count friends for current user
-        numIn = parse.countUsers();
+        numIn = parse.countUserFriends(userID);
         adapter.notifyDataSetChanged();
         curFriendNum = 0;
         //refresh.setRefreshing(false);
