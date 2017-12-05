@@ -17,7 +17,7 @@
             android:text="TEMP NAME"
             />
         <Button
-            android:id="@+id/goToRequests"
+            android:id="@+id/buttonRequests"
             android:padding="3dip"
             android:gravity="center"
             android:text="0"

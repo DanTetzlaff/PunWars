@@ -295,8 +295,9 @@ public class ParseApplication extends Application {
                 queryCurrentRequest.whereEqualTo("UserID", currentRequest.getString("FriendFromID"));
                 try {
                     ParseObject requestUserDetails = queryCurrentRequest.getFirst();
-                    singleFriendRequest.add(requestUserDetails.getString("UserID"));        //pos 0
-                    singleFriendRequest.add(requestUserDetails.getString("DisplayName"));   //pos 1
+                    singleFriendRequest.add(requestUserDetails.getString("UserID"));            //pos 0
+                    singleFriendRequest.add(requestUserDetails.getString("DisplayName"));       //pos 1
+                    singleFriendRequest.add(requestUserDetails.getString("ProfilePictureID"));  //pos 2
 
                     friendRequests.add(singleFriendRequest);
                 } catch (ParseException e) {}

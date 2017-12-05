@@ -59,7 +59,7 @@ public class Leaderboard extends Page
         numIn = parse.countUsers();
 
         CustomListView = this;
-        refresh = ( SwipeRefreshLayout )findViewById( R.id.refresh );
+        refresh = ( SwipeRefreshLayout )findViewById( R.id.refreshLeaderboard );
         refresh.setRefreshing(true);
         setListData.run();
 

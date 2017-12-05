@@ -3,19 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Friends">
+    tools:context=".FriendRequests">
 
     <include
         android:id="@+id/tool_bar"
         layout="@layout/tool_bar"/>
-    <include
-        android:id="@+id/friendsheader"
-        layout="@layout/friendsheader" />
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/refreshFriends"
+        android:id="@+id/refreshRequests"
         >
     <ListView
         android:id="@+id/list"

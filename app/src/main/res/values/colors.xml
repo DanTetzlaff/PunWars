@@ -7,6 +7,8 @@
     <color name="primeOrange">#F97A00</color>
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
+    <color name="green">#008000</color>
+    <color name="red">#FF0000</color>
     <color name="primeDark">#c66100</color>
     <!--used as toolbar color under layout/tool_bar.xml -->
     <color name="primeLight">#ffa147</color>

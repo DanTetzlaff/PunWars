@@ -31,7 +31,7 @@ public class FriendModel
 
     public String getFriendName() { return this.friendName; }
 
-    public String getFriendScore() { return friendScore; }
+    public String getFriendScore() { return this.friendScore; }
 
-    public String getFriendID() { return friendID; }
+    public String getFriendID() { return this.friendID; }
 }

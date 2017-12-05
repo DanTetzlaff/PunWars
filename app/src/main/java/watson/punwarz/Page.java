@@ -126,6 +126,12 @@ public class Page extends AppCompatActivity
         startActivity(i);
     }
 
+    public void goToFriendRequests()
+    {
+        Intent i = new Intent(Page.this, FriendRequests.class);
+        startActivity(i);
+    }
+
     public void sendFriendRequest(MenuItem item)
     {
         Toast.makeText(getApplicationContext(), "!sent friend request", Toast.LENGTH_SHORT).show();

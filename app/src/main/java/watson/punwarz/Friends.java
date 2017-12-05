@@ -67,7 +67,7 @@ public class Friends extends Page
         setSupportActionBar(toolbar);
         FacebookSdk.sdkInitialize(getApplicationContext());
 
-        requestsButton = (Button)findViewById(R.id.goToRequests);
+        requestsButton = (Button)findViewById(R.id.buttonRequests);
         pageName = (TextView)findViewById(R.id.userName);
 
         userID = com.facebook.Profile.getCurrentProfile().getId();
@@ -81,7 +81,7 @@ public class Friends extends Page
         setName();
 
         CustomListView = this;
-        refresh = ( SwipeRefreshLayout )findViewById( R.id.refresh );
+        refresh = ( SwipeRefreshLayout )findViewById( R.id.refreshFriends );
         refresh.setRefreshing(true);
         setListData.run();
 
@@ -133,6 +133,13 @@ public class Friends extends Page
                     }
                 }
         );
+
+        requestsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToFriendRequests();
+            }
+        });
     }
 
     private void setButton()
@@ -263,8 +270,8 @@ public class Friends extends Page
         }
         numSkipped = 0;
         numIn = parse.countUserFriends(userID);
-        adapter.notifyDataSetChanged();
         curFriendNum = 0;
+        adapter.notifyDataSetChanged();
         //refresh.setRefreshing(false);
     }
 }
