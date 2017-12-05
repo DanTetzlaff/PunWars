@@ -19,28 +19,26 @@ import java.util.ArrayList;
 import watson.punwarz.ListView.CustomRequestAdapter;
 import watson.punwarz.ListView.RequestModel;
 
-//TODO DOCUMENTATION
-
 /**
  * @author Daniel Tetzlaff
  * @version 1.0
  * Created: 2017-12-05
  *
- * Description: This class will display and control the Leaderboard (roughly an extension based on the lobby page)
+ * Description: This class will display and control the Friend Requests for a user (roughly an extension based on the lobby page)
  */
 public class FriendRequests extends Page
 {
-    ListView list;
+    ListView list;                  //list containing all friend request items
     CustomRequestAdapter adapter;
-    Bitmap tempPic;
-    String userID;
+    Bitmap tempPic;                 //temporary holder for profile images
+    String userID;                  //holder for current userID
 
     public FriendRequests CustomListView = null;
     public  ArrayList<RequestModel> CustomListViewValuesArr = new ArrayList<RequestModel>();
     private ParseApplication parse = new ParseApplication();
     public SwipeRefreshLayout refresh = null;
 
-    private int curReqNum = 0;
+    private int curReqNum = 0; //counter to keep track of loading images
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -74,26 +72,6 @@ public class FriendRequests extends Page
                     }
                 }
         );
-    }
-
-    private static class setProfilePicParams {
-        String userID;
-        int mPosition;
-
-        setProfilePicParams(String userID, int mPosition) {
-            this.userID = userID;
-            this.mPosition = mPosition;
-        }
-    }
-
-    private static class imageParams {
-        Bitmap img;
-        int mPosition;
-
-        imageParams(Bitmap img, int mPosition) {
-            this.img = img;
-            this.mPosition = mPosition;
-        }
     }
 
     private class setProfilePic extends AsyncTask<String, Integer, Long>
