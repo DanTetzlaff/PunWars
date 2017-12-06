@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ChangeName">
+
+    <item
+        android:title="@string/home"
+        android:id="@+id/lobby_settings"
+        android:orderInCategory="100"
+        app:showAsAction="never"
+        android:onClick="goToLobby" />
+    <item
+        android:title="@string/profile"
+        android:id="@+id/profile_settings"
+        android:orderInCategory="200"
+        app:showAsAction="never"
+        android:onClick="goToProfile"/>
+    <item
+        android:title="@string/settings"
+        android:id="@+id/setting_settings"
+        android:orderInCategory="300"
+        app:showAsAction="never"
+        android:onClick="goToSettings" />
+    <item
+        android:title="@string/log_out"
+        android:id="@+id/logout_settings"
+        android:orderInCategory="400"
+        app:showAsAction="never"
+        android:onClick="logOut"/>
+</menu>

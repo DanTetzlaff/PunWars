@@ -7,6 +7,8 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -16,9 +18,12 @@ import com.facebook.FacebookSdk;
 import com.facebook.Profile;
 
 /**
- * Author: Daniel
+ * @author Daniel Tetzlaff
+ * @version 1.0
+ *
  * Created: 2017-11-02
- * Desc: Handles changing a user's picture
+ *
+ * Description: Handles changing a user's picture
  */
 public class ChangePicture extends Page
 {
@@ -91,6 +96,14 @@ public class ChangePicture extends Page
 
         destroyKeyboard();
         startActivity(i);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_changepicture, menu);
+        return true;
     }
 
     public void cancelEvent(View v)
