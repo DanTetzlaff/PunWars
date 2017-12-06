@@ -337,14 +337,21 @@ public class ParseApplication extends Application {
         ArrayList<String> singleFriend = new ArrayList<String>();
         List<ParseObject> list;
 
-        ParseQuery<ParseObject> queryUserFriends = ParseQuery.getQuery("FriendPairs");
-        queryUserFriends.setLimit(numNeeded);
-        queryUserFriends.setSkip(numSkipped);
+        ParseQuery<ParseObject> queryFriendOne = ParseQuery.getQuery("FriendPairs");
+        queryFriendOne.whereEqualTo("FriendOneID", userID);
 
-        queryUserFriends.whereEqualTo("FriendOneID", userID);
-        queryUserFriends.whereEqualTo("friendTwoID", userID);
+        ParseQuery<ParseObject> queryFriendTwo = ParseQuery.getQuery("FriendPairs");
+        queryFriendTwo.whereEqualTo("FriendTwoID", userID);
+
+        List<ParseQuery<ParseObject>> queries = new ArrayList<ParseQuery<ParseObject>>();
+        queries.add(queryFriendOne);
+        queries.add(queryFriendTwo);
+
+        ParseQuery<ParseObject> mainQuery = ParseQuery.or(queries);
+        mainQuery.setLimit(numNeeded);
+        mainQuery.setSkip(numSkipped);
         try {
-            list = queryUserFriends.find();
+            list = mainQuery.find();
 
             for (int i = 0; i < list.size(); i++)
             {

@@ -352,10 +352,10 @@ public class Profile extends Page
     @Override
     public void removeRequest (MenuItem item)
     {
-        String tempFriendOne = profile.getId();
-        String tempFriendTwo = userID;
+        String tempRequestFrom = profile.getId();
+        String tempRequestTo = userID;
 
-        parse.removeFriendRequest(tempFriendOne, tempFriendTwo);
+        parse.removeFriendRequest(tempRequestFrom, tempRequestTo);
         isFriend = false;
         requestSent = false;
         this.invalidateOptionsMenu();
@@ -365,6 +365,14 @@ public class Profile extends Page
     @Override
     public void acceptRequest (MenuItem item)
     {
+        String tempFriendOne = userID;
+        String tempFriendTwo = profile.getId();
 
+        parse.removeFriendRequest(tempFriendOne, tempFriendTwo);
+        parse.createFriendRelation(tempFriendOne, tempFriendTwo);
+        isFriend = true;
+        notSelf = true;
+        this.invalidateOptionsMenu();
+        Toast.makeText(getApplicationContext(), "Request from: " + name.getText() + " accepted", Toast.LENGTH_SHORT).show();
     }
 }
