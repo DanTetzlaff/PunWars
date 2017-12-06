@@ -147,6 +147,7 @@ public class FriendRequests extends Page
     public void doRefresh()
     {
         CustomListViewValuesArr.clear();
+        setListData.run();
 
         adapter.notifyDataSetChanged();
         curReqNum = 0;
