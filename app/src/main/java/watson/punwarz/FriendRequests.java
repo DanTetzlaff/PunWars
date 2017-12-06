@@ -139,12 +139,35 @@ public class FriendRequests extends Page
 
     public void onAcceptButtonClick(int mPosition, String requestID)
     {
-        Toast.makeText(getApplicationContext(), "!acceptRequest " + mPosition + " " + requestID, Toast.LENGTH_SHORT).show();
+        if (picBeingSet.size() == 0) {
+            String tempFriendOne = requestID;
+            String tempFriendTwo = userID;
+
+            parse.removeFriendRequest(tempFriendOne, tempFriendTwo);
+            parse.createFriendRelation(tempFriendOne, tempFriendTwo);
+
+            curReqNum = 0;
+            CustomListViewValuesArr.clear();
+            setListData.run();
+            adapter.notifyDataSetChanged();
+            Toast.makeText(getApplicationContext(), "Request Accepted", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void onDeclineButtonClick(int mPosition, String requestID)
     {
-        Toast.makeText(getApplicationContext(), "!declineRequest " + mPosition + " " + requestID, Toast.LENGTH_SHORT).show();
+        if (picBeingSet.size() == 0) {
+            String tempRequestFrom = requestID;
+            String tempRequestTo = userID;
+
+            parse.removeFriendRequest(tempRequestFrom, tempRequestTo);
+
+            curReqNum = 0;
+            CustomListViewValuesArr.clear();
+            setListData.run();
+            adapter.notifyDataSetChanged();
+            Toast.makeText(getApplicationContext(), "Request Declined", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
@@ -158,11 +181,11 @@ public class FriendRequests extends Page
 
     public void doRefresh()
     {
+        curReqNum = 0;
         CustomListViewValuesArr.clear();
         setListData.run();
 
         adapter.notifyDataSetChanged();
-        curReqNum = 0;
         //refresh.setRefreshing(false);
     }
 }
