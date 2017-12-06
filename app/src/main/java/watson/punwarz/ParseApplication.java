@@ -196,20 +196,20 @@ public class ParseApplication extends Application {
     }
 
     /**
-     * @param friendFromID userID of friend that made request
-     * @param friendToID userID of friend that request is made to
+     * @param requestFromID userID of friend that made request
+     * @param requestToID userID of friend that request is made to
      * @return boolean in reference to if or if-not a friend request exists and is not accepted yet
      *
      * Description: check if friend request TO exists
      */
-    public boolean doesFriendRequestToExist(String friendFromID, String friendToID)
+    public boolean doesFriendRequestToExist(String requestFromID, String requestToID)
     {
         boolean exist;
 
         ParseQuery<ParseObject> query = ParseQuery.getQuery("FriendRequests");
 
-        query.whereEqualTo("RequestFromID", friendFromID);
-        query.whereEqualTo("RequestToID", friendToID);
+        query.whereEqualTo("RequestFromID", requestFromID);
+        query.whereEqualTo("RequestToID", requestToID);
         try {
             query.getFirst();
             exist = true;
@@ -282,7 +282,7 @@ public class ParseApplication extends Application {
         List<ParseObject> list;
 
         ParseQuery<ParseObject> queryUserRequests = ParseQuery.getQuery("FriendRequests");
-        queryUserRequests.whereEqualTo("FriendToID", userID);
+        queryUserRequests.whereEqualTo("RequestToID", userID);
         try {
             list = queryUserRequests.find();
 
@@ -292,7 +292,7 @@ public class ParseApplication extends Application {
                 ParseObject currentRequest = list.get(i);
 
                 ParseQuery<ParseObject> queryCurrentRequest = ParseQuery.getQuery("Users");
-                queryCurrentRequest.whereEqualTo("UserID", currentRequest.getString("FriendFromID"));
+                queryCurrentRequest.whereEqualTo("UserID", currentRequest.getString("RequestFromID"));
                 try {
                     ParseObject requestUserDetails = queryCurrentRequest.getFirst();
                     singleFriendRequest.add(requestUserDetails.getString("UserID"));            //pos 0

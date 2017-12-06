@@ -74,6 +74,26 @@ public class FriendRequests extends Page
         );
     }
 
+    private static class setProfilePicParams {
+        String userID;
+        int mPosition;
+
+        setProfilePicParams(String userID, int mPosition) {
+            this.userID = userID;
+            this.mPosition = mPosition;
+        }
+    }
+
+    private static class imageParams {
+        Bitmap img;
+        int mPosition;
+
+        imageParams(Bitmap img, int mPosition) {
+            this.img = img;
+            this.mPosition = mPosition;
+        }
+    }
+
     private class setProfilePic extends AsyncTask<String, Integer, Long>
     {
         @Override
@@ -87,8 +107,8 @@ public class FriendRequests extends Page
         @Override
         protected void onPostExecute(Long result)
         {
-            RequestModel leader = (RequestModel) CustomListViewValuesArr.get(curReqNum);
-            leader.setRequestImg(tempPic);
+            RequestModel request = (RequestModel) CustomListViewValuesArr.get(curReqNum);
+            request.setRequestImg(tempPic);
             adapter.notifyDataSetChanged();
             curReqNum++;
         }
@@ -97,9 +117,8 @@ public class FriendRequests extends Page
     public Runnable setListData = new Runnable()
     {
         @Override
-                public void run() {
+        public void run() {
             ArrayList<ArrayList<String>> users = parse.getFriendRequests(userID);
-            Ranks rank = new Ranks();
 
             for (int i = 0; i < users.size(); i++) {
                 ArrayList<String> current = users.get(i);
@@ -108,7 +127,7 @@ public class FriendRequests extends Page
                 sched.setRequestID(current.get(0));
                 sched.setRequestName(current.get(1));
 
-                new setProfilePic().execute(current.get(2));
+                new FriendRequests.setProfilePic().execute(current.get(0));
                 CustomListViewValuesArr.add(sched);
             }
 
