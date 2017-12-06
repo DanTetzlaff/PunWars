@@ -32,6 +32,7 @@ public class FriendRequests extends Page
     CustomRequestAdapter adapter;
     Bitmap tempPic;                 //temporary holder for profile images
     String userID;                  //holder for current userID
+    ArrayList<String> picBeingSet = new ArrayList<String>();
 
     public FriendRequests CustomListView = null;
     public  ArrayList<RequestModel> CustomListViewValuesArr = new ArrayList<RequestModel>();
@@ -67,31 +68,19 @@ public class FriendRequests extends Page
                 new SwipeRefreshLayout.OnRefreshListener() {
                     @Override
                     public void onRefresh() {
-                        Log.d("REFRESH", "onRefresh called from SwipeRefreshLayout");
-                        doRefresh();
+                        if (picBeingSet.size() == 0)
+                        {
+                            Log.d("REFRESH-REQUESTS-SS", "onRefresh called from SwipeRefreshLayout on Friend Requests");
+                            doRefresh();
+                        }
+                        else
+                        {
+                            Log.d("REFRESH-REQUESTS-XX", "Friend Requests cannot refresh, loading pictures");
+                            refresh.setRefreshing(false);
+                        }
                     }
                 }
         );
-    }
-
-    private static class setProfilePicParams {
-        String userID;
-        int mPosition;
-
-        setProfilePicParams(String userID, int mPosition) {
-            this.userID = userID;
-            this.mPosition = mPosition;
-        }
-    }
-
-    private static class imageParams {
-        Bitmap img;
-        int mPosition;
-
-        imageParams(Bitmap img, int mPosition) {
-            this.img = img;
-            this.mPosition = mPosition;
-        }
     }
 
     private class setProfilePic extends AsyncTask<String, Integer, Long>
@@ -111,6 +100,7 @@ public class FriendRequests extends Page
             request.setRequestImg(tempPic);
             adapter.notifyDataSetChanged();
             curReqNum++;
+            picBeingSet.remove(0);
         }
     }
 
@@ -128,6 +118,7 @@ public class FriendRequests extends Page
                 sched.setRequestName(current.get(1));
 
                 new FriendRequests.setProfilePic().execute(current.get(0));
+                picBeingSet.add(current.get(0));
                 CustomListViewValuesArr.add(sched);
             }
 

@@ -46,6 +46,7 @@ public class Friends extends Page
     String userName;
     Button requestsButton;
     TextView pageName;
+    ArrayList<String> picBeingSet = new ArrayList<String>();
 
     public Friends CustomListView = null;
     public ArrayList<FriendModel> CustomListViewValuesArr = new ArrayList<FriendModel>();
@@ -128,8 +129,16 @@ public class Friends extends Page
                 new SwipeRefreshLayout.OnRefreshListener() {
                     @Override
                     public void onRefresh() {
-                        Log.d("REFRESH", "onRefresh called from SwipeRefreshLayout");
-                        doRefresh();
+                        if (picBeingSet.size() == 0)
+                        {
+                            Log.d("REFRESH-FRIENDS-SS", "onRefresh called from SwipeRefreshLayout on friends");
+                            doRefresh();
+                        }
+                        else
+                        {
+                            Log.d("REFRESH-FRIENDS-XX", "friends cannot refresh, loading pictures");
+                            refresh.setRefreshing(false);
+                        }
                     }
                 }
         );
@@ -150,26 +159,6 @@ public class Friends extends Page
 
     private void setName() { pageName.setText(userName); }
 
-    private static class setProfilePicParams {
-        String userID;
-        int mPosition;
-
-        setProfilePicParams(String userID, int mPosition) {
-            this.userID = userID;
-            this.mPosition = mPosition;
-        }
-    }
-
-    private static class imageParams {
-        Bitmap img;
-        int mPosition;
-
-        imageParams(Bitmap img, int mPosition) {
-            this.img = img;
-            this.mPosition = mPosition;
-        }
-    }
-
     private class setProfilePic extends AsyncTask<String, Integer, Long>
     {
         @Override
@@ -187,6 +176,7 @@ public class Friends extends Page
             friend.setFriendImg(tempPic);
             adapter.notifyDataSetChanged();
             curFriendNum++;
+            picBeingSet.remove(0);
         }
     }
 
@@ -205,7 +195,8 @@ public class Friends extends Page
                 sched.setFriendScore(current.get(1));
                 sched.setFreindID(current.get(2));
 
-                new Friends.setProfilePic().execute(current.get(3));
+                new Friends.setProfilePic().execute(current.get(2));
+                picBeingSet.add(current.get(2));
                 CustomListViewValuesArr.add(sched);
             }
 

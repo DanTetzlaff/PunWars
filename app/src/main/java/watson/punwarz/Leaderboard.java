@@ -36,6 +36,7 @@ public class Leaderboard extends Page
     CustomLeaderAdapter adapter;
     boolean noMore = false;
     Bitmap tempPic;
+    ArrayList<String> picBeingSet = new ArrayList<String>();
 
     public Leaderboard CustomListView = null;
     public  ArrayList<LeaderModel> CustomListViewValuesArr = new ArrayList<LeaderModel>();
@@ -106,31 +107,19 @@ public class Leaderboard extends Page
                 new SwipeRefreshLayout.OnRefreshListener() {
                     @Override
                     public void onRefresh() {
-                        Log.d("REFRESH", "onRefresh called from SwipeRefreshLayout");
-                        doRefresh();
+                        if (picBeingSet.size() == 0)
+                        {
+                            Log.d("REFRESH-LEADERBOARD-SS", "onRefresh called from SwipeRefreshLayout on leaderboard");
+                            doRefresh();
+                        }
+                        else
+                        {
+                            Log.d("REFRESH-LEADERBOARD-XX", "leaderboard cannot refresh, loading pictures");
+                            refresh.setRefreshing(false);
+                        }
                     }
                 }
         );
-    }
-
-    private static class setProfilePicParams {
-        String userID;
-        int mPosition;
-
-        setProfilePicParams(String userID, int mPosition) {
-            this.userID = userID;
-            this.mPosition = mPosition;
-        }
-    }
-
-    private static class imageParams {
-        Bitmap img;
-        int mPosition;
-
-        imageParams(Bitmap img, int mPosition) {
-            this.img = img;
-            this.mPosition = mPosition;
-        }
     }
 
     private class setProfilePic extends AsyncTask<String, Integer, Long>
@@ -150,6 +139,7 @@ public class Leaderboard extends Page
             leader.setLeaderImg(tempPic);
             adapter.notifyDataSetChanged();
             curLeadNum++;
+            picBeingSet.remove(0);
         }
     }
 
@@ -171,6 +161,7 @@ public class Leaderboard extends Page
                 sched.setLeaderRank(rank.getRankName(Integer.parseInt(current.get(2))));
 
                 new setProfilePic().execute(current.get(4));
+                picBeingSet.add(current.get(4));
                 CustomListViewValuesArr.add(sched);
             }
 

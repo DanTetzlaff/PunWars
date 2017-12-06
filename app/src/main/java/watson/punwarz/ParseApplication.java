@@ -42,6 +42,7 @@ public class ParseApplication extends Application {
         newUser.put("ProfilePictureBy", false);
         newUser.put("ProfilePictureID", 0);
         newUser.saveInBackground();
+        Log.d("PARSE-CREATE-Users", "Create user " + userID + " ### " + displayName + " SS");
     }
 
     /**
@@ -60,6 +61,7 @@ public class ParseApplication extends Application {
         newLobby.put("UserID", userID);
         newLobby.put("ExpiryDate", expiryDate);
         newLobby.saveInBackground();
+        Log.d("PARSE-CREATE-Lobby", "Create lobby " + lobbyTheme + " ### " + userID + " SS");
     }
 
     /**
@@ -71,12 +73,13 @@ public class ParseApplication extends Application {
      */
     public void createNewPun(String userID, String lobbyID, String punText)
     {
-            ParseObject newPost = new ParseObject("Posts");
-            newPost.put("UserID", userID);
-            newPost.put("LobbyID", lobbyID);
-            newPost.put("Pun", punText);
-            newPost.put("Score", 0);
-            newPost.saveInBackground();
+        ParseObject newPost = new ParseObject("Posts");
+        newPost.put("UserID", userID);
+        newPost.put("LobbyID", lobbyID);
+        newPost.put("Pun", punText);
+        newPost.put("Score", 0);
+        newPost.saveInBackground();
+        Log.d("PARSE-CREATE-Pun", "Create pun " + userID + " ### " + lobbyID + " SS");
     }
 
     /**
@@ -91,6 +94,7 @@ public class ParseApplication extends Application {
         newFriendRequest.put("RequestFromID", requestFromID);
         newFriendRequest.put("RequestToID", requestToID);
         newFriendRequest.saveInBackground();
+        Log.d("PARSE-CREATE-Fr", "Create FR " + requestFromID + " ### " + requestToID + " SS");
     }
 
     /**
@@ -105,6 +109,7 @@ public class ParseApplication extends Application {
         newFriends.put("FriendOneID", friendOneID);
         newFriends.put("FriendTwoID", friendTwoID);
         newFriends.saveInBackground();
+        Log.d("PARSE-CREATE-F", "Create Friend " + friendOneID + " ### " + friendTwoID + " SS");
     }
 
     /**
@@ -119,11 +124,16 @@ public class ParseApplication extends Application {
 
         query.whereContainedIn("RequestFromID", Arrays.asList(tempIDsList));
         query.whereContainedIn("RequestToID", Arrays.asList(tempIDsList));
-        try {
+        try
+        {
             ParseObject requestToRemove = query.getFirst();
             requestToRemove.delete();
-
-        } catch (ParseException e) {}
+            Log.d("PARSE-REMOVE-SS", "Remove Fr " + requestFromID + " ### " + requestToID + " SS");
+        }
+        catch (ParseException e)
+        {
+            Log.d("PARSE-REMOVE-XX", "Remove " + requestFromID + " ### " + requestToID + " FAIL");
+        }
     }
 
     /**
@@ -139,10 +149,16 @@ public class ParseApplication extends Application {
 
         query.whereContainedIn("FriendOneID", Arrays.asList(tempIDsList));
         query.whereContainedIn("FriendTwoID", Arrays.asList(tempIDsList));
-        try {
+        try
+        {
             ParseObject friendshipToRemove = query.getFirst();
             friendshipToRemove.delete();
-        } catch (ParseException e) {}
+            Log.d("PARSE-REMOVE-SS", "Remove Friend " + friendOneID + " ### " + friendTwoID + " SS");
+        }
+        catch (ParseException e)
+        {
+            Log.d("PARSE-REMOVE-XX", "Remove Friend " + friendOneID + " ### " + friendTwoID + " FAIL");
+        }
     }
 
     /**
