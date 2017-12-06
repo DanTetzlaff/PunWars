@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.facebook.FacebookSdk;
 
@@ -128,11 +129,22 @@ public class FriendRequests extends Page
         }
     };
 
-    public void onRequestItemClick(int mPosition){
+    public void onRequestItemClick(int mPosition)
+    {
         RequestModel tempValues = ( RequestModel ) CustomListViewValuesArr.get(mPosition);
         Intent i = new Intent(FriendRequests.this, Profile.class);
         i.putExtra("UserID", tempValues.getRequestID());
         startActivity(i);
+    }
+
+    public void onAcceptButtonClick(int mPosition, String requestID)
+    {
+        Toast.makeText(getApplicationContext(), "!acceptRequest " + mPosition + " " + requestID, Toast.LENGTH_SHORT).show();
+    }
+
+    public void onDeclineButtonClick(int mPosition, String requestID)
+    {
+        Toast.makeText(getApplicationContext(), "!declineRequest " + mPosition + " " + requestID, Toast.LENGTH_SHORT).show();
     }
 
     @Override

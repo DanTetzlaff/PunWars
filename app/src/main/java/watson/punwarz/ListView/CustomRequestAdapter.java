@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -63,7 +64,7 @@ public class CustomRequestAdapter extends BaseAdapter implements View.OnClickLis
         public RoundedImageView requestImg;
     }
 
-    public View getView(int position, View convertView, ViewGroup parent){
+    public View getView(final int position, View convertView, ViewGroup parent){
 
         View vi = convertView;
         ViewHolder holder;
@@ -93,7 +94,6 @@ public class CustomRequestAdapter extends BaseAdapter implements View.OnClickLis
             holder.requestName.setText( tempValues.getRequestName() );
             holder.requestImg.setImageBitmap( tempValues.getRequestImg() );
 
-
             vi.setOnClickListener(new OnItemClickListener( position ));
         }
 
@@ -102,6 +102,25 @@ public class CustomRequestAdapter extends BaseAdapter implements View.OnClickLis
         } else {
             vi.setBackgroundColor(Color.parseColor("#ffa147"));
         }
+
+        Button acceptButton = (Button)vi.findViewById(R.id.buttonRequestAccept);
+        Button declineButton = (Button)vi.findViewById(R.id.buttonRequestDecline);
+
+        acceptButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FriendRequests sct = (FriendRequests) activity;
+                sct.onAcceptButtonClick(position, tempValues.getRequestID());
+            }
+        });
+
+        declineButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FriendRequests sct = (FriendRequests) activity;
+                sct.onDeclineButtonClick(position, tempValues.getRequestID());
+            }
+        });
 
         return vi;
     }
